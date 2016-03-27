@@ -5,171 +5,146 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>tcreator</name>
-  <build>
+  
+  <properties>
+      <spring.version>3.2.5.RELEASE</spring.version>
+      <javax.servlet>3.0.1</javax.servlet>
+  </properties>
+  
+  <dependencies>
+  
+  <!-- SPRINGFRAMEWORK -->
+      <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+ 
+ <!-- SERVLET -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+    		<groupId>javax.servlet</groupId>
+    		<artifactId>jstl</artifactId>
+    		<version>1.2</version>
+    		<scope>runtime</scope>
+		</dependency>
+ 
+		<dependency>
+		    <groupId>taglibs</groupId>
+		    <artifactId>standard</artifactId>
+		    <version>1.1.2</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
+		
+		 <!-- LOGGING -->
+		 
+	  	<dependency>
+	  		<groupId>org.slf4j</groupId>
+	  		<artifactId>slf4j-api</artifactId>
+	  		<version>1.7.2</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.slf4j</groupId>
+	  		<artifactId>slf4j-api</artifactId>
+	  		<version>1.7.2</version>
+	  	</dependency>
+	  	
+	  	<!-- TESTING -->
+	  	<dependency>
+	  		<groupId>junit</groupId>
+	  		<artifactId>junit</artifactId>
+	  		<version>4.11</version>
+	  	</dependency>
+  	
+		
+		
+			<!-- DATABASE -->
+	  	<dependency>
+	  		<groupId>mysql</groupId>
+	  		<artifactId>mysql-connector-java</artifactId>
+	  		<version>5.1.35</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.apache.tomcat</groupId>
+	  		<artifactId>tomcat-jdbc</artifactId>
+	  		<version>8.0.21</version>
+	  	</dependency>
+	  	
+	  	<!-- HIBERNATE -->
+	  	<dependency>
+	  		<groupId>org.hibernate</groupId>
+	  		<artifactId>hibernate-core</artifactId>
+	  		<version>4.2.0.Final</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>cglib</groupId>
+	  		<artifactId>cglib-nodep</artifactId>
+	  		<version>2.2</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.javassist</groupId>
+	  		<artifactId>javassist</artifactId>
+	  		<version>3.18.2-GA</version>
+	  	</dependency>
+	  	
+	  	<!-- EMAIL -->
+	  	<dependency>
+	  		<groupId>javax.mail</groupId>
+	  		<artifactId>javax.mail-api</artifactId>
+	  		<version>1.5.3</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>javax.mail</groupId>
+	  		<artifactId>mail</artifactId>
+	  		<version>1.4.7</version>
+	  	</dependency>
+  	
+  	<!-- VALIDATION -->
+	  	<dependency>
+	  		<groupId>javax.validation</groupId>
+	  		<artifactId>validation-api</artifactId>
+	  		<version>1.1.0.Final</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.hibernate</groupId>
+	  		<artifactId>hibernate-validator</artifactId>
+	  		<version>4.2.0.Final</version>
+	  	</dependency>
+        
+ 
+  </dependencies>
+  
+  
+ <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>3.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-  	 <!--SERVLETS  -->
-  	<dependency>
-  		<groupId>javax.servlet</groupId>
-  		<artifactId>javax.servlet-api</artifactId>
-  		<version>3.1.0</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>jstl</groupId>
-  		<artifactId>jstl</artifactId>
-  		<version>1.2</version>
-  	</dependency>
-  	<dependency>
-	    <groupId>javaee</groupId>
-	    <artifactId>javaee-api</artifactId>
-	    <version>5</version>
-	</dependency> 
-	<dependency>
-	    <groupId>javax</groupId>
-	    <artifactId>javaee-web-api</artifactId>
-	    <version>6.0</version>
-	    <scope>provided</scope>
-	</dependency>
- 
-  <!-- LOGGING -->
-  	<dependency>
-  		<groupId>org.slf4j</groupId>
-  		<artifactId>slf4j-api</artifactId>
-  		<version>1.7.2</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.slf4j</groupId>
-  		<artifactId>slf4j-api</artifactId>
-  		<version>1.7.2</version>
-  	</dependency>
-  	
-  	<!-- TESTING -->
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.11</version>
-  	</dependency>
-  	
-  	<!-- SPRINGFRAMEWORK -->
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-context</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-core</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-beans</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-webmvc</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework.security</groupId>
-  		<artifactId>spring-security-config</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework.security</groupId>
-  		<artifactId>spring-security-core</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework.security</groupId>
-  		<artifactId>spring-security-taglibs</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-web</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-tx</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-orm</artifactId>
-  		<version>3.2.5.RELEASE</version>
-  	</dependency>
-  	
-  	<!-- DATABASE -->
-  	<dependency>
-  		<groupId>mysql</groupId>
-  		<artifactId>mysql-connector-java</artifactId>
-  		<version>5.1.35</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.tomcat</groupId>
-  		<artifactId>tomcat-jdbc</artifactId>
-  		<version>8.0.21</version>
-  	</dependency>
-  	
-  	<!-- HIBERNATE -->
-  	<dependency>
-  		<groupId>org.hibernate</groupId>
-  		<artifactId>hibernate-core</artifactId>
-  		<version>4.2.0.Final</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>cglib</groupId>
-  		<artifactId>cglib-nodep</artifactId>
-  		<version>2.2</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.javassist</groupId>
-  		<artifactId>javassist</artifactId>
-  		<version>3.18.2-GA</version>
-  	</dependency>
-  	
-  	<!-- EMAIL -->
-  	<dependency>
-  		<groupId>javax.mail</groupId>
-  		<artifactId>javax.mail-api</artifactId>
-  		<version>1.5.3</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>javax.mail</groupId>
-  		<artifactId>mail</artifactId>
-  		<version>1.4.7</version>
-  	</dependency>
-  	
-  	<!-- VALIDATION -->
-  	<dependency>
-  		<groupId>javax.validation</groupId>
-  		<artifactId>validation-api</artifactId>
-  		<version>1.1.0.Final</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.hibernate</groupId>
-  		<artifactId>hibernate-validator</artifactId>
-  		<version>4.2.0.Final</version>
-  	</dependency>
-  </dependencies>
+  
 </project>
