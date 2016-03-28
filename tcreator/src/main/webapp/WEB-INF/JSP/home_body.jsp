@@ -2,6 +2,5 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <div>
-<p> ${greeting}</p>
-<p> go to <a href="/tcreator/login/">login</a> page</p>
+
 </div>
