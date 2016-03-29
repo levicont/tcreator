@@ -11,7 +11,7 @@
 <body>
 <p>LOGIN PAGE</p>
 	<form:form>
-		<table>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -20,8 +20,8 @@
 			</thead>		
 			<c:forEach var="u" items='${users}'>
 				<tr>
-					<td> ${u }</td>
-					<td> ${u }</td>
+					<td> ${u.name }</td>
+					<td> ${u.age }</td>
 				</tr>
 			</c:forEach>
 		

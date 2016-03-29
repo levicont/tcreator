@@ -13,7 +13,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
   	
   
-	<mvc:annotation-driven/>  	
+	<mvc:annotation-driven/>
+	
     <context:component-scan base-package="com.lvg.tcreator.controllers"/>	
     <!-- ... -->
     <!--bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,6 +31,6 @@
 			</list>
 		</property>
 	</bean>
-	
+	<mvc:resources location="/WEB-INF/files/" mapping="/files/**"/>  	
 
 </beans>

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lvg.tcreator.models.User;
+
 
 @Controller
 public class MainController {
@@ -16,10 +18,10 @@ private final String GREETING_STRING = "Hello in test site!";
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView mv = new ModelAndView("login");
-		List<String> names = new ArrayList<>();
-		names.add("Вася");
-		names.add("Петя");
-		names.add("Катя");
+		List<User> names = new ArrayList<>();
+		names.add(new User("Р’Р°СЃСЏ", 20));
+		names.add(new User("РџРµС‚СЏ", 25));
+		names.add(new User("РљРѕР»СЏ", 28));
 		mv.addObject("users", names);
 		return mv;
 	}
