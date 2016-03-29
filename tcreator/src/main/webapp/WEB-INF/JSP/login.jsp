@@ -4,11 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<html>
-<head>
-<title>Login page</title>
-</head>
-<body>
+<div>
 <p>LOGIN PAGE</p>
 	<form:form>
 		<table class="table table-striped">
@@ -27,7 +23,4 @@
 		
 		</table>	
 	</form:form>
-
-
-</body>
-</html>
+</div>

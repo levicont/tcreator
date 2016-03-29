@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 
 <div>
-<h1>HEADER</h1>
+<p class="h3 text-uppercase">TCreator program generator</p>
 </div>

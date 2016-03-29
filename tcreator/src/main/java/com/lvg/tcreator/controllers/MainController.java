@@ -19,9 +19,9 @@ private final String GREETING_STRING = "Hello in test site!";
 	public ModelAndView login(){
 		ModelAndView mv = new ModelAndView("login");
 		List<User> names = new ArrayList<>();
-		names.add(new User("Р’Р°СЃСЏ", 20));
-		names.add(new User("РџРµС‚СЏ", 25));
-		names.add(new User("РљРѕР»СЏ", 28));
+		names.add(new User("Коля", 20));
+		names.add(new User("Петя", 25));
+		names.add(new User("Вася", 28));
 		mv.addObject("users", names);
 		return mv;
 	}
