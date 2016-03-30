@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvg.tcreator.models.User;
@@ -13,7 +15,7 @@ import com.lvg.tcreator.models.User;
 
 @Controller
 public class MainController {
-private final String GREETING_STRING = "Hello in test site!";
+private final String GREETING_STRING = "Добро пожаловать на сайт генератора тестов!";
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -33,6 +35,14 @@ private final String GREETING_STRING = "Hello in test site!";
 		mv.addObject("greeting", GREETING_STRING);
 		return mv;
 	}
+	
+	@RequestMapping(value="/generator", method=RequestMethod.GET)
+	public String generator(Model model, @RequestParam(value="method",required=true) String method){
+		model.addAttribute("ndtMethod", method);
+		
+		return "generator";
+	}
+	
 	
 	
 	

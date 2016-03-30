@@ -27,23 +27,25 @@
 		<div id="main">
 			<div id="header" class="page-header">
 				<tiles:insertAttribute name="header" />
+				<tiles:insertAttribute name="menu" />
 			</div>
 			<div id="all" class="container">
+
 				<div class="container">
-					<div>
-						<tiles:insertAttribute name="menu" />
-					</div>
+
 					<div>
 						<tiles:insertAttribute name="body" />
 					</div>
 				</div>
+
 			</div>
 			<!-- END ALL -->
+			
 		</div>
 		<!-- END MAIN -->
-		<div id="footer" class="footer">
-			<tiles:insertAttribute name="footer" />
-		</div>
+		<div id="footer">
+				<tiles:insertAttribute name="footer" />
+			</div>
 	</div>
 	<!-- End content -->
 </body>
