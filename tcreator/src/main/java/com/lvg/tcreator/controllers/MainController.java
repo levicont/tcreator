@@ -37,7 +37,9 @@ private final String GREETING_STRING = "Добро пожаловать на с�
 	}
 	
 	@RequestMapping(value="/generator", method=RequestMethod.GET)
-	public String generator(Model model, @RequestParam(value="method",required=true) String method){
+	public String generator(Model model, @RequestParam(value="method",required=false) String method){
+		if (method == null)
+			return "redirect:/";
 		model.addAttribute("ndtMethod", method);
 		
 		return "generator";

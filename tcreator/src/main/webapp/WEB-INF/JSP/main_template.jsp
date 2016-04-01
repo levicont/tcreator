@@ -29,15 +29,10 @@
 				<tiles:insertAttribute name="header" />
 				<tiles:insertAttribute name="menu" />
 			</div>
-			<div id="all" class="container">
-
-				<div class="container">
-
-					<div>
-						<tiles:insertAttribute name="body" />
-					</div>
+			<div id="all" >
+				<div class="container">					
+						<tiles:insertAttribute name="body" />					
 				</div>
-
 			</div>
 			<!-- END ALL -->
 			
