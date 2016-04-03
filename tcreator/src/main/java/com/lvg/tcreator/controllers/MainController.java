@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lvg.tcreator.models.Order;
 import com.lvg.tcreator.models.User;
 
 
@@ -41,9 +44,19 @@ private final String GREETING_STRING = "Добро пожаловать на с�
 		if (method == null)
 			return "redirect:/";
 		model.addAttribute("ndtMethod", method);
+		model.addAttribute("order", new Order());
 		
 		return "generator";
 	}
+	
+	@RequestMapping(value="/generator", method=RequestMethod.POST)
+	public String report(@ModelAttribute Order order, Model model){
+		
+		return "report";
+	}	
+	
+	
+	
 	
 	
 	

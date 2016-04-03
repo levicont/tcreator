@@ -20,4 +20,8 @@
   <definition name="generator" extends="template">
   	<put-attribute name="body" value="/WEB-INF/JSP/generator.jsp"></put-attribute>
   </definition>
+  
+  <definition name="report" extends="template">
+  	<put-attribute name="body" value="/WEB-INF/JSP/report.jsp"></put-attribute>
+  </definition>
 </tiles-definitions>

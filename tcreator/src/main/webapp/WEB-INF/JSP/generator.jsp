@@ -11,13 +11,13 @@
 </div>
 <div class="row">
 	<div class="col-lg-12">
-		<form action='<spring:url value="/report"/>'>
+	
+		<form:form modelAttribute="order" method="POST">
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label for="raspNumber">Номер распоряжения</label> <input
-							type="text" class="form-control" id="raspNumber"
-							placeholder="Номер распоряжения" />
+						<label for="raspNumber">Номер распоряжения</label> 
+						<form:input path="number" cssClass="form-control" id="raspNumber" title="OK"/>
 					</div>
 
 				</div>
@@ -70,6 +70,6 @@
 
 				</div>
 			</div>
-		</form>
+		</form:form>
 	</div>
 </div>
