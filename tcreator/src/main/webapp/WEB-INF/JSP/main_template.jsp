@@ -11,6 +11,7 @@
 <spring:url
 	value="/files/css/bootstrap-3.3.6-dist/css/bootstrap.min.css"
 	var="bootStrapCSS" />
+<spring:url value="/files/css/font-awesome-4.5.0/css/font-awesome.min.css" var="awesomeCSS"/>
 <spring:url value="/files/js/bootstrap-3.3.6-dist/js/bootstrap.min.js"
 	var="bootstrapStrapJS" />
 <spring:url value="/files/js/jquery-2.2.2.min.js" var="jqueryJS" />
@@ -19,6 +20,7 @@
 <script src="${jqueryJS }"></script>
 <script src="${bootstrapStrapJS }"></script>
 <link rel="stylesheet" href="${bootStrapCSS }" type="text/css">
+<link rel="stylesheet" href="${awesomeCSS }">
 <link rel="stylesheet" href="${mainCSS }" type="text/css">
 
 </head>

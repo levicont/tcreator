@@ -1,6 +1,7 @@
 package com.lvg.tcreator.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Order;
 import com.lvg.tcreator.models.User;
+import com.lvg.tcreator.utils.DateUtil;
 
 
 @Controller
@@ -43,21 +46,39 @@ private final String GREETING_STRING = "Добро пожаловать на с�
 	public String generator(Model model, @RequestParam(value="method",required=false) String method){
 		if (method == null)
 			return "redirect:/";
-		model.addAttribute("ndtMethod", method);
-		model.addAttribute("order", new Order());
-		
+		model.addAttribute("ndtMethod", method);		
+		model.addAttribute("order", getDefaultOrder(method));		
 		return "generator";
 	}
 	
 	@RequestMapping(value="/generator", method=RequestMethod.POST)
 	public String report(@ModelAttribute Order order, Model model){
-		
+		model.addAttribute("ndtMethod", order.getNdtMethod().toString());
+		model.addAttribute("dateOrder", DateUtil.formatDate(order.getDate()));
 		return "report";
 	}	
 	
 	
 	
+	private Order getDefaultOrder(String ndtMethod){
+		Order order = new Order();
+		order.setDate(new Date());
+		order.setNdtMethod(NdtMethod.valueOf(ndtMethod));
+		int month = order.getDate().getMonth()+1;	
+		StringBuilder number = new StringBuilder();
+		if (month < 10)
+			number.append("0"+month);
+		else
+			number.append(month);
+		number.append("\\01");		
 	
+		order.setNumber(number.toString());
+		order.setVariantCount(1);
+		order.setIsTotalTest(true);
+		order.setIsSpecTest(true);
+		
+		return order;
+	}
 	
 	
 	
