@@ -1,5 +1,6 @@
 package com.lvg.tcreator.managers;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import com.lvg.tcreator.models.TestTypes;
 
 public class TestManager {
 	private static final String EXCEL_FILE_SUFFIX = "-II.xls";
-	private static final String DATA_PATH = "/webapp/WEB-INF/data/";
+	private static final String DATA_PATH = "d:/work/git/tcreator/tcreator/src/main/webapp/WEB-INF/data/";
 	private static Map<TestTypes, Integer> map = new HashMap<TestTypes, Integer>();
 	
 	static{
@@ -35,7 +36,11 @@ public class TestManager {
 	public static void main(String[] args){
 		TestManager tm = new TestManager();
 		System.out.println();
-		List<Question> list = tm.getAllQuestion(NdtMethod.MT, TestTypes.TOTAL_TEST);
+		List<Question> list = tm.getAllQuestion(NdtMethod.MT, TestTypes.SPEC_6_SECTOR_TEST);
+		for(Question q : list){
+			System.out.println(q.getText());
+		}
+		
 	}
 	
 	public static Test createTestFromExcel(Order order, TestTypes testType){
@@ -55,7 +60,7 @@ public class TestManager {
 		InputStream in = null;
 		HSSFWorkbook wb = null;
 		try{
-		 in  = getClass().getResourceAsStream(pathXlsFile.toString());
+		 in  = new FileInputStream(pathXlsFile.toString());
 		 wb = new HSSFWorkbook(in);
 		}catch(IOException ex){
 			ex.printStackTrace();
@@ -64,17 +69,51 @@ public class TestManager {
 		Sheet sheet = wb.getSheetAt(map.get(testType));
 		Iterator<Row> iter = sheet.iterator();
 		StringBuilder sb = new StringBuilder();
+		List<String> rows = new ArrayList();
+		
 		while(iter.hasNext()){
 			Row row = iter.next();
 			Iterator<Cell> cellIter  = row.iterator();
 			while(cellIter.hasNext()){
 				Cell cell = cellIter.next();
-				sb.append(cell.getStringCellValue());
+				rows.add(cell.getStringCellValue()+"\n");
 			}
-			sb.append("\n");
+			if((rows.size()-1) < row.getRowNum() ){
+				rows.add(rows.size()-1, "\n");
+			}
+				
+			
+			
 		}
-		System.out.println(sb.toString());
+		StringBuilder buffer = new StringBuilder();
+		for(String s : rows){
+				
+			if(s.trim().isEmpty()){
+				Question q = new Question();
+				q.setNumber(getNumberQuestionFromFirstRow(buffer.toString().trim()));
+				q.setText(buffer.toString().trim());
+				questions.add(q);
+				buffer.delete(0, buffer.length()-1);
+				continue;
+			}
+			buffer.append(s);
+		}
+		try{
+			in.close();
+		}catch(IOException ex){}
+		
 		return questions;
+	}
+	
+	private int getNumberQuestionFromFirstRow(String firstRow){
+		String num = "-1";
+		try{
+			num = firstRow.substring(0,firstRow.indexOf(". "));
+		}catch(StringIndexOutOfBoundsException ex){
+			ex.printStackTrace();
+			System.out.println("firstRow:  "+ firstRow);
+		}
+		return Integer.parseInt(num);
 	}
 
 }
