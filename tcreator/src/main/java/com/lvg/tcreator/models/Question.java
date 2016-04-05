@@ -1,15 +1,18 @@
 package com.lvg.tcreator.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Question implements Comparable<Question>{
 	
 	private int number;
-	private String text;
+	private List<String> text;
 	
 	public Question(){
-		this(0, "");
+		this(0, new ArrayList<String>());
 	}
 	
-	public Question(int number, String text){
+	public Question(int number, List<String> text){
 		this.number = number;
 		this.text = text;
 	}
@@ -23,11 +26,11 @@ public class Question implements Comparable<Question>{
 		this.number = number;
 	}
 
-	public String getText() {
+	public List<String> getText() {
 		return text;
 	}
 
-	public void setText(String text) {
+	public void setText(List<String> text) {
 		this.text = text;
 	}
 
@@ -46,7 +49,11 @@ public class Question implements Comparable<Question>{
 	
 	@Override
 	public String toString(){
-		return number + text;
+		StringBuilder result = new StringBuilder();
+		for(String s : text){
+			result.append(s).append("\n");
+		}
+		return result.toString();
 	}
 	
 	

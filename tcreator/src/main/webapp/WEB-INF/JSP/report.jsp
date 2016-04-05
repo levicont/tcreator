@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-3">			
+		<div class="col-lg-3">
 			<div class="form-group">
 				<c:if test="${order.isTotalTest}">
 					<label><i class="fa fa-check"></i> Общий экзамен</label>
@@ -63,7 +63,28 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-3">
-			<input class="btn btn-primary" type="submit" value="Скачать"/>
+			<input class="btn btn-primary" type="submit" value="Скачать" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-10">
+			<c:forEach var="test" items="${tests}">
+				<p class="h3">${test.title}</p>
+				<p class="h4 text-right">Вариант: ${test.variantNumber}</p>
+				<c:forEach var="question" items="${test.questions }">
+					<c:forEach var="line" varStatus="loop" items="${question.text}">
+						<dl>
+							<c:if test="${loop.index == 0 }">
+								<dt >${line }</dt>
+							</c:if>
+							<c:if test="${loop.index != 0 }">
+								<dd >${line }</dd>
+							</c:if>							
+						</dl>
+					</c:forEach>
+				</c:forEach>
+				<p>${test.id }</p>
+			</c:forEach>
 		</div>
 	</div>
 </form>
