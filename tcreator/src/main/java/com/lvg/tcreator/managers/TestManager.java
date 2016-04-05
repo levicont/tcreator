@@ -39,7 +39,7 @@ public class TestManager {
 	
 	
 	private static final String EXCEL_FILE_SUFFIX = "-II.xls";
-	private static final String DATA_PATH = "e:/work/git/tcreator/tcreator/src/main/webapp/WEB-INF/data/";
+	private static final String DATA_PATH = "d:/work/git/tcreator/tcreator/src/main/webapp/WEB-INF/data/";
 	private static Map<TestTypes, Integer> map = new HashMap<TestTypes, Integer>();
 	private Map<TestTypes, List<Question>> allQuestionsMap = new HashMap<TestTypes, List<Question>>();
 	
