@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <div>
-<p> ${greeting}</p>
-<p> go to <a href="/tcreator/login/">login</a> page</p>
+	<p class="h4">Добро пожаловать, на сайт генератора вопросов.</p>
+	<p class="h4">Для начала работы в главном меню выберите метод
+		неразрушающего контроля (НК), по которому следует сгенерировать тесты.</p>
+
 </div>

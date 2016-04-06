@@ -3,6 +3,9 @@ package com.lvg.tcreator.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +25,9 @@ import com.lvg.tcreator.utils.DateUtil;
 @Controller
 public class MainController {
 private final String GREETING_STRING = "Добро пожаловать на сайт генератора тестов!";
+	
+@Autowired
+private ServletContext context;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -55,8 +61,9 @@ private final String GREETING_STRING = "Добро пожаловать на с�
 	public String report(@ModelAttribute Order order, Model model){
 		model.addAttribute("ndtMethod", order.getNdtMethod().toString());
 		model.addAttribute("dateOrder", DateUtil.formatDate(order.getDate()));
-		TestManager tm = new TestManager(order);
-		List<Test> testList = tm.createTestListFromExcel();
+		TestManager tm = new TestManager(order);		
+		tm.setPathToExcelDataFiles(context.getContextPath()+"/data/");	
+		List<Test> testList = tm.createTestListFromExcel();		
 		model.addAttribute("tests", testList);
 		return "report";
 	}	

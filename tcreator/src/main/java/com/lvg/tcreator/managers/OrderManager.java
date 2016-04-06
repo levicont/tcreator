@@ -6,7 +6,7 @@ import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Order;
 
 public class OrderManager {
-	private static final String DEFAULT_NDT_METHOD = NdtMethod.MT.toString();
+	private static final String DEFAULT_NDT_METHOD = NdtMethod.RT.toString();
 	
 	public static Order getDefaultOrder(){		
 		return getDefaultOrder(DEFAULT_NDT_METHOD);

@@ -39,7 +39,7 @@ public class TestManager {
 	
 	
 	private static final String EXCEL_FILE_SUFFIX = "-II.xls";
-	private static final String DATA_PATH = "d:/work/git/tcreator/tcreator/src/main/webapp/WEB-INF/data/";
+	private static final String DATA_PATH = "e:/work/git/tcreator/tcreator/src/main/webapp/WEB-INF/data/";
 	private static Map<TestTypes, Integer> map = new HashMap<TestTypes, Integer>();
 	private Map<TestTypes, List<Question>> allQuestionsMap = new HashMap<TestTypes, List<Question>>();
 	
@@ -69,10 +69,10 @@ public class TestManager {
 	}
 	
 	public static void main(String[] args){
-		TestManager tm = new TestManager(OrderManager.getDefaultOrder());		
-		List<Test> list = tm.createTestListFromExcel();
-				
-		for(Test t : list){
+		TestManager tm = new TestManager(OrderManager.getDefaultOrder());	
+		List<Question> qlist = tm.getAllQuestionFromExcel(TestTypes.TOTAL_TEST);
+		
+		for(Question t : qlist){
 			System.out.println(t.toString());
 		}		
 	}
@@ -128,11 +128,12 @@ public class TestManager {
 		test.setId(generateTestId());
 		test.setSize(questions.size());
 		test.setTitle(getTestTitle(testType));
+		test.setOrder(order);
 		return test;
 	}
 	
-	private int generateTestId(){
-		return (int)System.currentTimeMillis();
+	private long generateTestId(){
+		return System.currentTimeMillis();
 	}
 	
 	private Set<Question> getRandomQuestionsFromList(List<Question> questList, int countQuestions){
@@ -155,8 +156,7 @@ public class TestManager {
 	private List<Question> getAllQuestionFromExcel(TestTypes testType){
 		List<Question> questions = new ArrayList<>();
 		String method = order.getNdtMethod().toString();
-		String path = pathToExcelDataFiles == null ? DATA_PATH : pathToExcelDataFiles;
-		
+		String path = pathToExcelDataFiles == null ? DATA_PATH : pathToExcelDataFiles;		
 		StringBuilder pathXlsFile = new StringBuilder().append(path).append(method).append(EXCEL_FILE_SUFFIX);		
 		
 		InputStream in = null;
@@ -192,15 +192,23 @@ public class TestManager {
 				}
 				try{
 					q.setNumber(getNumberQuestionFromFirstRow(buffer.get(0).trim()));
+					
 				}catch(RuntimeException ex){
 					System.out.println("Exception: "+ex.getMessage());
-					System.out.println("Invalid excel row is: "+s);					
+					System.out.println("Invalid excel row is: "+s);	
+					int i = 0;
+					for(String str: buffer){
+						System.out.println(i+": " + str);
+					}
+					System.out.println("----------------");
 				}
 				questions.add(q);
 				buffer.clear();
 				continue;
 			}
-			buffer.add(s);
+			else{
+				buffer.add(s);
+			}
 		}
 		try{
 			in.close();

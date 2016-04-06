@@ -4,21 +4,22 @@ import java.util.Set;
 
 public class Test {
 	
-	private int id;
+	private long id;
 	private String title;
 	private int size;
 	private int variantNumber;
-	private Set<Question> questions;		
+	private Set<Question> questions;
+	private Order order;
 	
 	public Test(){}
 	
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -61,15 +62,25 @@ public class Test {
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
+	
+
+	public Order getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		result.append(title).append("<br>");
-		result.append("variant ").append(variantNumber).append("<br>");
+		result.append(title).append("\n");
+		result.append("variant ").append(variantNumber).append("\n");
 		for(Question q : questions){
-			result.append(q.toString()).append("<br><br>");
+			result.append(q.toString()).append("\n\n");
 		}
 		result.append(id);
 		return result.toString();

@@ -40,3 +40,40 @@ html, body, #content {
 	margin: 0;
 	padding: 0;
 }
+
+#lvg-separator{
+	margin:10px 0 10px;
+}
+
+.lvg-checked{
+	color: #39d455;
+}
+
+@media print {
+	div#header, div#footer { display: none; }
+	
+	.panel-success, .tcreator-print-hide{ display: none;}
+	.panel-info{ 
+		border:none;
+		page-break-after: always;
+	}
+	.panel-heading{
+		font-weight: 700;
+		border: 1px solid #000;
+		border-color: black;
+		border-radius:none;	
+		padding:5px 10px 5px;
+		margin:0;
+	}
+	
+	.h3 {
+		font-size: 15pt;
+	}
+	.h4{
+		font-size: 12pt;
+	}
+	
+	dl{
+		page-break-inside: avoid;
+	}
+}
