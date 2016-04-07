@@ -11,7 +11,7 @@
 </div>
 
 
-<form action="/print">
+<form action="/">
 	<div class="panel panel-success">
 		<div class="panel-heading">
 			<div class="row">
@@ -79,7 +79,7 @@
 	</div>
 	<div class="row tcreator-print-hide">
 		<div class="col-lg-3">
-			<input class="btn btn-primary" type="submit" value="Скачать" />
+			<input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled" />
 		</div>
 	</div>
 	<div class="row tcreator-print-hide">

@@ -74,7 +74,7 @@
 								</label>
 							</div>
 							<label class="control-label" for="selectReportType">Формат
-								отчета</label> <select class="form-control" id="selectReportType">
+								отчета</label> <select class="form-control" id="selectReportType" disabled="disabled">
 								<option>Excel</option>
 								<option>PDF</option>
 							</select>
