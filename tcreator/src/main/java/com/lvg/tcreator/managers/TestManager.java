@@ -1,26 +1,19 @@
 package com.lvg.tcreator.managers;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-
+import com.lvg.tcreator.config.DataSourceType;
+import com.lvg.tcreator.factories.ServiceFactory;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Order;
 import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.Test;
 import com.lvg.tcreator.models.TestTypes;
+import com.lvg.tcreator.services.QuestionService;
 
 public class TestManager {
 	private static final int TOTAL_TEST_UT_RT_QUESTIONS_COUNT = 40;
@@ -35,50 +28,34 @@ public class TestManager {
 	private static final String SPEC_TEST_6_SECTOR_TITLE = "Специальный экзамен 6-й сектор";
 	private static final String SPEC_TEST_7_SECTOR_TITLE = "Специальный экзамен 7-й сектор";
 	private static final String SPEC_TEST_8_SECTOR_TITLE = "Специальный экзамен 8-й сектор";
-
-	private static final String EXCEL_FILE_SUFFIX = "-II.xls";
-	private static final String RESOURCE_PATH = "/xls/";
-	private static Map<TestTypes, Integer> map = new HashMap<TestTypes, Integer>();
+	
 	private Map<TestTypes, List<Question>> allQuestionsMap = new HashMap<TestTypes, List<Question>>();
 
 	private Order order;
-	private String pathToExcelDataFiles;
+	private QuestionService qService;
+	
 
-	static {
-		map.put(TestTypes.TOTAL_TEST, 0);
-		map.put(TestTypes.SPEC_TEST, 1);
-		map.put(TestTypes.SPEC_6_SECTOR_TEST, 2);
-		map.put(TestTypes.SPEC_7_SECTOR_TEST, 3);
-		map.put(TestTypes.SPEC_8_SECTOR_TEST, 4);
-	}
-
+	
 	public TestManager(Order order) {
 		this.order = order;
+		qService = ServiceFactory.getQuestionService(DataSourceType.ODS);
 		initAllQuestionsMap(order.getNdtMethod());
+		
 	}
 
-	private void initAllQuestionsMap(NdtMethod method) {
-		allQuestionsMap.put(TestTypes.TOTAL_TEST, getAllQuestionFromExcel(TestTypes.TOTAL_TEST));
-		allQuestionsMap.put(TestTypes.SPEC_TEST, getAllQuestionFromExcel(TestTypes.SPEC_TEST));
+	private void initAllQuestionsMap(NdtMethod method) {	
+		allQuestionsMap.put(TestTypes.TOTAL_TEST, qService.getAllQuestion(method, TestTypes.TOTAL_TEST));
+		allQuestionsMap.put(TestTypes.SPEC_TEST, qService.getAllQuestion(method, TestTypes.SPEC_TEST));
 		allQuestionsMap.put(TestTypes.SPEC_6_SECTOR_TEST,
-				getAllQuestionFromExcel(TestTypes.SPEC_6_SECTOR_TEST));
+				qService.getAllQuestion(method, TestTypes.SPEC_6_SECTOR_TEST));
 		allQuestionsMap.put(TestTypes.SPEC_7_SECTOR_TEST,
-				getAllQuestionFromExcel(TestTypes.SPEC_7_SECTOR_TEST));
+				qService.getAllQuestion(method, TestTypes.SPEC_7_SECTOR_TEST));
 		allQuestionsMap.put(TestTypes.SPEC_8_SECTOR_TEST,
-				getAllQuestionFromExcel(TestTypes.SPEC_8_SECTOR_TEST));
+				qService.getAllQuestion(method, TestTypes.SPEC_8_SECTOR_TEST));
 
-	}
+	}	
 
-	public static void main(String[] args) {
-		TestManager tm = new TestManager(OrderManager.getDefaultOrder());
-		List<Question> qlist = tm.getAllQuestionFromExcel(TestTypes.TOTAL_TEST);
-
-		for (Question t : qlist) {
-			System.out.println(t.toString());
-		}
-	}
-
-	public List<Test> createTestListFromExcel() {
+	public List<Test> createTestList() {
 		List<Test> tests = new ArrayList<Test>();
 		int variantCount = order.getVariantCount();
 		if (order.getIsTotalTest())
@@ -101,15 +78,7 @@ public class TestManager {
 
 	public void setOrder(Order order) {
 		this.order = order;
-	}
-
-	public String getPathToExcelDataFiles() {
-		return pathToExcelDataFiles;
-	}
-
-	public void setPathToExcelDataFiles(String pathToExcelDataFiles) {
-		this.pathToExcelDataFiles = pathToExcelDataFiles;
-	}
+	}	
 
 	private List<Test> getSameTestsWithDiferentVariants(TestTypes testType, int variantCount) {
 		List<Test> tests = new ArrayList<Test>();
@@ -120,10 +89,10 @@ public class TestManager {
 		}
 		return tests;
 	}
-
+	
 	private Test getTestFromExcel(TestTypes testType) {
 		Test test = new Test();
-		Set<Question> questions = getRandomQuestionsFromList(allQuestionsMap.get(testType),
+		Set<Question> questions = qService.getRandomQuestionFromList(allQuestionsMap.get(testType),
 				calculateQuestionsCount(testType));
 		test.setQuestions(questions);
 		test.setId(generateTestId());
@@ -137,112 +106,7 @@ public class TestManager {
 		return System.currentTimeMillis();
 	}
 
-	private Set<Question> getRandomQuestionsFromList(List<Question> questList, int countQuestions) {
-		Set<Question> result = new TreeSet<Question>();
-
-		while (result.size() < countQuestions) {
-			int index = generateIndex(questList.size());
-			result.add(questList.get(index));
-		}
-		return result;
-	}
-
-	private int generateIndex(int max) {
-		Random random = new Random();
-		int num = random.nextInt(max);
-		return num;
-	}
-
-	private List<Question> getAllQuestionFromExcel(TestTypes testType) {
-		List<Question> questions = new ArrayList<>();
-		String method = order.getNdtMethod().toString();
-		String path = pathToExcelDataFiles == null ? RESOURCE_PATH : pathToExcelDataFiles;
-		StringBuilder pathXlsFile = new StringBuilder().append(path).append(method).append(EXCEL_FILE_SUFFIX);
-
-		InputStream in = null;
-		HSSFWorkbook wb = null;
-		try {
-			in = getClass().getResourceAsStream(pathXlsFile.toString());
-			wb = new HSSFWorkbook(in);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-
-		Sheet sheet = wb.getSheetAt(map.get(testType));
-		Iterator<Row> iter = sheet.iterator();
-		List<String> rows = new ArrayList<String>();
-
-		while (iter.hasNext()) {
-			Row row = iter.next();
-			Iterator<Cell> cellIter = row.iterator();
-			while (cellIter.hasNext()) {
-				Cell cell = cellIter.next();
-				String cellValue = cell.getStringCellValue().trim();					
-				rows.add(cellValue);				
-			}
-			if ((rows.size() - 1) < row.getRowNum()) {
-				rows.add(rows.size() - 1, "");
-			}
-		}
-		List<String> buffer = new ArrayList<String>();
-		if (testType == TestTypes.SPEC_7_SECTOR_TEST) {
-			System.out.println("--------****-------------");
-			int i = 0;
-			for (String s : rows)
-				System.out.println("id:"+(++i)+" "+s);
-			
-			System.out.println("--------****-------------");
-		}
-		for (String s : rows) {
-			if (s.trim().isEmpty()) {
-				Question q = new Question();
-				for (String row : buffer) {
-					q.getText().add(row);
-				}
-				String firstRow = null;
-				try {
-					firstRow = q.getText().get(0);
-					q.setNumber(getNumberQuestionFromFirstRow(firstRow));
-					questions.add(q);
-				} catch (RuntimeException ex) {
-					System.out.println("Exception: " + ex.getMessage());
-					System.out.println("Invalid excel row; question firstRow is: " + firstRow);
-					int i = 0;
-					for (String str : buffer) {
-						System.out.println(i + ": " + str);
-						i++;
-					}
-					System.out.println("----------------");
-				}
-				buffer.clear();
-				continue;
-			} else {
-				buffer.add(s);
-			}
-		}
-		try {
-			in.close();
-
-		} catch (IOException ex) {
-		}
-
-		return questions;
-	}
-
-	private int getNumberQuestionFromFirstRow(String firstRow) {
-		String num = "-1";
-		try {
-			num = firstRow.substring(0, firstRow.indexOf(". "));
-		} catch (StringIndexOutOfBoundsException ex) {
-			System.out.println("INVALID QUESTION: " + ex.getMessage());
-			System.out.println("firstRow:  " + firstRow);
-			System.out.println("IndexOf('. '): " + firstRow.indexOf(". "));
-			System.out.println("*****************");
-			throw new RuntimeException("INVALID STRING PARAMETER");
-		}
-		return Integer.parseInt(num);
-	}
-
+	
 	private int calculateQuestionsCount(TestTypes testType) {
 		int sectorsCount = getSectorsCount();
 

@@ -28,7 +28,7 @@ public class TestServiceImplExcel implements TestService{
 	public static void main(String[] args){
 		TestServiceImplExcel ts = new TestServiceImplExcel("d:/");
 		TestManager tm = new TestManager(OrderManager.getDefaultOrder());
-		List<Test> testList = tm.createTestListFromExcel();
+		List<Test> testList = tm.createTestList();
 		ts.saveAll(testList);
 	}
 	
@@ -52,6 +52,12 @@ public class TestServiceImplExcel implements TestService{
 	@Override
 	public Test get(long id) {
 		throw new UnsupportedOperationException();	
+	}
+	
+	
+
+	public List<Test> getAll() {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
