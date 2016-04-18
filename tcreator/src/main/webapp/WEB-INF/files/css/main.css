@@ -24,17 +24,19 @@ html, body, #content {
 }
 
 #header {
-	margin:0;
-	padding: 5px 10px 0;
+	margin: 0;
+    padding: 5px 10px 0;
+    background: rgba(65,125,255,0.7);
+    color: #eee;
 }
 
 #footer {
 	font-size: 12pt;
-	height: 100px;
-	padding-top: 30px;
-	padding-left: 10px;	
-	background: rgba(6, 11, 24, 0.26);
-	color: #888;
+    height: 100px;
+    padding-top: 30px;
+    padding-left: 10px;
+    background: rgba(65, 105, 255, 0.7);
+    color: #eee;
 }
 #footer-content {
 	margin: 0;
