@@ -4,7 +4,7 @@
 
 
 <nav class="navbar navbar-default">
-	<div class="container-fluid">
+	<div id="lvg-main-menu" class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" 
 				data-toggle="collapse" 

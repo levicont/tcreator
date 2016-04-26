@@ -30,6 +30,20 @@ html, body, #content {
     color: #eee;
 }
 
+#lvg-main-menu{
+	background: linear-gradient(to top, #FF9640, #FFB273);
+	border: 1px solid #FF7400;
+	border-radius: 3px;
+	
+}
+
+.navbar-default .navbar-nav > li > a {
+    color:#A64B00;
+}
+.navber-brand{
+	 color:#A64B00;
+}
+
 #footer {
 	font-size: 12pt;
     height: 100px;
