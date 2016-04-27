@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div class="row">
-	<div class="col-lg-12 text-center tcreator-print-hide">
+	<div class="col-lg-12 text-center tcreator-print-hide lvg-title-text">
 		<p class="h3">Предварительный просмотр</p>
 	</div>
 </div>

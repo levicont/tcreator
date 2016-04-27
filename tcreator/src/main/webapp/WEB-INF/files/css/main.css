@@ -8,31 +8,30 @@ html, body, #content {
 
 #content {
 	color: #808080;
-	margin-bottom: -100px;
+	margin-bottom: -60px;
 }
 
 #all {
 	min-width: 330px;
 	padding-top: 10px;
-	padding-bottom: 100px;
+	padding-bottom: 60px;
 }
 
 #main {	
 	min-height: 100%;
 	min-width: 340px;
-	margin-bottom: -100px;
+	margin-bottom: -60px;
 }
 
 #header {
 	margin: 0;
     padding: 5px 10px 0;
-    background: rgba(65,125,255,0.7);
+    background: linear-gradient(to bottom, #417DFF, #96B8FF);
     color: #eee;
 }
 
 #lvg-main-menu{
-	background: linear-gradient(to top, #FF9640, #FFB273);
-	border: 1px solid #FF7400;
+	background: linear-gradient(to top, #FF9640, #FFB273);	
 	border-radius: 3px;
 	
 }
@@ -40,16 +39,23 @@ html, body, #content {
 .navbar-default .navbar-nav > li > a {
     color:#A64B00;
 }
-.navber-brand{
-	 color:#A64B00;
+.navbar-default .navbar-brand{
+	 color:#1543A6;
+}
+.lvg-title-text{
+	color:#A6530E;
+}
+
+.panel {
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);    
 }
 
 #footer {
 	font-size: 12pt;
-    height: 100px;
-    padding-top: 30px;
+    height: 60px;
+    padding-top: 20px;
     padding-left: 10px;
-    background: rgba(65, 105, 255, 0.7);
+  	background:linear-gradient(to top, #417DFF, #96B8FF);
     color: #eee;
 }
 #footer-content {
@@ -91,5 +97,8 @@ html, body, #content {
 	
 	dl{
 		page-break-inside: avoid;
+	}
+	body{
+		font-size: 10pt;
 	}
 }

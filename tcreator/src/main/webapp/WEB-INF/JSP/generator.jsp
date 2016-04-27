@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <div class="row">
-	<div class="col-lg-12 text-center">
+	<div class="col-lg-12 text-center lvg-title-text">
 		<p class="h3">Генератор вопросов</p>
 
 	</div>
@@ -92,4 +92,4 @@
 
 
 	</div>
-</div>
+</div> 
