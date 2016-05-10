@@ -11,7 +11,7 @@ public interface R {
 		public int MIN_NUMBER_SIZE_VALUE = 1;
 		public String INVALID_NUMBER_SIZE_MESSAGE = "Размер номера не должен превышать 10 символов";
 		
-		public String INVALID_DATE_MESSAGE = "Неверный формат даты: дд/мм/гггг";
+		public String INVALID_DATE_MESSAGE = "Неверный формат даты: дд.мм.гггг";
 	}
 	
 	public interface Exceptions {

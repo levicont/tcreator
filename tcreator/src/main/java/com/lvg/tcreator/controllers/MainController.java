@@ -1,6 +1,8 @@
 package com.lvg.tcreator.controllers;
 
+import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,6 +10,8 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,7 +72,24 @@ private final String GREETING_STRING = "Добро пожаловать на с�
 		List<Test> testList = tm.createTestList();		
 		model.addAttribute("tests", testList);
 		return "report";		
-	}	
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder){
+		binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+
+			@Override
+			public String getAsText() {
+				return DateUtil.formatDate((Date)getValue());
+			}
+
+			@Override
+			public void setAsText(String text) throws IllegalArgumentException {
+				setValue(DateUtil.parseDate(text));
+			}
+						
+		});
+	}
 	
 	
 	

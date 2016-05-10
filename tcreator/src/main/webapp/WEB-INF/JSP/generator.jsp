@@ -37,9 +37,9 @@
 						<div class="col-lg-3">
 							<div class="form-group">
 								<label for="raspDate">Дата распоряжения</label>
-								<fmt:formatDate pattern='dd/MM/yyyy' type='date'
+								<fmt:formatDate pattern='dd.MM.yyyy' type='date'
 									value="${order.date }" var="formattedDate" />
-								<form:input path="date" data-format="dd/MM/yyyy"
+								<form:input path="date" data-format="dd.MM.yyyy"
 									value='${formattedDate }' cssClass="form-control" id="raspDate"
 									placeholder="Дата распоряжения" />
 								<form:errors path="date">
