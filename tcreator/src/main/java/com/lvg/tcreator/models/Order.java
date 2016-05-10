@@ -2,14 +2,27 @@ package com.lvg.tcreator.models;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 import org.springframework.stereotype.Component;
 
+import static com.lvg.tcreator.config.R.OrderProps.*;
 @Component("order")
 public class Order {
 	private NdtMethod ndtMethod;
+	
+	@Size(min=MIN_NUMBER_SIZE_VALUE, max= MAX_NUMBER_SIZE_VALUE, message= INVALID_NUMBER_SIZE_MESSAGE)
 	private String number;
+	
+	
 	private Date date;
+	
+	@Min(value= MIN_VARIANT_COUNT_VALUE, message = INVALID_VARIANT_COUNT_MESSAGE)
+	@Max(value= MAX_VARIANT_COUNT_VALUE, message = INVALID_VARIANT_COUNT_MESSAGE)
 	private int variantCount;
+	
 	private boolean isTotalTest;
 	private boolean isSpecTest;
 	private boolean is6sector;

@@ -11,29 +11,15 @@ import java.util.List;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
-import com.lvg.tcreator.config.DataSourceType;
-import com.lvg.tcreator.factories.ServiceFactory;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.TestTypes;
-import com.lvg.tcreator.services.QuestionService;
 import com.lvg.tcreator.services.impl.QuestionServiceImpl;
 
 public class QuestionServiceImplODS extends QuestionServiceImpl {
 	private static final String ODS_FILE_SUFFIX = "-II.ods";
 	private static final String RESOURCE_PATH = "/ods/";
 
-	public static void main (String[] args){
-		QuestionService qService = ServiceFactory.getQuestionService(DataSourceType.ODS);
-		System.out.println("Starting");
-		List<Question> list = qService.getAllQuestion(NdtMethod.UT, TestTypes.SPEC_7_SECTOR_TEST);
-		
-		for(Question q : list){
-			System.out.println(q.toString());
-		}
-		
-		System.out.println("Stoped");
-	}
 	
 	@Override
 	public List<Question> getAllQuestion(NdtMethod ndtMethod, TestTypes testType) {
@@ -41,7 +27,7 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 		String method = ndtMethod.toString();
 		StringBuilder pathOdsFile = new StringBuilder().append(RESOURCE_PATH + method + ODS_FILE_SUFFIX);
 		Sheet sheet = null;
-		URL url = getClass().getResource(pathOdsFile.toString());;
+		URL url = getClass().getResource(pathOdsFile.toString());
 		try {
 			
 			URI uri = url.toURI();

@@ -24,4 +24,13 @@
   <definition name="report" extends="template">
   	<put-attribute name="body" value="/WEB-INF/JSP/report.jsp"></put-attribute>
   </definition>
+  
+  <definition name="error" extends="template">
+  	<put-attribute name="body" value="/WEB-INF/JSP/error.jsp"></put-attribute>
+  </definition>
+  
+  <definition name="deferror" extends="template">
+  	<put-attribute name="body" value="/WEB-INF/JSP/error.jsp"></put-attribute>
+  </definition>
+  
 </tiles-definitions>

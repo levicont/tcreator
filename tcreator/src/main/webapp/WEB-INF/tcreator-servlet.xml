@@ -32,5 +32,12 @@
 		</property>
 	</bean>
 	<mvc:resources location="/WEB-INF/files/" mapping="/files/**"/>  	
-
+	<bean class="com.lvg.tcreator.exceptions.TCreatorExceptionResolver">
+	    <property name="exceptionMappings">
+	        <map>
+	            <entry key="com.lvg.tcreator.exceptions.TCreatorException" value="error"/>
+	        </map>	        
+	    </property>
+	    <property name="defaultErrorView" value="deferror"></property>
+	</bean>
 </beans>

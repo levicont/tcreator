@@ -25,6 +25,8 @@ public abstract class QuestionServiceImpl implements QuestionService{
 	
 	
 	public Set<Question> getRandomQuestionFromList(List<Question> questList, int countQuestions) {
+		if (questList.size() < countQuestions)
+			throw new IllegalArgumentException("Question base size less than count of questions.");
 		Set<Question> result = new TreeSet<Question>();
 
 		while (result.size() < countQuestions) {

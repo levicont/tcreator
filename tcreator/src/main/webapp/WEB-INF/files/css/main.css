@@ -67,6 +67,16 @@ html, body, #content {
 	margin:10px 0 10px;
 }
 
+.lvg-error{
+	font-size:10pt;
+	color:#ff2222;
+}
+
+.lvg-error-message{
+	font-size:24pt;
+	color:#ff2222;
+}
+
 .lvg-checked{
 	color: #39d455;
 }

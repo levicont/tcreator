@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<c:set var="INVALID_TEST_MSG" value="<%=com.lvg.tcreator.config.R.OrderProps.INVALID_DATE_MESSAGE %>"/>
 <div class="row">
 	<div class="col-lg-12 text-center lvg-title-text">
 		<p class="h3">Генератор вопросов</p>
@@ -28,6 +30,7 @@
 								<label for="raspNumber">Номер распоряжения</label>
 								<form:input path="number" cssClass="form-control"
 									id="raspNumber" placeholder="Номер распоряжения" />
+									<form:errors path="number" cssClass="lvg-error"></form:errors>
 							</div>
 
 						</div>
@@ -39,6 +42,11 @@
 								<form:input path="date" data-format="dd/MM/yyyy"
 									value='${formattedDate }' cssClass="form-control" id="raspDate"
 									placeholder="Дата распоряжения" />
+								<form:errors path="date">
+									<span class="lvg-error">
+										<c:out value="${INVALID_TEST_MSG }"/>
+									</span>
+								</form:errors>
 							</div>
 						</div>
 						<div class="col-lg-3">
@@ -46,6 +54,7 @@
 								<label for="variantCount">Количество вариантов</label>
 								<form:input path="variantCount" cssClass="form-control"
 									id="variantCount" placeholder="Количество вариантов" />
+									<form:errors path="variantCount" cssClass="lvg-error"></form:errors>
 							</div>
 						</div>
 					</div>
