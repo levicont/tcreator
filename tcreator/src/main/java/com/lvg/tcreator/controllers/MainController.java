@@ -28,7 +28,7 @@ import com.lvg.tcreator.models.User;
 import com.lvg.tcreator.utils.DateUtil;
 
 
-@Controller
+//@Controller
 public class MainController {
 private final String GREETING_STRING = "Добро пожаловать на сайт генератора тестов!";	
 
