@@ -1,0 +1,114 @@
+@CHARSET "UTF-8";
+
+html, body, #content {
+	height: 100%;
+	width: 100%;
+	margin: auto;
+}
+
+#content {
+	color: #808080;
+	margin-bottom: -60px;
+}
+
+#all {
+	min-width: 330px;
+	padding-top: 10px;
+	padding-bottom: 60px;
+}
+
+#main {	
+	min-height: 100%;
+	min-width: 340px;
+	margin-bottom: -60px;
+}
+
+#header {
+	margin: 0;
+    padding: 5px 10px 0;
+    background: linear-gradient(to bottom, #417DFF, #96B8FF);
+    color: #eee;
+}
+
+#lvg-main-menu{
+	background: linear-gradient(to top, #FF9640, #FFB273);	
+	border-radius: 3px;
+	
+}
+
+.navbar-default .navbar-nav > li > a {
+    color:#A64B00;
+}
+.navbar-default .navbar-brand{
+	 color:#1543A6;
+}
+.lvg-title-text{
+	color:#A6530E;
+}
+
+.panel {
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);    
+}
+
+#footer {
+	font-size: 12pt;
+    height: 60px;
+    padding-top: 20px;
+    padding-left: 10px;
+  	background:linear-gradient(to top, #417DFF, #96B8FF);
+    color: #eee;
+}
+#footer-content {
+	margin: 0;
+	padding: 0;
+}
+
+#lvg-separator{
+	margin:10px 0 10px;
+}
+
+.lvg-error{
+	font-size:10pt;
+	color:#ff2222;
+}
+
+.lvg-error-message{
+	font-size:24pt;
+	color:#ff2222;
+}
+
+.lvg-checked{
+	color: #39d455;
+}
+
+@media print {
+	div#header, div#footer { display: none; }
+	
+	.panel-success, .tcreator-print-hide{ display: none;}
+	.panel-info{ 
+		border:none;
+		page-break-after: always;
+	}
+	.panel-heading{
+		font-weight: 700;
+		border: 1px solid #000;
+		border-color: black;
+		border-radius:none;	
+		padding:5px 10px 5px;
+		margin:0;
+	}
+	
+	.h3 {
+		font-size: 15pt;
+	}
+	.h4{
+		font-size: 12pt;
+	}
+	
+	dl{
+		page-break-inside: avoid;
+	}
+	body{
+		font-size: 10pt;
+	}
+}
