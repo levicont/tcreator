@@ -1,13 +1,12 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"/>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
 <head>
     <meta charset="UTF-8">
 </head>
 <body>
-<div th:component="generator">
+<div data-th-component="generator">
 
-    <c:set var="INVALID_TEST_MSG" value="<%=com.lvg.tcreator.config.R.OrderProps.INVALID_DATE_MESSAGE %>"/>
+    <span data-th-with="INVALID_TEST_MSG=${com.lvg.tcreator.config.R.OrderProps.INVALID_DATE_MESSAGE}"/>
     <div class="row">
         <div class="col-lg-12 text-center lvg-title-text">
             <p class="h3">Генератор вопросов</p>
@@ -18,7 +17,7 @@
         <div class="col-lg-12">
 
 
-            <form:form modelAttribute="order" method="POST">
+            <form modelAttribute="order" method="POST">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <p class="h4">Метод НК: ${ndtMethod}</p>
@@ -98,7 +97,7 @@
                         <input class="btn btn-primary" type="submit" value="Создать">
                     </div>
                 </div>
-            </form:form>
+            </form>
 
 
         </div>

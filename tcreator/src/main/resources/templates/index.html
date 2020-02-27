@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title data-th-text="#{index.title}">Tcreator</title>
 
 
 
-    <script th:src="@{/js/jquery-2.2.2.min.js }"></script>
-    <script th:src="@{/js/bootstrap-3.3.6-dist/js/bootstrap.min.js }"></script>
+    <script data-th-src="@{/js/jquery-2.2.2.min.js }"></script>
+    <script data-th-src="@{/js/bootstrap-3.3.6-dist/js/bootstrap.min.js }"></script>
 
-    <link rel="stylesheet" th:href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css }"
+    <link rel="stylesheet" data-th-href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css }"
           type="text/css"/>
-    <link rel="stylesheet" th:href="@{/css/font-awesome-4.5.0/css/font-awesome.min.css }"/>
-    <link rel="stylesheet" th:href="@{/css/main.css }" type="text/css"/>
+    <link rel="stylesheet" data-th-href="@{/css/font-awesome-4.5.0/css/font-awesome.min.css }"/>
+    <link rel="stylesheet" data-th-href="@{/css/main.css }" type="text/css"/>
 
 </head>
 <body>
@@ -20,12 +20,13 @@
 <div id="content">
     <div id="main">
         <div id="header" class="page-header">
-            <div th:include="header::header" />
-            <div th:include="main_menu::menu" />
+            <div data-th-include="header::header" />
+            <div data-th-include="main_menu::menu" />
         </div>
         <div id="all" >
             <div class="container">
-                <!--div th:include="body::body"/-->
+                <div data-th-text="#{index.title}" />
+                <!--div data-th-include="body::body"/-->
             </div>
         </div>
         <!-- END ALL -->
@@ -33,7 +34,7 @@
     </div>
     <!-- END MAIN -->
     <div id="footer">
-        <div th:include="footer::footer" />
+        <div data-th-include="footer::footer" />
     </div>
 </div>
 <!-- End content -->
