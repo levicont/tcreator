@@ -10,13 +10,15 @@ public class GreetingController {
 
     @GetMapping("/")
     public String index(String name, Model model) {
-
+        model.addAttribute("body","main");
+        model.addAttribute("tattr","TEST ATTRIBUTE");
         return "index";
     }
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        return "greeting";
+        model.addAttribute("body","greeting");
+        return "index";
     }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div data-th-fragment="greeting">
+    <p data-th-text="'Welcome to the page'"></p>
+</div>
+<div data-th-fragment="main">
+    <p data-th-text="'Main page'"></p>
+    <p data-th-text="${tattr}"></p>
+</div>
+
+</body>
+</html>
