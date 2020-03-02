@@ -23,12 +23,12 @@
                         <p class="h4">Метод НК: ${ndtMethod}</p>
                     </div>
                     <div class="panel-body">
-                        <form:hidden path="ndtMethod" />
+                        <form path="ndtMethod" />
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="raspNumber">Номер распоряжения</label>
-                                    <form:input path="number" cssClass="form-control"
+                                    <input path="number" cssClass="form-control"
                                                 id="raspNumber" placeholder="Номер распоряжения" />
                                     <form:errors path="number" cssClass="lvg-error"></form:errors>
                                 </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div th:fragment="menu">
+<div data-th-fragment="menu">
     <nav class="navbar navbar-default">
         <div id="lvg-main-menu" class="container-fluid">
             <div class="navbar-header">
@@ -17,20 +17,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand"  href='#' th:href="@{/}">TCreator</a>
+                <a class="navbar-brand"  href='#' data-th-href="@{/}">TCreator</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li ><a href='#' th:href="@{/}">Главная<span class="sr-only">(current)</span></a></li>
+                    <li ><a href='#' data-th-href="@{/}">Главная<span class="sr-only">(current)</span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Методы НК<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href='#' th:href="@{/generator?method=VT}">VT (визуально-оптический)</a></li>
-                            <li><a href='#' th:href="@{/generator?method=PT}">PT (капиллярный)</a></li>
-                            <li><a href='#' th:href="@{/generator?method=MT}">MT (магнитопорошковый)</a></li>
-                            <li><a href='#' th:href="@{/generator?method=UT}">UT (ультразвуковой)</a></li>
-                            <li><a href='#' th:href="@{/generator?method=RT}">RT (радиографический)</a></li>
+                            <li><a href='#' data-th-href="@{/generator?method=VT}">VT (визуально-оптический)</a></li>
+                            <li><a href='#' data-th-href="@{/generator?method=PT}">PT (капиллярный)</a></li>
+                            <li><a href='#' data-th-href="@{/generator?method=MT}">MT (магнитопорошковый)</a></li>
+                            <li><a href='#' data-th-href="@{/generator?method=UT}">UT (ультразвуковой)</a></li>
+                            <li><a href='#' data-th-href="@{/generator?method=RT}">RT (радиографический)</a></li>
                         </ul>
                     </li>
                 </ul>
