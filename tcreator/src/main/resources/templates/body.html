@@ -43,21 +43,18 @@
                             </div>
 
                             <div class="col-lg-3">
-                                <!--
+
                                 <div class="form-group">
-                                    <label for="raspDate">Дата распоряжения</label>
+                                    <label for="raspDate" data-th-text="#{generator.raspDate.field}">Дата распоряжения</label>
+                                   <!--
                                     <fmt:formatDate pattern='dd.MM.yyyy' type='date'
                                                     value="${order.date }" var="formattedDate" />
-                                    <form:input path="date" data-format="dd.MM.yyyy"
-                                                value='${formattedDate }' cssClass="form-control" id="raspDate"
-                                                placeholder="Дата распоряжения" />
-                                    <form:errors path="date">
-									<span class="lvg-error">
-										<c:out value="${INVALID_TEST_MSG }"/>
-									</span>
-                                    </form:errors>
+                                    -->
+                                    <input type="date" data-th-field="*{{date}}"  class="form-control" id="raspDate"
+                                                data-th-placeholder="#{generator.raspDate.field}"/>
+                                    <p data-th-if="${#fields.hasErrors('date')}" data-th-error="*{date}" data-th-errorclass="lvg-error"/>
                                 </div>
-                            	-->
+
                             </div>
                             <div class="col-lg-3">
                                 <!--
