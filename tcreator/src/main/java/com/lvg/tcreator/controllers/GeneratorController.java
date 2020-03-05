@@ -1,5 +1,6 @@
 package com.lvg.tcreator.controllers;
 
+import com.lvg.tcreator.config.R;
 import com.lvg.tcreator.managers.OrderManager;
 import com.lvg.tcreator.managers.TestManager;
 import com.lvg.tcreator.models.Order;
@@ -23,11 +24,13 @@ import java.util.List;
 public class GeneratorController {
     @RequestMapping(value="/generator", method= RequestMethod.GET)
     public String generator(Model model, @RequestParam(value="method",required=false) String method){
+        model.addAttribute(R.GlobalAttributes.BODY_TEMPLATE_ATTRIBUTE,"generator");
         if (method == null)
             return "redirect:/";
         model.addAttribute("ndtMethod", method);
         model.addAttribute("order", OrderManager.getDefaultOrder(method));
-        return "generator";
+
+        return "index";
     }
 
     @RequestMapping(value="/generator", method=RequestMethod.POST)

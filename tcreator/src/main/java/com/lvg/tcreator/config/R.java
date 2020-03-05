@@ -1,6 +1,9 @@
 package com.lvg.tcreator.config;
 
 public interface R {
+	interface GlobalAttributes{
+		String BODY_TEMPLATE_ATTRIBUTE = "body_content";
+	}
 	public interface OrderProps{
 		public int MIN_VARIANT_COUNT_VALUE = 1;
 		public int MAX_VARIANT_COUNT_VALUE = 3;
