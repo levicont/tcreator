@@ -46,35 +46,32 @@
 
                                 <div class="form-group">
                                     <label for="raspDate" data-th-text="#{generator.raspDate.field}">Дата распоряжения</label>
-                                   <!--
-                                    <fmt:formatDate pattern='dd.MM.yyyy' type='date'
-                                                    value="${order.date }" var="formattedDate" />
-                                    -->
-                                    <input type="date" data-th-field="*{{date}}"  class="form-control" id="raspDate"
+                                    <input type="date" data-th-field="*{date}"  class="form-control" id="raspDate"
                                                 data-th-placeholder="#{generator.raspDate.field}"/>
                                     <p data-th-if="${#fields.hasErrors('date')}" data-th-error="*{date}" data-th-errorclass="lvg-error"/>
                                 </div>
 
                             </div>
                             <div class="col-lg-3">
-                                <!--
                                 <div class="form-group">
-                                    <label for="variantCount">Количество вариантов</label>
-                                    <form:input path="variantCount" cssClass="form-control"
-                                                id="variantCount" placeholder="Количество вариантов" />
-                                    <form:errors path="variantCount" cssClass="lvg-error"></form:errors>
+                                    <label for="variantCount" data-th-text="#{generator.variantCount.field}">Количество вариантов</label>
+                                    <input type="text" data-th-field="*{variantCount}" class="form-control"
+                                                id="variantCount" data-th-placeholder="#{generator.variantCount.field}" />
+                                    <p data-th-if="${#fields.hasErrors('variantCount')}" data-th-error="*{date}" data-th-errorclass="lvg-error"/>
                                 </div>
-                            	-->
                             </div>
                         </div>
-                        <!--
+                        
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="checkbox">
-                                    <label> <form:checkbox path="isTotalTest" />Общий
-                                        экзамен
-                                    </label>
+                                	<label data-th-for="*{isTotalTest}" data-th-text="#{generator.isTotalTest.field}">
+										
+                                	Общий экзамен
+                                	</label>
+                                	<input type="checkbox" data-th-field="*{isTotalTest}" />  									
                                 </div>
+                                <!--
                                 <div class="checkbox">
                                     <label> <form:checkbox path="isSpecTest" />Специальный
                                         экзамен общая часть
@@ -97,11 +94,11 @@
                                 <option>Excel</option>
                                 <option>PDF</option>
                             </select>
-
+                            -->
 
                             </div>
                         </div>
-						-->
+						
                     </div>
                     <div class="panel-footer">
                         <input class="btn btn-primary" type="submit" value="Создать">
