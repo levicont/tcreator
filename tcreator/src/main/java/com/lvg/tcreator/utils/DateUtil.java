@@ -20,6 +20,7 @@ public class DateUtil {
 	public static Date parseDate(String value)throws IllegalArgumentException{
 		Date result = null;
 		try{
+			smdFormat.applyPattern("yyyy-MM-dd");
 			result = smdFormat.parse(value);
 		}catch(ParseException ex){
 			LOGGER.error("Not possible to parse source "+value+" into java.util.Date");

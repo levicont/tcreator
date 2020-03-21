@@ -3,8 +3,10 @@ package com.lvg.tcreator.config;
 public interface R {
 	interface GlobalAttributes{
 		String BODY_TEMPLATE_ATTRIBUTE = "body_content";
+		String ERROR_MESSAGE_ATTRIBUTE = "errorMessage";
 	}
 	public interface OrderProps{
+		String DEFAULT_DATE_FORMAT="dd.MM.yyyy";
 		public int MIN_VARIANT_COUNT_VALUE = 1;
 		public int MAX_VARIANT_COUNT_VALUE = 3;
 		public String INVALID_VARIANT_COUNT_MESSAGE = "Количество вариантов должно быть положительным числом не более "+
