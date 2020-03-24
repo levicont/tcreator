@@ -1,23 +1,29 @@
 package com.lvg.tcreator.controllers;
 
+import com.lvg.tcreator.config.R;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.lvg.tcreator.config.R;
-import com.lvg.tcreator.exceptions.TCreatorException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class ErrorController {
-	
-	@RequestMapping("/errors/404.html")
-	public ModelAndView error404(Model model)throws TCreatorException{
-		throw new TCreatorException(R.Exceptions.ERROR_MSG_404);
+public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
+	private static final String ERROR_PATH = "/error";
+
+	@RequestMapping(ERROR_PATH)
+	public String errorMethod(Model model, HttpServletRequest request, HttpServletResponse response){
+
+		model.addAttribute(R.GlobalAttributes.BODY_TEMPLATE_ATTRIBUTE, "error");
+		model.addAttribute("ErrorCode",request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE));
+		model.addAttribute("ErrorMessage",request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
+		return "index";
 	}
-	
-	@RequestMapping("/errors/500.html")
-	public ModelAndView error500(Model model)throws TCreatorException{
-		throw new TCreatorException(R.Exceptions.ERROR_MSG_500);
+
+	@Override
+	public String getErrorPath() {
+		return ERROR_PATH;
 	}
 }

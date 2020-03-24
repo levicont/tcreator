@@ -1,10 +1,10 @@
 package com.lvg.tcreator.utils;
 
+import org.apache.logging.log4j.LogManager;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.apache.logging.log4j.LogManager;
 
 public class DateUtil {
 	private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(DateUtil.class);
@@ -13,6 +13,7 @@ public class DateUtil {
 	private static final SimpleDateFormat smdFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
 	
 	public static String formatDate(Date date){
+		smdFormat.applyPattern(DEFAULT_DATE_FORMAT);
 		String result = smdFormat.format(date);
 		return result;
 	}
