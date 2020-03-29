@@ -1,5 +1,6 @@
 package com.lvg.tcreator.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.validation.constraints.Max;
@@ -18,7 +19,7 @@ public class Order {
 	private String number;
 	
 	
-	private Date date;
+	private LocalDate date;
 	
 	@Min(value= MIN_VARIANT_COUNT_VALUE, message = INVALID_VARIANT_COUNT_MESSAGE)
 	@Max(value= MAX_VARIANT_COUNT_VALUE, message = INVALID_VARIANT_COUNT_MESSAGE)
@@ -44,10 +45,10 @@ public class Order {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public int getVariantCount() {

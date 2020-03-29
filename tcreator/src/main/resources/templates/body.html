@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label for="raspDate" data-th-text="#{generator.raspDate.field}">Дата
                                         распоряжения</label>
-                                    <input type="date" data-th-field="*{{date}}" class="form-control" id="raspDate"
+                                    <input type="date" data-th-field="*{date}" class="form-control" id="raspDate"
                                            data-th-placeholder="#{generator.raspDate.field}"/>
                                     <p data-th-if="${#fields.hasErrors('date')}" data-th-error="*{date}" data-th-name="date"
                                        data-th-text="#{generator.error.date.field}" data-th-errorclass="lvg-error"></p>
