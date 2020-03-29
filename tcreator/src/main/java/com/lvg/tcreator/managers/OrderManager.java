@@ -1,5 +1,6 @@
 package com.lvg.tcreator.managers;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -31,11 +32,15 @@ public class OrderManager {
 		calendar.setTime(new Date());
 		int month = calendar.get(Calendar.MONTH)+1;
 		if(month < 10)
-			result.append("0"+month);
+			result.append("0").append(month);
 		else
 			result.append(month);
 		result.append("\\01");		
 		return result.toString();
+	}
+
+	public static Order getOrderFromExcelFile(String path)throws IOException {
+	 throw new UnsupportedOperationException();
 	}
 	
 }

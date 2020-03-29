@@ -11,10 +11,6 @@
     <!--
     <span data-th-with="INVALID_TEST_MSG=${com.lvg.tcreator.config.R.OrderProps.INVALID_DATE_MESSAGE}"/>
     -->
-    <p class="lvg-error" data-th-text="${errorMessage}"/>
-    <div class="lvg-error" data-th-each="error : ${allErrors}">
-        <p data-th-text="${error.toString()}"></p>
-    </div>
     <div class="row">
         <div class="col-lg-12 text-center lvg-title-text">
             <p class="h3" data-th-text="#{generator.title}">Генератор вопросов</p>
@@ -243,8 +239,8 @@
 
 </div>
 <div data-th-fragment="main">
-    <p data-th-text="'Main page'"></p>
-    <p data-th-text="${tattr}"></p>
+    <p class="h4" data-th-text="#{home.main.greeting}">Добро пожаловать на сайт аттестационного центра по неразрушающему контролю.</p>
+    <p class="h4" data-th-text="#{home.main.start_work}">Для начала работы в главном меню выберите сервис</p>
 </div>
 <div data-th-fragment="error">
     <p class="lvg-error" data-th-text="#{error.global.title}">ERROR</p>

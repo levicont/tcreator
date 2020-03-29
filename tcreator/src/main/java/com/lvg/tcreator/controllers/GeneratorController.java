@@ -41,8 +41,6 @@ public class GeneratorController {
         if(bindingResult.hasErrors()) {
             model.addAttribute(BODY_TEMPLATE_ATTRIBUTE, "generator");
             model.addAttribute("ndtMethod", order.getNdtMethod());
-            model.addAttribute("allErrors", bindingResult.getAllErrors());
-            model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, "ERROR IN FORM");
             return "index";
         }
         model.addAttribute("ndtMethod", order.getNdtMethod().toString());
