@@ -82,7 +82,7 @@ public class TestServiceImplExcel implements TestService{
 			row.createCell(0).setCellValue(test.getTitle());
 			for(Question question : test.getQuestions()){
 				sheet.createRow(++rowCount).createCell(0);
-				for(String line : question.getText()){
+				for(String line : question.getVariantKeys()){
 					sheet.createRow(++rowCount).createCell(0).setCellValue(line);
 				}
 			}			

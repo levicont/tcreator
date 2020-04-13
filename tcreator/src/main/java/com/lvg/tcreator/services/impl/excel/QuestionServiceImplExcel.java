@@ -1,27 +1,32 @@
 package com.lvg.tcreator.services.impl.excel;
-
+/*
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+*/
 import java.util.List;
 
+/*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-
+*/
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.services.impl.QuestionServiceImpl;
 
 public class QuestionServiceImplExcel extends QuestionServiceImpl {
-	private static final String EXCEL_FILE_SUFFIX = "-II.xls";
+	/*private static final String EXCEL_FILE_SUFFIX = "-II.xls";
 	private static final String RESOURCE_PATH = "/xls/";	
-	
+	*/
+
 	@Override
 	public List<Question> getAllQuestion(NdtMethod ndtMethod, TestTypes testType) {
+		throw new UnsupportedOperationException();
+		/*
 		List<Question> questions = new ArrayList<>();
 		String method = ndtMethod.toString();		
 		StringBuilder pathXlsFile = new StringBuilder().append(RESOURCE_PATH+method+EXCEL_FILE_SUFFIX);
@@ -88,6 +93,8 @@ public class QuestionServiceImplExcel extends QuestionServiceImpl {
 		}
 
 		return questions;
+		*/
+
 	}
 
 	

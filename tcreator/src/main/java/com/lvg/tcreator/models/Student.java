@@ -12,11 +12,11 @@ public class Student {
     private String surname;
     private NdtMethod ndtMethod;
     private NdtQualificationLevel ndtQualificationLevel;
-    private boolean isTotalTest;
-    private boolean isSpecTest;
-    private boolean is6sector;
-    private boolean is7sector;
-    private boolean is8sector;
+    private boolean totalTestFlag;
+    private boolean specialTestFlag;
+    private boolean sixSectorFlag;
+    private boolean sevenSectorFlag;
+    private boolean eightSectorFlag;
 
     protected Student(){}
 

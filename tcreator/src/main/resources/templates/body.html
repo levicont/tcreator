@@ -8,9 +8,7 @@
     <p class="h4" data-th-text="#{generator.greeting}">Добро пожаловать на сайт генератора вопросов.</p>
     <p class="h4" data-th-text="#{generator.manual.text}">Для начала работы в главном меню выберите метод
         неразрушающего контроля (НК), по которому следует сгенерировать тесты.</p>
-    <!--
-    <span data-th-with="INVALID_TEST_MSG=${com.lvg.tcreator.config.R.OrderProps.INVALID_DATE_MESSAGE}"/>
-    -->
+    
     <div class="row">
         <div class="col-lg-12 text-center lvg-title-text">
             <p class="h3" data-th-text="#{generator.title}">Генератор вопросов</p>
@@ -117,14 +115,11 @@
                     </div>
                 </div>
             </form>
-
-
         </div>
     </div>
-
 </div>
+
 <div data-th-fragment="report">
-    <!-- ********** -->
     <p class="lvg-error" data-th-text="${errorMessage}"/>
     <div class="row">
         <div class="col-lg-12 text-center tcreator-print-hide lvg-title-text">
@@ -220,11 +215,12 @@
                     <div class="panel-body">
 
                         <dl data-th-each="question : ${test.questions}">
-                            <div data-th-each="line,iterStat : ${question.text}">
-                                <dt data-th-if="${iterStat.index == 0}" data-th-text="${line}">line</dt>
-                                <dd data-th-if="${iterStat.index != 0}" data-th-text="${line}">line</dd>
+                            <dt data-th-text="${question.questionText}"></dt>
+                            <div data-th-each="line : ${question.getVariantKeys()}">
+                                <dd data-th-text="${line}">line</dd>
                             </div>
                         </dl>
+                        
                     </div>
                     <div class="panel-footer">
                         <p data-th-text="|id:${test.id} Распоряжение № ${order.number}|">id:${test.id } Распоряжение №
@@ -235,18 +231,74 @@
             </div>
         </div>
     </form>
-
-
 </div>
+
 <div data-th-fragment="main">
     <p class="h4" data-th-text="#{home.main.greeting}">Добро пожаловать на сайт аттестационного центра по неразрушающему контролю.</p>
     <p class="h4" data-th-text="#{home.main.start_work}">Для начала работы в главном меню выберите сервис</p>
 </div>
+
 <div data-th-fragment="error">
     <p class="lvg-error" data-th-text="#{error.global.title}">ERROR</p>
     <p data-th-text="#{error.global.code(${ErrorCode})}"></p>
     <p data-th-text="${ErrorMessage}"></p>
+</div>
 
+<div data-th-fragment="statistic">
+    <p class="lvg-error" data-th-text="${errorMessage}"/>
+    <div class="row">
+        <div class="col-lg-12 text-center tcreator-print-hide lvg-title-text">
+            <p class="h3" data-th-text="#{statistic.main.title}">Статистика экзаменационных тестов</p>
+        </div>
+    </div>
+
+
+    <form action="#" data-th-action="@{/}" >
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-10 text-left">
+                        <label class="h4" data-th-text="#{'Method NDT'}">Метод НК: </label>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="raspNumber" data-th-text="#{report.form.raspNumber}">Распоряжение №</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="raspDate" data-th-text="#{report.form.raspDate}">Дата</label>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="variantCount" data-th-text="#{report.form.variantCount}">Количество
+                                вариантов</label>
+                           
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="row tcreator-print-hide">
+            <div class="col-lg-3">
+                <input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled"/>
+            </div>
+        </div>
+        <div class="row tcreator-print-hide">
+            <div class="col-lg-12">
+                <div id="lvg-separator"></div>
+            </div>
+        </div>
+        
+    </form>
 </div>
 
 </body>

@@ -56,7 +56,7 @@ public class TestManager {
 	}	
 
 	public List<Test> createTestList() {
-		List<Test> tests = new ArrayList<Test>();
+		List<Test> tests = new ArrayList<>();
 		int variantCount = order.getVariantCount();
 		if (order.getIsTotalTest())
 			tests.addAll(getSameTestsWithDiferentVariants(TestTypes.TOTAL_TEST, variantCount));
@@ -81,7 +81,7 @@ public class TestManager {
 	}	
 
 	private List<Test> getSameTestsWithDiferentVariants(TestTypes testType, int variantCount) {
-		List<Test> tests = new ArrayList<Test>();
+		List<Test> tests = new ArrayList<>();
 		for (int i = 1; i <= variantCount; i++) {
 			Test t = getTestFromExcel(testType);
 			t.setVariantNumber(i);

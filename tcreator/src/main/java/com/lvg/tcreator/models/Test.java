@@ -77,12 +77,12 @@ public class Test {
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
-		result.append(title).append("\n");
-		result.append("variant ").append(variantNumber).append("\n");
-		for(Question q : questions){
+		result.append(getTitle()).append("\n");
+		result.append("variant ").append(getVariantNumber()).append("\n");
+		for(Question q : getQuestions()){
 			result.append(q.toString()).append("\n\n");
 		}
-		result.append(id);
+		result.append(getId());
 		return result.toString();
 	}
 	

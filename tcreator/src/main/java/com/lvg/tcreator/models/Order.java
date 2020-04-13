@@ -1,14 +1,11 @@
 package com.lvg.tcreator.models;
 
-import java.time.LocalDate;
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
+import java.time.LocalDate;
 
 import static com.lvg.tcreator.config.R.OrderProps.*;
 @Component("order")

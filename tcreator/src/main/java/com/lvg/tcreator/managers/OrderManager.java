@@ -32,7 +32,6 @@ public class OrderManager {
 		StringBuilder result  = new StringBuilder();
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(new Date());
-		//int month = calendar.get(Calendar.MONTH)+1;
 		Month month = LocalDate.now().getMonth();
 
 		if(month.getValue() < Month.OCTOBER.getValue())

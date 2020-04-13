@@ -1,22 +1,16 @@
 package com.lvg.tcreator.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Question implements Comparable<Question>{
 	
 	private int number;
-	private List<String> text;
-	
+	private String questionText;
+	Map<String, Boolean> variants = new TreeMap<>();
+
 	public Question(){
-		this(0, new ArrayList<String>());
+		this.number = 0;
 	}
-	
-	public Question(int number, List<String> text){
-		this.number = number;
-		this.text = text;
-	}
-	
 
 	public int getNumber() {
 		return number;
@@ -26,31 +20,38 @@ public class Question implements Comparable<Question>{
 		this.number = number;
 	}
 
-	public List<String> getText() {
-		return text;
+
+	public String getQuestionText() {
+		return questionText;
 	}
 
-	public void setText(List<String> text) {
-		this.text = text;
+	public Map<String, Boolean> getVariants() {
+		return variants;
 	}
 
-	
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
+
+	public Set<String> getVariantKeys(){
+		return new TreeSet<>(variants.keySet());
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		
-		if (obj == null || !(obj instanceof Question))
+		if (!(obj instanceof Question))
 			return false;
 		Question question = (Question)obj;
-		if(question.getNumber() == number)
-			return true;		
-		
-		return false;
+		return question.getNumber() == number;
 	}
 	
+	//TODO Have to update this method
 	@Override
 	public String toString(){
 		StringBuilder result = new StringBuilder();
-		for(String s : text){
+		result.append(getQuestionText()).append("\n");
+		for(String s : getVariantKeys()){
 			result.append(s).append("\n");
 		}
 		return result.toString();
@@ -59,11 +60,7 @@ public class Question implements Comparable<Question>{
 	
 	@Override
 	public int compareTo(Question o) {
-		if (number > o.number)
-			return 1;
-		if (number < o.number)
-			return -1;
-		return 0;
+		return Integer.compare(number, o.number);
 	}
 
 }

@@ -25,9 +25,9 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 	public List<Question> getAllQuestion(NdtMethod ndtMethod, TestTypes testType) {
 		List<Question> questions = new ArrayList<>();
 		String method = ndtMethod.toString();
-		StringBuilder pathOdsFile = new StringBuilder().append(RESOURCE_PATH + method + ODS_FILE_SUFFIX);
+		String pathOdsFile = RESOURCE_PATH + method + ODS_FILE_SUFFIX;
 		Sheet sheet = null;
-		URL url = getClass().getResource(pathOdsFile.toString());
+		URL url = getClass().getResource(pathOdsFile);
 		try {
 			
 			URI uri = url.toURI();
@@ -42,9 +42,10 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 			System.out.println("CAN NOT TO OPEN SHEET: "+ ex.getMessage());
 		}
 
-		List<String> rows = new ArrayList<String>();
-
+		List<String> rows = new ArrayList<>();
+		if (sheet == null) throw new NullPointerException("Sheet is null in"+pathOdsFile);
 		for (int rowNum = 0; ; rowNum++) {
+			if (sheet.getValueAt(0, rowNum) == null) throw new NullPointerException("VALUE in Cell (0,"+rowNum+") is NULL");
 			String cellValue = sheet.getValueAt(0, rowNum).toString().trim();
 			if (cellValue.equals("END"))
 				break;
@@ -52,35 +53,41 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 
 		}
 		
-		List<String> buffer = new ArrayList<String>();
+		List<String> buffer = new ArrayList<>();
 		for (String s : rows) {
 			if (s.trim().isEmpty()) {
-				Question q = new Question();
-				for (String row : buffer) {
-					q.getText().add(row);
-				}
-				String firstRow = null;
-				try {
-					firstRow = q.getText().get(0);
-					q.setNumber(getNumberQuestionFromFirstRow(firstRow));
-					questions.add(q);
-				} catch (RuntimeException ex) {
-					System.out.println("Exception: " + ex.getMessage());
-					System.out.println("Invalid excel row; question firstRow is: " + firstRow);
-					int i = 0;
-					for (String str : buffer) {
-						System.out.println(i + ": " + str);
-						i++;
-					}
-					System.out.println("----------------");
-				}
+				Question q = getQuestionFromRows(buffer);
+				questions.add(q);
 				buffer.clear();
-				continue;
 			} else {
 				buffer.add(s);
 			}
 		}
 
 		return questions;
+	}
+
+	/**
+	 *
+	 * @param textRows - rows of the text obtained from ods file.
+	 *                    The first row is a questionText and other rows are variants
+	 * @return Question object with fields
+	 * NOTE:  all variants of Question set as incorrect (false)
+	 */
+	private Question getQuestionFromRows(List<String> textRows){
+		Question resultQuestion = new Question();
+		if (textRows.isEmpty() || textRows.get(0).isEmpty()) throw new IllegalArgumentException("List of question rows is empty");
+
+		String firstRow = textRows.get(0);
+		resultQuestion.setQuestionText(firstRow);
+		resultQuestion.setNumber(getNumberQuestionFromFirstRow(firstRow));
+
+		for (String row : textRows){
+			if (row.equals(firstRow))
+				continue;
+			resultQuestion.getVariants().put(row,Boolean.FALSE);
+		}
+
+		return resultQuestion;
 	}
 }
