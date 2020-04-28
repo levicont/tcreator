@@ -2,121 +2,146 @@
 <html xmlns:th="http://www.thymeleaf.org"/>
 
 <body>
-<!--Templates of body section -->
+    <!--Templates of body section -->
 
-<div data-th-fragment="generator">
-    <p class="h4" data-th-text="#{generator.greeting}">Добро пожаловать на сайт генератора вопросов.</p>
-    <p class="h4" data-th-text="#{generator.manual.text}">Для начала работы в главном меню выберите метод
+    <div data-th-fragment="generator">
+        <p class="h4" data-th-text="#{generator.greeting}">Добро пожаловать на сайт генератора вопросов.</p>
+        <p class="h4" data-th-text="#{generator.manual.text}">Для начала работы в главном меню выберите метод
         неразрушающего контроля (НК), по которому следует сгенерировать тесты.</p>
-    
-    <div class="row">
-        <div class="col-lg-12 text-center lvg-title-text">
-            <p class="h3" data-th-text="#{generator.title}">Генератор вопросов</p>
 
+        <div class="row">
+            <div class="col-lg-12 text-center lvg-title-text">
+                <p class="h3" data-th-text="#{generator.title}">Генератор вопросов</p>
+
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <form action="#" data-th-action="@{/generator}" data-th-object="${order}" method="POST">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <p class="h4" data-th-text="#{generator.methodNDT.title(*{ndtMethod})}">Метод НК: </p>
-                    </div>
-                    <input type="hidden" data-th-field="*{ndtMethod}" data-th-value="*{ndtMethod}">
-                    <div class="panel-body">
-
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="raspNumber" data-th-text="#{generator.raspNumber.field}">Номер
-                                        распоряжения</label>
-                                    <input data-th-field="*{number}" class="form-control"
-                                           id="raspNumber" data-th-placeholder="#{generator.raspNumber.field}"/>
-                                    <p data-th-if="${#fields.hasErrors('number')}" data-th-error="*{number}"
-                                       data-th-name="number" data-th-text="#{generator.error.number.field}" data-th-errorclass="lvg-error"></p>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-3">
-
-                                <div class="form-group">
-                                    <label for="raspDate" data-th-text="#{generator.raspDate.field}">Дата
-                                        распоряжения</label>
-                                    <input type="date" data-th-field="*{date}" class="form-control" id="raspDate"
-                                           data-th-placeholder="#{generator.raspDate.field}"/>
-                                    <p data-th-if="${#fields.hasErrors('date')}" data-th-error="*{date}" data-th-name="date"
-                                       data-th-text="#{generator.error.date.field}" data-th-errorclass="lvg-error"></p>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label for="variantCount" data-th-text="#{generator.variantCount.field}">Количество
-                                        вариантов</label>
-                                    <input type="text" data-th-field="*{variantCount}" class="form-control"
-                                           id="variantCount" data-th-placeholder="#{generator.variantCount.field}"/>
-                                    <p data-th-if="${#fields.hasErrors('variantCount')}" data-th-error="*{variantCount}"
-                                       data-th-name="variantCount"
-                                       data-th-text="#{generator.error.variantCount.field}" data-th-errorclass="lvg-error"></p>
-                                </div>
-                            </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form action="#" data-th-action="@{/generator}" data-th-object="${order}" method="POST">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p class="h4" data-th-text="#{generator.methodNDT.title(*{ndtMethod})}">Метод НК: </p>
                         </div>
+                        <input type="hidden" data-th-field="*{ndtMethod}" data-th-value="*{ndtMethod}">
+                        <div class="panel-body">
 
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" data-th-field="*{isTotalTest}" class="custom-control-input"/>
-                                    <label class="custom-control-label" data-th-for="*{isTotalTest}"
-                                           data-th-text="#{generator.isTotalTest.field}">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="raspNumber" data-th-text="#{generator.raspNumber.field}">Номер
+                                        распоряжения</label>
+                                        <input data-th-field="*{number}" class="form-control"
+                                        aria-describedby="msgRapNumber"
+                                        id="raspNumber"
+                                        data-th-class="${#fields.hasErrors('number')?'form-control is-invalid':'form-control'}"
+                                        data-th-placeholder="#{generator.raspNumber.field}"/>
+                                        <div id="msgRapNumber" class="invalid-feedback"
+                                        data-th-if="${#fields.hasErrors('number')}" data-th-error="*{number}"
+                                        data-th-name="number" data-th-text="#{generator.error.number.field}"
+                                        data-th-errorclass="lvg-error"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-3">
+
+                                    <div class="form-group">
+                                        <label for="raspDate" data-th-text="#{generator.raspDate.field}">Дата
+                                        распоряжения</label>
+                                        <input type="date" data-th-field="*{date}" class="form-control" id="raspDate"
+                                        aria-describedby="msgRaspDate"
+                                        data-th-class="${#fields.hasErrors('date')?'form-control is-invalid':'form-control'}"
+                                        data-th-placeholder="#{generator.raspDate.field}"/>
+                                        <div id="msgRaspDate" class="invalid-feedback"
+                                        data-th-if="${#fields.hasErrors('date')}" data-th-error="*{date}"
+                                        data-th-name="date"
+                                        data-th-text="#{generator.error.date.field}"
+                                        data-th-errorclass="lvg-error"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="variantCount" data-th-text="#{generator.variantCount.field}">Количество
+                                        вариантов</label>
+                                        <input type="text" data-th-field="*{variantCount}" class="form-control"
+                                        aria-describedby="msgVariantCount"
+                                        id="variantCount"
+                                        data-th-class="${#fields.hasErrors('variantCount')?'form-control is-invalid':'form-control'}"
+                                        data-th-placeholder="#{generator.variantCount.field}"/>
+                                        <div id="msgVariantCount" class="invalid-feedback"
+                                        data-th-if="${#fields.hasErrors('variantCount')}"
+                                        data-th-error="*{variantCount}"
+                                        data-th-name="variantCount"
+                                        data-th-text="#{generator.error.variantCount.field}"
+                                        data-th-errorclass="lvg-error"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row form-group">
+                                <div class="col-lg-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" id="isTotalTest" class="custom-control-input"
+                                        data-th-field="*{isTotalTest}"/>
+                                        <label for="isTotalTest" class="custom-control-label"
+                                        data-th-text="#{generator.isTotalTest.field}">
                                         Общий экзамен
                                     </label>
                                 </div>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" data-th-field="*{isSpecTest}" class="custom-control-input"/>
-                                    <label class="custom-control-label" data-th-for="*{isSpecTest}"
-                                           data-th-text="#{generator.isSpecTest.field}">
-                                        Специальный экзамен общая часть
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" data-th-field="*{is6sector}" class="custom-control-input"/>
-                                    <label class="custom-control-label" data-th-for="*{is6sector}"
-                                           data-th-text="#{generator.is6sector.field}">
-                                        Специальный экзамен общая часть
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" data-th-field="*{is7sector}" class="custom-control-input"/>
-                                    <label class="custom-control-label" data-th-for="*{is7sector}"
-                                           data-th-text="#{generator.is7sector.field}">
-                                        Специальный экзамен общая часть
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" data-th-field="*{is8sector}" class="custom-control-input"/>
-                                    <label class="custom-control-label" data-th-for="*{is8sector}"
-                                           data-th-text="#{generator.is8sector.field}">
-                                        Специальный экзамен общая часть
-                                    </label>
-                                </div>
-                                <label class="control-label" for="selectReportType">Формат
-                                    отчета</label>
-                                <select class="form-control" id="selectReportType" disabled="disabled">
-                                    <option>Excel</option>
-                                    <option>PDF</option>
-                                </select>
+                                    <input type="checkbox" id="isSpecTest" data-th-field="*{isSpecTest}"
+                                    class="custom-control-input"/>
+                                    <label for="isSpecTest" class="custom-control-label"
+                                    data-th-text="#{generator.isSpecTest.field}">
+                                    Специальный экзамен общая часть
+                                </label>
                             </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" id="is6sector" data-th-field="*{is6sector}"
+                                class="custom-control-input"/>
+                                <label for="is6sector" class="custom-control-label"
+                                data-th-text="#{generator.is6sector.field}">
+                                Специальный экзамен общая часть
+                            </label>
                         </div>
-
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" id="is7sector" data-th-field="*{is7sector}"
+                            class="custom-control-input"/>
+                            <label for="is7sector" class="custom-control-label"
+                            data-th-text="#{generator.is7sector.field}">
+                            Специальный экзамен общая часть
+                        </label>
                     </div>
-                    <div class="panel-footer">
-                        <input class="btn btn-primary" type="submit" value="Создать">
-                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="is8sector" data-th-field="*{is8sector}"
+                        class="custom-control-input"/>
+                        <label for="is8sector" class="custom-control-label"
+                        data-th-text="#{generator.is8sector.field}">
+                        Специальный экзамен общая часть
+                    </label>
                 </div>
-            </form>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-lg-2">
+                <label class="control-label" for="selectReportType">Формат
+                отчета</label>
+                <select class="form-control" id="selectReportType" disabled="disabled">
+                    <option>Excel</option>
+                    <option>PDF</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <input class="btn btn-primary" type="submit" value="Создать">
         </div>
     </div>
+</div>
+</form>
+</div>
+</div>
 </div>
 
 <div data-th-fragment="report">
@@ -142,106 +167,108 @@
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="raspNumber" data-th-text="#{report.form.raspNumber}">Распоряжение №</label>
-                            <input id="raspNumber" class="form-control" type="text"
-                                   data-th-field="*{number}" disabled="disabled"/>
+                            <input id="raspNumber" class="form-control is-valid" type="text"
+                            data-th-field="*{number}" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="raspDate" data-th-text="#{report.form.raspDate}">Дата</label>
-                            <input id="raspDate" data-th-field="*{date}" class="form-control" type="text"
-                                   disabled="disabled"/>
+                            <input id="raspDate" data-th-field="*{date}" class="form-control is-valid" type="text"
+                            disabled="disabled"/>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="variantCount" data-th-text="#{report.form.variantCount}">Количество
-                                вариантов</label>
-                            <input id="variantCount" class="form-control" type="text" data-th-field="*{variantCount}"
-                                   disabled="disabled"/>
+                            вариантов</label>
+                            <input id="variantCount" class="form-control is-valid" type="text"
+                            data-th-field="*{variantCount}"
+                            disabled="disabled"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group" data-th-if="*{isTotalTest}">
-                            <label><i class="fa fa-check lvg-checked"></i><span
-                                    data-th-text="#{report.form.isTotalTest}">Общий экзамен</span></label>
-                        </div>
-
-                        <div class="form-group" data-th-if="*{isSpecTest}">
-                            <label><i class="fa fa-check lvg-checked"></i><span
-                                    data-th-text="#{report.form.isSpecTest}">Специальный экзамен</span></label>
-                        </div>
-
-                        <div class="form-group" data-th-if="*{is6sector}">
-                            <label><i class="fa fa-check lvg-checked"></i> <span
-                                    data-th-text="#{report.form.is6sector}">6-й сектор</span></label>
-                        </div>
-
-                        <div class="form-group" data-th-if="*{is7sector}">
-                            <label><i class="fa fa-check lvg-checked"></i> <span
-                                    data-th-text="#{report.form.is7sector}"> 7-й сектор</span></label>
-                        </div>
-
-                        <div class="form-group" data-th-if="*{is8sector}">
-                            <label><i class="fa fa-check lvg-checked"></i> <span
-                                    data-th-text="#{report.form.is8sector}">8-й сектор</span></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row tcreator-print-hide">
-            <div class="col-lg-3">
-                <input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled"/>
-            </div>
-        </div>
-        <div class="row tcreator-print-hide">
-            <div class="col-lg-12">
-                <div id="lvg-separator"></div>
-            </div>
-        </div>
-        <div class="row" data-th-each="test : ${tests}">
-            <div class="col-lg-12">
-
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <p class="h3" data-th-text="|${test.title}  ${order.ndtMethod}|">Экзамен &nbsp;&nbsp;&nbsp;&nbsp;Метод
-                            - </p>
-                        <p class="h4 text-right" data-th-text="#{report.test.variantNumber(${test.variantNumber})}">
-                            Вариант: 1</p>
-                    </div>
-                    <div class="panel-body">
-
-                        <dl data-th-each="question : ${test.questions}">
-                            <dt data-th-text="${question.questionText}"></dt>
-                            <div data-th-each="line : ${question.getVariantKeys()}">
-                                <dd data-th-text="${line}">line</dd>
+                            <label><i class="fa fa-check" style="color:#28a745"></i><span
+                                data-th-text="#{report.form.isTotalTest}">Общий экзамен</span></label>
                             </div>
-                        </dl>
-                        
-                    </div>
-                    <div class="panel-footer">
-                        <p data-th-text="|id:${test.id} Распоряжение № ${order.number}|">id:${test.id } Распоряжение №
-                            ${order.number}</p>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-    </form>
+                            <div class="form-group" data-th-if="*{isSpecTest}">
+                                <label><i class="fa fa-check" style="color:#28a745"></i><span
+                                    data-th-text="#{report.form.isSpecTest}">Специальный экзамен</span></label>
+                                </div>
+
+                                <div class="form-group" data-th-if="*{is6sector}">
+                                    <label><i class="fa fa-check" style="color:#28a745"></i> <span
+                                        data-th-text="#{report.form.is6sector}">6-й сектор</span></label>
+                                    </div>
+
+                                    <div class="form-group" data-th-if="*{is7sector}">
+                                        <label><i class="fa fa-check" style="color:#28a745"></i> <span
+                                            data-th-text="#{report.form.is7sector}"> 7-й сектор</span></label>
+                                        </div>
+
+                                        <div class="form-group" data-th-if="*{is8sector}">
+                                            <label><i class="fa fa-check" style="color:#28a745"></i> <span
+                                                data-th-text="#{report.form.is8sector}">8-й сектор</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tcreator-print-hide">
+                                <div class="col-lg-3">
+                                    <input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled"/>
+                                </div>
+                            </div>
+                            <div class="row tcreator-print-hide">
+                                <div class="col-lg-12">
+                                    <div id="lvg-separator"></div>
+                                </div>
+                            </div>
+                            <div class="row" data-th-each="test : ${tests}">
+                                <div class="col-lg-12">
+
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <p class="h3" data-th-text="|${test.title}  ${order.ndtMethod}|">Экзамен &nbsp;&nbsp;&nbsp;&nbsp;Метод
+                                            - </p>
+                                            <p class="h4 text-right" data-th-text="#{report.test.variantNumber(${test.variantNumber})}">
+                                            Вариант: 1</p>
+                                        </div>
+                                        <div class="panel-body">
+
+                                            <dl data-th-each="question : ${test.questions}">
+                                                <dt data-th-text="${question.questionText}"></dt>
+                                                <div data-th-each="line : ${question.getVariantKeys()}">
+                                                    <dd data-th-text="${line}">line</dd>
+                                                </div>
+                                            </dl>
+
+                                        </div>
+                                        <div class="panel-footer">
+                                            <p data-th-text="|id:${test.id} Распоряжение № ${order.number}|">id:${test.id } Распоряжение №
+                                            ${order.number}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
 </div>
 
 <div data-th-fragment="main">
-    <p class="h4" data-th-text="#{home.main.greeting}">Добро пожаловать на сайт аттестационного центра по неразрушающему контролю.</p>
-    <p class="h4" data-th-text="#{home.main.start_work}">Для начала работы в главном меню выберите сервис</p>
+                        <p class="h4" data-th-text="#{home.main.greeting}">Добро пожаловать на сайт аттестационного центра по неразрушающему
+                        контролю.</p>
+                        <p class="h4" data-th-text="#{home.main.start_work}">Для начала работы в главном меню выберите сервис</p>
 </div>
 
 <div data-th-fragment="error">
-    <p class="lvg-error" data-th-text="#{error.global.title}">ERROR</p>
-    <p data-th-text="#{error.global.code(${ErrorCode})}"></p>
-    <p data-th-text="${ErrorMessage}"></p>
+                        <p class="lvg-error" data-th-text="#{error.global.title}">ERROR</p>
+                        <p data-th-text="#{error.global.code(${ErrorCode})}"></p>
+                        <p data-th-text="${ErrorMessage}"></p>
 </div>
 
 <div data-th-fragment="statistic">
@@ -253,52 +280,100 @@
     </div>
 
 
-    <form action="#" data-th-action="@{/}" >
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-lg-10 text-left">
-                        <label class="h4" data-th-text="#{'Method NDT'}">Метод НК: </label>
+   <div data-th-if="${fileLoaded} == null">
+        <form action="#" data-th-action="@{/uploadStatSrcXLS}" enctype="multipart/form-data" method="POST">
+            <div class="row">
+            
+                <div class="form-group col-lg-12 text-left">
+                    <label class="h5" data-th-text="#{statistic.main.upload.form.title}">Загрузить файл excel</label>
+                </div>
+            
+           </div> 
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="inputFileXLS" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
+                            />
+                            <label id="labelInputFileXLS" class="custom-file-label" for="inputFileXLS" data-th-text="#{statistic.main.upload.form.inputFile.title}" 
+                            data-th-data-browse="#{statistic.main.upload.form.inputFile.button}">Choose file</label>                        
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Загрузить"/>
                     </div>
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="raspNumber" data-th-text="#{report.form.raspNumber}">Распоряжение №</label>
-                           
+                <div class="col-lg-2"></div>
+
+                <div class="col-lg-4">
+                    <div class="card border-warning mb-3" style="max-width: 18rem;">
+                        <div class="card-header text-white bg-warning" >
+                            <h6>
+                                <i class="fa fa-exclamation-triangle"></i>
+                                <span data-th-text="#{statistic.main.warnCard.header}"></span>
+                            </h6>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="raspDate" data-th-text="#{report.form.raspDate}">Дата</label>
-                            
+                        <div class="card-body">
+                            <h5 class="card-title" data-th-text="#{statistic.main.warnCard.title}">Warning card title</h5>
+                            <p class="card-text" data-th-text="#{statistic.main.warnCard.text}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary" 
+                                data-th-text="#{statistic.main.warnCard.downloadLink}">Download template</a>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="variantCount" data-th-text="#{report.form.variantCount}">Количество
-                                вариантов</label>
-                           
-                        </div>
-                    </div>
+                      </div>
                 </div>
-               
-            </div>
-        </div>
-        <div class="row tcreator-print-hide">
-            <div class="col-lg-3">
-                <input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled"/>
-            </div>
-        </div>
+            </div>        
+       
+        
         <div class="row tcreator-print-hide">
             <div class="col-lg-12">
                 <div id="lvg-separator"></div>
             </div>
         </div>
+
+        </form>
+    </div>
+    <div data-th-if="${fileLoaded}">
         
-    </form>
+        <div class="row alert alert-success" role="alert">
+            <div class="col-lg-4 ">
+                <h5 data-th-text="#{statistic.order.number(${currentStatistic.Order.getNumber()})} "></h5>
+             </div>
+             <div class="col-lg-4 ">
+                <h5 data-th-text="#{statistic.order.date(
+                    ${#temporals.format(currentStatistic.Order.getDate(),'dd.MM.yyyy')})}"></h5>
+             </div>
+             <div class="col-lg-4 ">
+                <h5 data-th-text="#{statistic.order.method.+${currentStatistic.Order.getNdtMethod()}}"></h5>
+             </div>
+        </div>
+        <div class="row alert alert-info" role="alert">
+            <div class="col" 
+            data-th-text="#{statistic.main.successUpload.title(${fileName})}">Success card title</div>
+        </div>
+        
+        <div data-th-if="${currentStatistic}!= null">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" >
+                <div class="card-text" data-th-each="ticket : ${currentStatistic.getExamTickets()}">
+                    <div class="col">
+                        <div class="card border-success mb-3" style="max-width: 36rem;">
+                            <div class="card-header text-white bg-success" data-th-text="#{statistic.main.successUpload.ticket.+${ticket.testTypes}}">Header</div>
+                            <div class="card-body text-success">
+                                <h6 class="card-title" data-th-text="#{statistic.main.successUpload.ticket.number(
+                                    ${ticket.number}
+                                )}"></h6>
+                                <div data-th-each="question : ${ticket.questions}">
+                                     <a data-th-text="${question.number}"></a>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    
+
 </div>
 
 </body>

@@ -5,42 +5,51 @@
 </head>
 <body>
 <div data-th-fragment="menu">
-    <nav class="navbar navbar-default">
-        <div id="lvg-main-menu" class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed"
-                        data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1"
-                        aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand"  href='#' data-th-href="@{/}">TCreator</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li ><a href='#' data-th-href="@{/}">Главная<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#" data-th-href="@{/statistic}" data-th-text="#{main.menu.btStatistic}">Статистика</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-th-text="#{main.menu.btGenerator}">Генератор тестов<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href='#' data-th-href="@{/generator?method=VT}">VT (визуально-оптический)</a></li>
-                            <li><a href='#' data-th-href="@{/generator?method=PT}">PT (капиллярный)</a></li>
-                            <li><a href='#' data-th-href="@{/generator?method=MT}">MT (магнитопорошковый)</a></li>
-                            <li><a href='#' data-th-href="@{/generator?method=UT}">UT (ультразвуковой)</a></li>
-                            <li><a href='#' data-th-href="@{/generator?method=RT}">RT (радиографический)</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Настройки</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#" data-th-href="@{/}">TCreator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-th-href="@{/}" data-th-text="#{main.menu.btMain}">Главная <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-th-href="@{/statistic}" data-th-text="#{main.menu.btStatistic}">Статистика</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                       data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"
+                       data-th-text="#{main.menu.btGenerator}">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="#" data-th-href="@{/generator?method=VT}"
+                           data-th-text="#{main.menu.btVT}">VT - Визуально-оптический</a>
+                        <a class="dropdown-item" href="#" data-th-href="@{/generator?method=PT}"
+                           data-th-text="#{main.menu.btPT}">PT - Капиллярный</a>
+                        <a class="dropdown-item" href="#" data-th-href="@{/generator?method=MT}"
+                           data-th-text="#{main.menu.btMT}">MT - Магнитопорошковый</a>
+                        <a class="dropdown-item" href="#" data-th-href="@{/generator?method=UT}"
+                           data-th-text="#{main.menu.btUT}">UT - Ультразвуковой</a>
+                        <a class="dropdown-item" href="#" data-th-href="@{/generator?method=RT}"
+                           data-th-text="#{main.menu.btRT}">RT - Радиографический</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+
         </div>
     </nav>
+
 </div>
 </body>
 </html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<form action="/generator" method="POST">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <p class="h4">Метод контроля - VT</p>
+                    </div>
+                    <input type="hidden" value="VT" id="ndtMethod" name="ndtMethod">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="raspNumber">Номер распоряжения</label>
+                                    <input class="form-control"
+                                           id="raspNumber" placeholder="Номер распоряжения" name="number" value="04/01"/>
+                                    
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-3">
+
+                                <div class="form-group">
+                                    <label for="raspDate">Дата распоряжения</label>
+                                    <input type="date" class="form-control" id="raspDate"
+                                           placeholder="Дата распоряжения" name="date" value="17.04.2020"/>
+                                    
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="variantCount">Количество вариантов</label>
+                                    <input type="text" class="form-control"
+                                           id="variantCount" placeholder="Количество вариантов" name="variantCount" value="1"/>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="isTotalTest1" name="isTotalTest" value="true" checked="checked"/><input type="hidden" name="_isTotalTest" value="on"/>
+                                    <label class="custom-control-label" for="true">Общий экзамен</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="isSpecTest1" name="isSpecTest" value="true" checked="checked"/><input type="hidden" name="_isSpecTest" value="on"/>
+                                    <label class="custom-control-label" for="true">Специальный экзамен общая часть</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="is6sector1" name="is6sector" value="true"/><input type="hidden" name="_is6sector" value="on"/>
+                                    <label class="custom-control-label" for="false">6-й сектор</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="is7sector1" name="is7sector" value="true"/><input type="hidden" name="_is7sector" value="on"/>
+                                    <label class="custom-control-label" for="false">7-й сектор</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="is8sector1" name="is8sector" value="true"/><input type="hidden" name="_is8sector" value="on"/>
+                                    <label class="custom-control-label" for="false">8-й сектор</label>
+                                </div>
+                                <label class="control-label" for="selectReportType">Формат
+                                    отчета</label>
+                                <select class="form-control" id="selectReportType" disabled="disabled">
+                                    <option>Excel</option>
+                                    <option>PDF</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <input class="btn btn-primary" type="submit" value="Создать">
+                    </div>
+                </div>
+            </form>
+	</body>
+</html>

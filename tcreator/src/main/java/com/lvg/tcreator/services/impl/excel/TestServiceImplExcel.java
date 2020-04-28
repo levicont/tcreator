@@ -42,34 +42,6 @@ public class TestServiceImplExcel implements TestService{
 		this.path = path;
 	}
 
-
-
-	@Override
-	public void save(Test record) {
-		throw new UnsupportedOperationException();	
-	}
-
-	@Override
-	public Test get(long id) {
-		throw new UnsupportedOperationException();	
-	}
-	
-	
-
-	public List<Test> getAll() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void update(Test record) {
-		throw new UnsupportedOperationException();			
-	}
-
-	@Override
-	public void delete(Test record) {
-		throw new UnsupportedOperationException();	
-	}
-
 	@Override
 	public void saveAll(List<Test> testList) {		
 		FileOutputStream out = null;		

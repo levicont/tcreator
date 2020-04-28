@@ -12,6 +12,10 @@ public class Question implements Comparable<Question>{
 		this.number = 0;
 	}
 
+	public Question(int number){
+		this.number = number;
+	}
+
 	public int getNumber() {
 		return number;
 	}

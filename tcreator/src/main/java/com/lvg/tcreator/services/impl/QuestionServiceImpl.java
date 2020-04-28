@@ -13,7 +13,7 @@ import com.lvg.tcreator.services.QuestionService;
 
 public abstract class QuestionServiceImpl implements QuestionService{	
 	
-	protected static Map<TestTypes, Integer> srcSheetMap = new HashMap<TestTypes, Integer>();
+	protected static Map<TestTypes, Integer> srcSheetMap = new HashMap<>();
 	
 	static {
 		srcSheetMap.put(TestTypes.TOTAL_TEST, 0);
@@ -27,7 +27,7 @@ public abstract class QuestionServiceImpl implements QuestionService{
 	public Set<Question> getRandomQuestionFromList(List<Question> questList, int countQuestions) {
 		if (questList.size() < countQuestions)
 			throw new IllegalArgumentException("Question base size less than count of questions.");
-		Set<Question> result = new TreeSet<Question>();
+		Set<Question> result = new TreeSet<>();
 
 		while (result.size() < countQuestions) {
 			int index = generateIndex(questList.size());
@@ -38,8 +38,7 @@ public abstract class QuestionServiceImpl implements QuestionService{
 	
 	protected int generateIndex(int max) {
 		Random random = new Random();
-		int num = random.nextInt(max);
-		return num;
+		return random.nextInt(max);
 	}
 	
 	
@@ -55,34 +54,5 @@ public abstract class QuestionServiceImpl implements QuestionService{
 			throw new RuntimeException("INVALID STRING PARAMETER");
 		}
 		return Integer.parseInt(num);
-	}	
-	
-	
-	@Override
-	public void save(Question record) {
-		throw new UnsupportedOperationException();
-		
-	}
-
-	@Override
-	public Question get(long id) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public List<Question> getAll() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void update(Question record) {
-		throw new UnsupportedOperationException();
-		
-	}
-
-	@Override
-	public void delete(Question record) {
-		throw new UnsupportedOperationException();
-		
 	}
 }
