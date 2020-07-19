@@ -260,9 +260,19 @@
 </div>
 
 <div data-th-fragment="main">
-                        <p class="h4" data-th-text="#{home.main.greeting}">Добро пожаловать на сайт аттестационного центра по неразрушающему
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card bg-info mb-3" >
+                <div class="card-body text-white">
+                    <p class="h6" data-th-text="#{home.main.greeting}">Добро пожаловать на сайт аттестационного центра по неразрушающему
                         контролю.</p>
-                        <p class="h4" data-th-text="#{home.main.start_work}">Для начала работы в главном меню выберите сервис</p>
+                    <p class="h6" data-th-text="#{home.main.start_work}">Для начала работы в главном меню выберите сервис</p>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 
 <div data-th-fragment="error">
@@ -353,23 +363,84 @@
         </div>
         
         <div data-th-if="${currentStatistic}!= null">
+            <form>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" >
+                
                 <div class="card-text" data-th-each="ticket : ${currentStatistic.getExamTickets()}">
                     <div class="col">
                         <div class="card border-success mb-3" style="max-width: 36rem;">
+                            
                             <div class="card-header text-white bg-success" data-th-text="#{statistic.main.successUpload.ticket.+${ticket.testTypes}}">Header</div>
-                            <div class="card-body text-success">
-                                <h6 class="card-title" data-th-text="#{statistic.main.successUpload.ticket.number(
-                                    ${ticket.number}
-                                )}"></h6>
-                                <div data-th-each="question : ${ticket.questions}">
-                                     <a data-th-text="${question.number}"></a>
-                                </div>
+                            <div class="card-body ">
+                                    
+                                    <table class="table table-borderless my-0.5">
+                                        <thead></thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h6 class="card-title" data-th-text="#{statistic.main.successUpload.ticket.number(
+                                                        ${ticket.number}
+                                                    )}"></h6>
+                                                </td>
+                                                <td class="text-right">
+                                                    <h6 class="card-title" data-th-text="#{statistic.main.successUpload.ticket.questionsCount(
+                                                        ${ticket.questions.size()}
+                                                    )}"></h6>
+                                                </td>
+                                            </tr>
+                                        </tbody>                                    
+                                    </table>
+                                    <!--table class="table table-sm">
+                                        <thead>
+                                            <th data-th-text="#{statistic.main.successUpload.ticket.tbl.questionNumber}" >№ вопроса</th>
+                                            <th class="text-center" data-th-text="#{statistic.main.successUpload.ticket.tbl.incorrectQuestions}">Неверных ответов</th>
+                                        </thead>
+                                        
+                                        <tbody>                                        
+                                            <div data-th-each="question : ${ticket.questions}">
+                                                <tr class="form-row">
+                                                    <td data-th-text="${question.number}"></td>
+                                                    <td class="text-center">0</td>
+                                                </tr>                                            
+                                           </div>
+                                           <tr class="form-row">
+                                               <td data-th-text="#{statistic.main.successUpload.ticket.tbl.ticketTotalCount}">Всего билетов</td>
+                                               <td class="text-right">
+                                                    <input class="form-control" type="number" >
+                                                </td>
+                                           </tr>
+                                        </tbody>
+    
+                                    </table -->
+                                    <div class="form-row">
+                                        <label class="col-5 col-form-label" data-th-text="#{statistic.main.successUpload.ticket.tbl.questionNumber}" ></label>
+                                        <label class="col-7 col-form-label" data-th-text="#{statistic.main.successUpload.ticket.tbl.incorrectQuestions}" ></label>
+                                    </div>
+                                    <div data-th-each="question : ${ticket.questions}">
+                                        <div class="form-row my-1">
+                                            <label class="col-5 col-form-label" data-th-text="${question.number}"></label>
+                                            <input class="col-7 form-control" type="number" value="0" aria-valuemin="0">
+                                        </div>                                            
+                                   </div>
+                                       
+                                    
                             </div>
-                         </div>
+                            <div class="card-footer">
+                                <div class="form-row mt-2">
+                                    <label class="col-5 col-form-label" data-th-text="#{statistic.main.successUpload.ticket.tbl.ticketTotalCount}"></label>
+                                    <input class="col-7 form-control" type="number" value="1" aria-valuemin="0">
+                                </div> 
+                            </div>
+                        </div>
                     </div>
                 </div>
              </div>
+             <div class="row my-3">
+                 <div class="col">
+                    <input class="btn btn-primary" type="submit" value="Сохранить">
+                 </div>
+             </div>
+            </form>
         </div>
     </div>
     

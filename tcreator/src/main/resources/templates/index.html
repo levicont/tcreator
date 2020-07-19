@@ -24,13 +24,10 @@
 <div id="content" class="container-fluid">
     <div id="main">
         <div id="header" class="page-header">
-            <div data-th-include="header::header" />
             <div data-th-include="main_menu::menu" />
         </div>
         <div id="all" role="main">
-            <!--div class="container"-->
                 <div data-th-include="~{body::${body_content}}"/>
-            <!--/div-->
         </div>
         <!-- END ALL -->
 
