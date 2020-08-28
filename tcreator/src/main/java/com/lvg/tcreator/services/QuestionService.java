@@ -8,6 +8,7 @@ import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.TestTypes;
 
 public interface QuestionService  {
-	public Set<Question> getRandomQuestionFromList(List<Question> questions, int count);
-	public List<Question> getAllQuestion(NdtMethod ndtMethod, TestTypes testType);
+	Set<Question> getRandomQuestionFromList(List<Question> questions, int count);
+	List<Question> getAllQuestion(NdtMethod ndtMethod, TestTypes testType);
+
 }

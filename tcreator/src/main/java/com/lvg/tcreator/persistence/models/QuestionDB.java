@@ -13,7 +13,7 @@ import java.util.*;
  */
 @Entity
 @Table(name = "QUESTION")
-public class QuestionDB implements Serializable {
+public class QuestionDB implements ModelDB {
 
     @Id
     @GeneratedValue(generator = Constants.ID_GENERATOR)
@@ -78,14 +78,16 @@ public class QuestionDB implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         QuestionDB that = (QuestionDB) o;
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getNumber(), that.getNumber()) &&
-                Objects.equals(getText(), that.getText());
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (number != null ? !number.equals(that.number) : that.number != null) return false;
+        return text != null ? text.equals(that.text) : that.text == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNumber(), getText());
+        return 31;
     }
 }
