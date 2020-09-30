@@ -6,6 +6,7 @@ import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.services.OrderService;
 import com.lvg.tcreator.utils.Validator;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -23,6 +24,9 @@ import static com.lvg.tcreator.config.R.ExcelProps.EXCEL_SHEET_ORDER_NAME;
 @Component
 public class OrderServiceXLS implements OrderService {
 
+    @Autowired
+    Validator validator;
+
     @Override
     public Order loadFromFile(byte[] file) {
         InputStream in = new ByteArrayInputStream(file);
@@ -30,7 +34,7 @@ public class OrderServiceXLS implements OrderService {
 
         try {
             workbook = WorkbookFactory.create(in);
-            Validator.validateStatisticExcelFile(workbook);
+            validator.validateStatisticExcelFile(workbook);
         }catch (IOException ex){
             ex.printStackTrace();
         }

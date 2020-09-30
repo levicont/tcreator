@@ -3,9 +3,7 @@ package com.lvg.tcreator.models;
 
 import com.lvg.tcreator.exceptions.TCreatorException;
 import com.lvg.tcreator.persistence.models.OrderDB;
-import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.services.OrderService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +48,9 @@ public class OrderTest {
         order.setDate(LocalDate.now());
         service.save(order);
         OrderDB updatedOrder = service.find(id);
-        assertEquals(number, updatedOrder.getNumber());
-        assertEquals(method, updatedOrder.getNdtMethod());
-        assertEquals(date, updatedOrder.getDate());
+        assertNotEquals(number, updatedOrder.getNumber());
+        assertNotEquals(method, updatedOrder.getNdtMethod());
+        assertNotEquals(date, updatedOrder.getDate());
     }
 
     @Test(expected = TCreatorException.class)

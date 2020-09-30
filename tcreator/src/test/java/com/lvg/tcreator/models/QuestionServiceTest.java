@@ -1,28 +1,37 @@
 package com.lvg.tcreator.models;
 
+import com.lvg.tcreator.GenericTest;
 import com.lvg.tcreator.exceptions.TCreatorException;
 import com.lvg.tcreator.persistence.models.AnswerVariantDB;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.services.QuestionService;
+import com.lvg.tcreator.services.impl.QuestionServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import sun.net.www.content.text.Generic;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
 
-@SpringBootTest
-@RunWith(SpringJUnit4ClassRunner.class)
+
 @Transactional
-public class QuestionServiceTest {
+public class QuestionServiceTest extends GenericTest{
+
 
     @Autowired
     QuestionService service;
+    @Autowired
+    QuestionServiceImpl modelService;
 
     @Test
     public void saveQuestionTest() {
@@ -86,5 +95,42 @@ public class QuestionServiceTest {
         Long count = (long)result.size();
         assertEquals(count, (Long) service.count());
     }
+
+    @Test
+    public void storeAllQuestionsTest(){
+        long count = service.count();
+        modelService.storeAllQuestionsInDB();
+        assertNotEquals(count, (long)service.findAll().size());
+    }
+
+    @Test
+    public void findByNumberTestTypesNdtNumberTest() {
+        deleteAllQuestionsFromDB();
+
+        QuestionDB question = ModelsGenerator.getQuestionDB();
+        assertNull(question.getId());
+        service.save(question);
+        assertNotNull(question.getId());
+        QuestionDB questionDB = service.findByNumberTestTypesNdtMethod(question.getNumber(),
+                question.getTestTypes(), question.getNdtMethod());
+        assertEquals(question.getId(), questionDB.getId());
+    }
+
+    @Test
+    public void findByNdtMethodTest(){
+        deleteAllQuestionsFromDB();
+        modelService.storeAllQuestionsInDB();
+        List<QuestionDB> utQuestions = service.findByNdtMethod(NdtMethod.UT);
+        assertNotEquals(0,utQuestions.size());
+        Set<NdtMethod> methods = new HashSet<>();
+        utQuestions.forEach(q -> methods.add(q.getNdtMethod()));
+
+        assertEquals(1,methods.size());
+    }
+
+
+
+
+
 
 }

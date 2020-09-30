@@ -10,5 +10,6 @@ import com.lvg.tcreator.models.TestTypes;
 public interface QuestionService  {
 	Set<Question> getRandomQuestionFromList(List<Question> questions, int count);
 	List<Question> getAllQuestion(NdtMethod ndtMethod, TestTypes testType);
-
+	List<Question> findByNdtMethod(NdtMethod ndtMethod);
+	void storeAllQuestionsInDB();
 }

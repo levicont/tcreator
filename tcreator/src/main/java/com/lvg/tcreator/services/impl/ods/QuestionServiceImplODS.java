@@ -15,7 +15,9 @@ import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.services.impl.QuestionServiceImpl;
+import org.springframework.stereotype.Component;
 
+@Component
 public class QuestionServiceImplODS extends QuestionServiceImpl {
 	private static final String ODS_FILE_SUFFIX = "-II.ods";
 	private static final String RESOURCE_PATH = "/ods/";

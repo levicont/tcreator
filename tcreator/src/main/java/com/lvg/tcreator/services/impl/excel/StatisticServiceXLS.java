@@ -30,6 +30,8 @@ public class StatisticServiceXLS implements StatisticService {
 
     @Autowired
     OrderService orderService;
+    @Autowired
+    Validator validator;
 
     @Override
     public Statistic loadFromFile(byte[] file) {
@@ -38,7 +40,7 @@ public class StatisticServiceXLS implements StatisticService {
         try {
             in = new ByteArrayInputStream(file);
             wb = WorkbookFactory.create(in);
-            Validator.validateStatisticExcelFile(wb);
+            validator.validateStatisticExcelFile(wb);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

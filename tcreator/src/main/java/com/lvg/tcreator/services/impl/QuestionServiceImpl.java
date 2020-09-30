@@ -1,18 +1,20 @@
 package com.lvg.tcreator.services.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
+import com.lvg.tcreator.converters.QuestionModelConverter;
+import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.TestTypes;
+import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.services.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class QuestionServiceImpl implements QuestionService{	
-	
+
+	@Autowired
+	private com.lvg.tcreator.persistence.services.QuestionService service;
+
 	protected static Map<TestTypes, Integer> srcSheetMap = new HashMap<>();
 	
 	static {
@@ -43,7 +45,7 @@ public abstract class QuestionServiceImpl implements QuestionService{
 	
 	
 	protected int getNumberQuestionFromFirstRow(String firstRow) {
-		String num = "-1";
+		String num;
 		try {
 			num = firstRow.substring(0, firstRow.indexOf(". "));
 		} catch (StringIndexOutOfBoundsException ex) {
@@ -54,5 +56,25 @@ public abstract class QuestionServiceImpl implements QuestionService{
 			throw new RuntimeException("INVALID STRING PARAMETER");
 		}
 		return Integer.parseInt(num);
+	}
+
+	@Override
+	public void storeAllQuestionsInDB() {
+		final List<QuestionDB> allQuestions = new ArrayList<>();
+		Arrays.stream(NdtMethod.values())
+				.forEach(ndtMethod -> Arrays.stream(TestTypes.values())
+                	.forEach(testType -> getAllQuestion(ndtMethod, testType)
+						.forEach(question -> allQuestions.add(QuestionModelConverter.getQuestionDB(question,ndtMethod,testType)))));
+
+		allQuestions.forEach(q -> service.save(q));
+	}
+
+	@Override
+	public List<Question> findByNdtMethod(NdtMethod ndtMethod) {
+		List<Question> questions = new ArrayList<>();
+		Arrays.stream(TestTypes.values())
+				.forEach(testType -> questions.addAll(getAllQuestion(ndtMethod, testType)));
+
+		return questions;
 	}
 }

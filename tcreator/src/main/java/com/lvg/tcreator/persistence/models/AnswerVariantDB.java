@@ -1,5 +1,6 @@
 package com.lvg.tcreator.persistence.models;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 @Embeddable
 public class AnswerVariantDB implements ModelDB{
 
+    @Column(columnDefinition = "text")
     private String text;
     private boolean correct;
 

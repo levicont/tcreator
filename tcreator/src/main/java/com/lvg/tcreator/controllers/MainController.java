@@ -90,6 +90,10 @@ private final String GREETING_STRING = "Добро пожаловать на с�
 						
 		});
 	}
+
+	private Boolean isValidDB(){
+		return false;
+	}
 	
 	
 	

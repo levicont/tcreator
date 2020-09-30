@@ -1,6 +1,8 @@
 package com.lvg.tcreator.persistence.services.impl;
 
 import com.lvg.tcreator.exceptions.TCreatorException;
+import com.lvg.tcreator.models.NdtMethod;
+import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.repositories.QuestionRepository;
 import com.lvg.tcreator.persistence.services.QuestionService;
@@ -43,5 +45,15 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public long count() {
         return repository.count();
+    }
+
+    @Override
+    public QuestionDB findByNumberTestTypesNdtMethod(Integer number, TestTypes testTypes, NdtMethod ndtMethod) {
+        return repository.findByNumberAndTestTypesAndNdtMethod(number, testTypes, ndtMethod);
+    }
+
+    @Override
+    public List<QuestionDB> findByNdtMethod(NdtMethod ndtMethod) {
+        return repository.findByNdtMethod(ndtMethod);
     }
 }

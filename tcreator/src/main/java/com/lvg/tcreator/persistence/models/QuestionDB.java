@@ -20,6 +20,8 @@ public class QuestionDB implements ModelDB {
     private Long id;
 
     private Integer number;
+
+    @Column(columnDefinition = "text")
     private String text;
 
     @Enumerated(EnumType.STRING)

@@ -51,7 +51,7 @@ public class ExamServiceImpl implements ExamService{
 
     @Override
     public List<ExamDB> findByOrder(OrderDB order) {
-        return null;
+        return repository.findByOrder(order);
     }
 
     @Override

@@ -81,6 +81,14 @@ public class ModelsGenerator {
         return order;
     }
 
+    public static QuestionStatisticDB getQuestionStatisticDB(){
+        QuestionStatisticDB questionStatisticDB = new QuestionStatisticDB();
+
+
+        return questionStatisticDB;
+    }
+
+
 
 
 
