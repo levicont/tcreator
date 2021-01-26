@@ -6,8 +6,9 @@ import com.lvg.tcreator.persistence.Constants;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
