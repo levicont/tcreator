@@ -66,7 +66,6 @@ public class ModelsGenerator {
 
     public static ExamDB getExamDB(){
         ExamDB exam = new ExamDB();
-        exam.setNdtMethod(NdtMethod.UT);
         exam.setOrder(getOrderDB());
         exam.setTestTypes(TestTypes.TOTAL_TEST);
         exam.addExamTicket(getExamTicketDB());

@@ -41,17 +41,14 @@ public class ExamServiceTest {
         ExamDB exam = ModelsGenerator.getExamDB();
         service.save(exam);
         Long id = exam.getId();
-        NdtMethod method = exam.getNdtMethod();
         TestTypes type = exam.getTestTypes();
         int ticketsCount = exam.getTickets().size();
 
         exam.setTestTypes(TestTypes.SPEC_6_SECTOR_TEST);
-        exam.setNdtMethod(NdtMethod.VT);
         exam.addExamTicket(ModelsGenerator.getExamTicketDB());
         service.save(exam);
 
         ExamDB newExam = service.find(id);
-        assertNotEquals(method, newExam.getNdtMethod());
         assertNotEquals(type, newExam.getTestTypes());
         assertNotEquals(ticketsCount, newExam.getTickets().size());
 

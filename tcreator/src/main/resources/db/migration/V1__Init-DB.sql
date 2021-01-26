@@ -39,6 +39,7 @@
     id bigint not null,
     ndt_method varchar(255),
     number integer,
+    enabled boolean,
     test_type varchar(255),
     text text,
     primary key (id));

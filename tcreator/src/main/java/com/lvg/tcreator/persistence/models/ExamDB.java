@@ -1,8 +1,9 @@
 package com.lvg.tcreator.persistence.models;
 
-import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.Constants;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,14 +21,11 @@ public class ExamDB  implements ModelDB{
     @Enumerated(EnumType.STRING)
     private TestTypes testTypes;
 
-    @Enumerated(EnumType.STRING)
-    private NdtMethod ndtMethod;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderDB order;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ExamTicketDB> tickets = new HashSet<>();
+    private final Set<ExamTicketDB> tickets = new HashSet<>();
 
     public void addExamTicket(ExamTicketDB ticket){
         tickets.add(ticket);
@@ -55,14 +53,6 @@ public class ExamDB  implements ModelDB{
         this.testTypes = testTypes;
     }
 
-    public NdtMethod getNdtMethod() {
-        return ndtMethod;
-    }
-
-    public void setNdtMethod(NdtMethod ndtMethod) {
-        this.ndtMethod = ndtMethod;
-    }
-
     public OrderDB getOrder() {
         return order;
     }
@@ -79,14 +69,16 @@ public class ExamDB  implements ModelDB{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ExamDB examDB = (ExamDB) o;
-
-        return id.equals(examDB.id);
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(order, examDB.order);
+        eb.append(testTypes, examDB.testTypes);
+        return eb.isEquals();
     }
 
     @Override
     public int hashCode() {
-        return 31;
+
+        return new HashCodeBuilder().append(order).append(testTypes).hashCode();
     }
 }

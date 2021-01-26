@@ -2,12 +2,11 @@ package com.lvg.tcreator.persistence.models;
 
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.persistence.Constants;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
@@ -66,14 +65,17 @@ public class OrderDB implements ModelDB {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderDB orderDB = (OrderDB) o;
-        return Objects.equals(getId(), orderDB.getId()) &&
-                getNdtMethod() == orderDB.getNdtMethod() &&
-                Objects.equals(getNumber(), orderDB.getNumber()) &&
-                Objects.equals(getDate(), orderDB.getDate());
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.append(number,orderDB.number);
+        equalsBuilder.append(date, orderDB.date);
+        equalsBuilder.append(ndtMethod, orderDB.ndtMethod);
+        return equalsBuilder.isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNdtMethod(), getNumber(), getDate());
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+        hashCodeBuilder.append(ndtMethod).append(number).append(date);
+        return hashCodeBuilder.hashCode();
     }
 }

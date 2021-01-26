@@ -3,6 +3,7 @@ package com.lvg.tcreator.persistence.models;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.Constants;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +24,8 @@ public class QuestionDB implements ModelDB {
 
     @Column(columnDefinition = "text")
     private String text;
+
+    private Boolean enabled = Boolean.TRUE;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ndt_method")
@@ -76,6 +79,14 @@ public class QuestionDB implements ModelDB {
         this.testTypes = testTypes;
     }
 
+    public Boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,13 +94,14 @@ public class QuestionDB implements ModelDB {
 
         QuestionDB that = (QuestionDB) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (number != null ? !number.equals(that.number) : that.number != null) return false;
-        return text != null ? text.equals(that.text) : that.text == null;
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(number, that.number)) return false;
+        return Objects.equals(text, that.text);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+
+        return new HashCodeBuilder().append(text).hashCode();
     }
 }
