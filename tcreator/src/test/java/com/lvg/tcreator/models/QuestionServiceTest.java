@@ -7,16 +7,9 @@ import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.services.QuestionService;
 import com.lvg.tcreator.services.impl.QuestionServiceImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import sun.net.www.content.text.Generic;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +28,7 @@ public class QuestionServiceTest extends GenericTest{
 
     @Test
     public void saveQuestionTest() {
-        QuestionDB question = ModelsGenerator.getQuestionDB();
+        QuestionDB question = GeneratorModels.getQuestionDB();
         assertNull(question.getId());
         service.save(question);
         assertNotNull(question.getId());
@@ -43,24 +36,24 @@ public class QuestionServiceTest extends GenericTest{
 
     @Test
     public void updateQuestionTest() {
-        QuestionDB question = ModelsGenerator.getQuestionDB();
+        QuestionDB question = GeneratorModels.getQuestionDB();
         service.save(question);
 
         Long id = question.getId();
-        String oldText = question.getText();
-        Integer oldNumber = question.getNumber();
+        String oldText = question.getQuestionText();
+        Integer oldNumber = question.getQuestionNumber();
         NdtMethod oldMethod = question.getNdtMethod();
         TestTypes oldTestType = question.getTestTypes();
         Set<AnswerVariantDB> oldAnswerVariants = question.getAnswerVariants();
         int oldAnswerVariantsCount = oldAnswerVariants.size();
 
-        question.setText("New text");
-        question.setNumber(1234);
+        question.setQuestionText("New text");
+        question.setQuestionNumber(1234);
         question.setNdtMethod(NdtMethod.RT);
         question.setTestTypes(TestTypes.SPEC_TEST);
 
         AnswerVariantDB newAnswerVariant = new AnswerVariantDB();
-        newAnswerVariant.setText("New variant");
+        newAnswerVariant.setAnswerText("New variant");
         newAnswerVariant.setCorrect(true);
 
         question.getAnswerVariants().add(newAnswerVariant);
@@ -69,8 +62,8 @@ public class QuestionServiceTest extends GenericTest{
 
         question = service.find(id);
 
-        assertNotEquals(oldText, question.getText());
-        assertNotEquals(oldNumber, question.getNumber());
+        assertNotEquals(oldText, question.getQuestionText());
+        assertNotEquals(oldNumber, question.getQuestionNumber());
         assertNotEquals(oldMethod, question.getNdtMethod());
         assertNotEquals(oldTestType, question.getTestTypes());
 
@@ -79,7 +72,7 @@ public class QuestionServiceTest extends GenericTest{
 
     @Test(expected = TCreatorException.class)
     public void deleteQuestionTest(){
-        QuestionDB question = ModelsGenerator.getQuestionDB();
+        QuestionDB question = GeneratorModels.getQuestionDB();
         service.save(question);
         Long id = question.getId();
         assertNotNull(id);
@@ -107,11 +100,11 @@ public class QuestionServiceTest extends GenericTest{
     public void findByNumberTestTypesNdtNumberTest() {
         deleteAllQuestionsFromDB();
 
-        QuestionDB question = ModelsGenerator.getQuestionDB();
+        QuestionDB question = GeneratorModels.getQuestionDB();
         assertNull(question.getId());
         service.save(question);
         assertNotNull(question.getId());
-        QuestionDB questionDB = service.findByNumberTestTypesNdtMethod(question.getNumber(),
+        QuestionDB questionDB = service.findByNumberTestTypesNdtMethod(question.getQuestionNumber(),
                 question.getTestTypes(), question.getNdtMethod());
         assertEquals(question.getId(), questionDB.getId());
     }

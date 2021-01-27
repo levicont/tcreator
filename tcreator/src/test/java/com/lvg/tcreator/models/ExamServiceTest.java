@@ -29,7 +29,7 @@ public class ExamServiceTest {
 
     @Test
     public void saveExamTest(){
-        ExamDB exam = ModelsGenerator.getExamDB();
+        ExamDB exam = GeneratorModels.getExamDB();
         Long id = exam.getId();
         assertNull(id);
         service.save(exam);
@@ -38,14 +38,14 @@ public class ExamServiceTest {
 
     @Test
     public void updateExamTest(){
-        ExamDB exam = ModelsGenerator.getExamDB();
+        ExamDB exam = GeneratorModels.getExamDB();
         service.save(exam);
         Long id = exam.getId();
         TestTypes type = exam.getTestTypes();
         int ticketsCount = exam.getTickets().size();
 
         exam.setTestTypes(TestTypes.SPEC_6_SECTOR_TEST);
-        exam.addExamTicket(ModelsGenerator.getExamTicketDB());
+        exam.addExamTicket(GeneratorModels.getExamTicketDB());
         service.save(exam);
 
         ExamDB newExam = service.find(id);
@@ -56,7 +56,7 @@ public class ExamServiceTest {
 
     @Test(expected = TCreatorException.class)
     public void deleteExamTest(){
-        ExamDB exam = ModelsGenerator.getExamDB();
+        ExamDB exam = GeneratorModels.getExamDB();
         service.save(exam);
         Long id  = exam.getId();
         assertNotNull(id);
@@ -66,15 +66,15 @@ public class ExamServiceTest {
 
     @Test
     public void findExamsByOrderTest(){
-        OrderDB order = ModelsGenerator.getOrderDB();
+        OrderDB order = GeneratorModels.getOrderDB();
         orderService.save(order);
         Long orderId = order.getId();
 
-        ExamDB exam = ModelsGenerator.getExamDB();
+        ExamDB exam = GeneratorModels.getExamDB();
         exam.setOrder(order);
         service.save(exam);
 
-        ExamDB exam2 = ModelsGenerator.getExamDB();
+        ExamDB exam2 = GeneratorModels.getExamDB();
         exam2.setTestTypes(TestTypes.SPEC_TEST);
         exam2.setOrder(order);
         service.save(exam2);

@@ -27,7 +27,7 @@ public class OrderTest {
 
     @Test
     public void saveOrderTest(){
-        OrderDB order = ModelsGenerator.getOrderDB();
+        OrderDB order = GeneratorModels.getOrderDB();
         Long id = order.getId();
         assertNull(id);
         service.save(order);
@@ -36,7 +36,7 @@ public class OrderTest {
 
     @Test
     public void updateOrderTest(){
-        OrderDB order = ModelsGenerator.getOrderDB();
+        OrderDB order = GeneratorModels.getOrderDB();
         service.save(order);
         Long id = order.getId();
         LocalDate date = order.getDate();
@@ -55,7 +55,7 @@ public class OrderTest {
 
     @Test(expected = TCreatorException.class)
     public void deleteOrderTest(){
-        OrderDB order = ModelsGenerator.getOrderDB();
+        OrderDB order = GeneratorModels.getOrderDB();
         service.save(order);
         Long id = order.getId();
         assertNotNull(id);
@@ -66,7 +66,7 @@ public class OrderTest {
     @Test
     public void findAllOrdersTest(){
         int count = service.findAll().size();
-        service.save(ModelsGenerator.getOrderDB());
+        service.save(GeneratorModels.getOrderDB());
         assertEquals(count+1, service.findAll().size());
     }
 }

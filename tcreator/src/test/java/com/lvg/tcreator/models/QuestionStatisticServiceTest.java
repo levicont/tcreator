@@ -7,7 +7,6 @@ import com.lvg.tcreator.persistence.models.QuestionStatisticDB;
 import com.lvg.tcreator.persistence.services.ExamService;
 import com.lvg.tcreator.persistence.services.OrderService;
 import com.lvg.tcreator.persistence.services.QuestionStatisticService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +30,9 @@ public class QuestionStatisticServiceTest {
 
     @Test
     public void saveQuestionStatisticTest(){
-        OrderDB orderDB = ModelsGenerator.getOrderDB();
+        OrderDB orderDB = GeneratorModels.getOrderDB();
         orderService.save(orderDB);
-        ExamDB examDB = ModelsGenerator.getExamDB();
+        ExamDB examDB = GeneratorModels.getExamDB();
         examDB.setOrder(orderDB);
         examService.save(examDB);
         examDB.getTickets().forEach(examTicket -> examTicket.getQuestions()
@@ -41,7 +40,7 @@ public class QuestionStatisticServiceTest {
             QuestionStatisticDB q = new QuestionStatisticDB();
             q.setNdtMethod(question.getNdtMethod());
             q.setOrderId(orderDB.getId());
-            q.setQuestionNumber(question.getNumber());
+            q.setQuestionNumber(question.getQuestionNumber());
             q.setTestType(question.getTestTypes());
             q.setWrongAnswerCount(2);
             q.setTotalCount(4);

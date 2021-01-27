@@ -49,7 +49,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public QuestionDB findByNumberTestTypesNdtMethod(Integer number, TestTypes testTypes, NdtMethod ndtMethod) {
-        return repository.findByNumberAndTestTypesAndNdtMethod(number, testTypes, ndtMethod);
+        return repository.findByQuestionNumberAndTestTypesAndNdtMethod(number, testTypes, ndtMethod);
     }
 
     @Override

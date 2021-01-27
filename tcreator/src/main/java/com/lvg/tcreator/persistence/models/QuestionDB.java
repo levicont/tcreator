@@ -3,53 +3,53 @@ package com.lvg.tcreator.persistence.models;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.Constants;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
  */
 @Entity
-@Table(name = "QUESTION")
+@Table(name = "QUESTION",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"question_number","ndt_method","test_type"}))
 public class QuestionDB implements ModelDB {
 
     @Id
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     private Long id;
 
-    private Integer number;
+    @Column(name = "question_number",length = 500,nullable = false)
+    private Integer questionNumber;
 
-    @Column(columnDefinition = "text")
-    private String text;
+    @Column(name = "question_text", columnDefinition = "text")
+    private String questionText;
 
     private Boolean enabled = Boolean.TRUE;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ndt_method")
+    @Column(name = "ndt_method",length = 20,nullable = false)
     private NdtMethod ndtMethod;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "test_type")
+    @Column(name = "test_type",length = 20,nullable = false)
     private TestTypes testTypes;
 
     @ElementCollection
     @CollectionTable(name = "ANSWER_VARIANT", joinColumns = @JoinColumn(name = "QUESTION_ID"))
-    private Set<AnswerVariantDB> answerVariants = new HashSet<>();
+    private final Set<AnswerVariantDB> answerVariants = new HashSet<>();
 
     public Long getId() {
         return id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getQuestionNumber() {
+        return questionNumber;
     }
 
-    public String getText() {
-        return text;
+    public String getQuestionText() {
+        return questionText;
     }
 
     public Set<AnswerVariantDB> getAnswerVariants() {
@@ -64,12 +64,12 @@ public class QuestionDB implements ModelDB {
         return testTypes;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setQuestionNumber(Integer questionNumber) {
+        this.questionNumber = questionNumber;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
     public void setNdtMethod(NdtMethod ndtMethod) {
@@ -95,14 +95,11 @@ public class QuestionDB implements ModelDB {
 
         QuestionDB that = (QuestionDB) o;
 
-        if (!Objects.equals(id, that.id)) return false;
-        if (!Objects.equals(number, that.number)) return false;
-        return Objects.equals(text, that.text);
+        return id != null && id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
-
-        return new HashCodeBuilder().append(text).hashCode();
+        return getClass().hashCode();
     }
 }

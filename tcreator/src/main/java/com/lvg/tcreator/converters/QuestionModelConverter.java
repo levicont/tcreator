@@ -12,13 +12,13 @@ public class QuestionModelConverter {
 
     public static QuestionDB getQuestionDB(Question question, NdtMethod method, TestTypes testType){
         QuestionDB questionDB = new QuestionDB();
-        questionDB.setNumber(question.getNumber());
-        questionDB.setText(getTextWithoutLeadNumber(question.getQuestionText()));
+        questionDB.setQuestionNumber(question.getNumber());
+        questionDB.setQuestionText(getTextWithoutLeadNumber(question.getQuestionText()));
         questionDB.setTestTypes(testType);
         questionDB.setNdtMethod(method);
         question.getVariants().entrySet().forEach(variantEntry ->{
             AnswerVariantDB answerVariantDB = new AnswerVariantDB();
-            answerVariantDB.setText(variantEntry.getKey());
+            answerVariantDB.setAnswerText(variantEntry.getKey());
             answerVariantDB.setCorrect(variantEntry.getValue());
             questionDB.getAnswerVariants().add(answerVariantDB);
         });

@@ -17,8 +17,11 @@ public class ExamTicketDB implements ModelDB{
     @GeneratedValue(generator = Constants.ID_GENERATOR)
     private Long id;
 
+    @Column(name = "ticket_variant")
+    private Integer ticketVariant;
+
     @ElementCollection
-    private Set<QuestionDB> questions = new HashSet<>();
+    private final Set<QuestionDB> questions = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ExamDB exam;
@@ -43,6 +46,14 @@ public class ExamTicketDB implements ModelDB{
         this.exam = exam;
     }
 
+    public Integer getTicketVariant() {
+        return ticketVariant;
+    }
+
+    public void setTicketVariant(Integer ticketVariant) {
+        this.ticketVariant = ticketVariant;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,6 +66,6 @@ public class ExamTicketDB implements ModelDB{
 
     @Override
     public int hashCode() {
-        return 31;
+        return getClass().hashCode();
     }
 }

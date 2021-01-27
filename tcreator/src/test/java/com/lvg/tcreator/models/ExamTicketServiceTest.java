@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,7 @@ public class ExamTicketServiceTest {
 
     @Test
     public void saveExamTicketTest(){
-        ExamTicketDB ticket = ModelsGenerator.getExamTicketDB();
+        ExamTicketDB ticket = GeneratorModels.getExamTicketDB();
         assertNull(ticket.getId());
         service.save(ticket);
         assertNotNull(ticket.getId());
@@ -35,16 +34,16 @@ public class ExamTicketServiceTest {
 
     @Test
     public void updateExamTicketTest() {
-        ExamTicketDB ticket = ModelsGenerator.getExamTicketDB();
+        ExamTicketDB ticket = GeneratorModels.getExamTicketDB();
         service.save(ticket);
 
         Long id = ticket.getId();
         Set<QuestionDB> oldQuestions = ticket.getQuestions();
         int oldAnswerVariantsCount = oldQuestions.size();
 
-        QuestionDB newQuestion = ModelsGenerator.getQuestionDB();
-        newQuestion.setText("New question");
-        newQuestion.setNumber(5);
+        QuestionDB newQuestion = GeneratorModels.getQuestionDB();
+        newQuestion.setQuestionText("New question");
+        newQuestion.setQuestionNumber(5);
 
         ticket.getQuestions().add(newQuestion);
         service.save(ticket);
@@ -55,7 +54,7 @@ public class ExamTicketServiceTest {
 
     @Test(expected = TCreatorException.class)
     public void deleteExamTicketTest(){
-        ExamTicketDB ticket = ModelsGenerator.getExamTicketDB();
+        ExamTicketDB ticket = GeneratorModels.getExamTicketDB();
         service.save(ticket);
         Long id = ticket.getId();
         assertNotNull(id);
@@ -68,7 +67,7 @@ public class ExamTicketServiceTest {
     @Test
     public void findAllExamTicketTest(){
         Long count = (long)service.findAll().size();
-        service.save(ModelsGenerator.getExamTicketDB());
+        service.save(GeneratorModels.getExamTicketDB());
         assertEquals(count+1, (long)service.findAll().size());
     }
 

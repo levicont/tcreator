@@ -1,8 +1,9 @@
 package com.lvg.tcreator.persistence.models;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.util.Objects;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
@@ -11,16 +12,16 @@ import java.util.Objects;
 public class AnswerVariantDB implements ModelDB{
 
     @Column(columnDefinition = "text")
-    private String text;
-    private boolean correct;
+    private String answerText;
+    private Boolean correct;
 
 
-    public String getText() {
-        return text;
+    public String getAnswerText() {
+        return answerText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
     }
 
     public boolean isCorrect() {
@@ -39,11 +40,11 @@ public class AnswerVariantDB implements ModelDB{
         AnswerVariantDB that = (AnswerVariantDB) o;
 
         if (correct != that.correct) return false;
-        return text.equals(that.text);
+        return answerText.equals(that.answerText);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return new HashCodeBuilder().append(answerText).hashCode();
     }
 }
