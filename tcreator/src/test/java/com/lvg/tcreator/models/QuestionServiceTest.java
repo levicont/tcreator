@@ -44,7 +44,7 @@ public class QuestionServiceTest extends GenericTest{
         Integer oldNumber = question.getQuestionNumber();
         NdtMethod oldMethod = question.getNdtMethod();
         TestTypes oldTestType = question.getTestTypes();
-        Set<AnswerVariantDB> oldAnswerVariants = question.getAnswerVariants();
+        List<AnswerVariantDB> oldAnswerVariants = question.getAnswerVariants();
         int oldAnswerVariantsCount = oldAnswerVariants.size();
 
         question.setQuestionText("New text");

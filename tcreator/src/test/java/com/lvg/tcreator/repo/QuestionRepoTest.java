@@ -22,13 +22,18 @@ public class QuestionRepoTest extends GenericTest {
     @Test
     public void saveQuestionTest(){
         QuestionDB questionDB = ModelGenerator.getQuestion();
-        List<AnswerVariantDB> variantDBList = ModelGenerator.getAnswers(4);
-        questionDB.getAnswerVariants().addAll(variantDBList);
-        System.out.println("Answers size: "+questionDB.getAnswerVariants().size());
+        questionDB.getAnswerVariants().addAll(ModelGenerator.getAnswers(4));
         questionDB = questionRepository.save(questionDB);
         Assert.assertNotNull(questionDB.getId());
-        Set<AnswerVariantDB> answerVariantDBS = questionDB.getAnswerVariants();
+        List<AnswerVariantDB> answerVariantDBS = questionDB.getAnswerVariants();
         Assert.assertEquals(4,answerVariantDBS.size());
+        AnswerVariantDB answerVariantDB = answerVariantDBS.get(0);
+        answerVariantDB.setCorrect(true);
+        questionDB = questionRepository.save(questionDB);
+        Assert.assertTrue(questionDB.getAnswerVariants().contains(answerVariantDB));
+        questionDB.getAnswerVariants().remove(answerVariantDB);
+        questionDB = questionRepository.save(questionDB);
+        Assert.assertEquals(3,questionDB.getAnswerVariants().size());
 
 
     }

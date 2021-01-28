@@ -5,7 +5,9 @@ import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.Constants;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,7 +40,7 @@ public class QuestionDB implements ModelDB {
 
     @ElementCollection
     @CollectionTable(name = "ANSWER_VARIANT", joinColumns = @JoinColumn(name = "QUESTION_ID"))
-    private final Set<AnswerVariantDB> answerVariants = new HashSet<>();
+    private final List<AnswerVariantDB> answerVariants = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -52,7 +54,7 @@ public class QuestionDB implements ModelDB {
         return questionText;
     }
 
-    public Set<AnswerVariantDB> getAnswerVariants() {
+    public List<AnswerVariantDB> getAnswerVariants() {
         return answerVariants;
     }
 
