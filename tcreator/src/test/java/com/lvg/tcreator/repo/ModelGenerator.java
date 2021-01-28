@@ -41,7 +41,7 @@ abstract class ModelGenerator {
             StringBuilder text = new StringBuilder();
             text.append(NUMBERS[i]).append(". ").append(answer.getAnswerText()).append(" ").append(i+1);
             answer.setAnswerText(text.toString());
-            result.add(getAnswerVariant());
+            result.add(answer);
         }
         return result;
     }

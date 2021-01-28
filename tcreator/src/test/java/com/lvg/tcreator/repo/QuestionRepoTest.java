@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -21,7 +22,8 @@ public class QuestionRepoTest extends GenericTest {
     @Test
     public void saveQuestionTest(){
         QuestionDB questionDB = ModelGenerator.getQuestion();
-        questionDB.getAnswerVariants().addAll(ModelGenerator.getAnswers(4));
+        List<AnswerVariantDB> variantDBList = ModelGenerator.getAnswers(4);
+        questionDB.getAnswerVariants().addAll(variantDBList);
         System.out.println("Answers size: "+questionDB.getAnswerVariants().size());
         questionDB = questionRepository.save(questionDB);
         Assert.assertNotNull(questionDB.getId());
