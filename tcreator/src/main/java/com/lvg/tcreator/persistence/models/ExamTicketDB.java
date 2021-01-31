@@ -23,8 +23,24 @@ public class ExamTicketDB implements ModelDB{
     @ElementCollection
     private final Set<QuestionDB> questions = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
     private ExamDB exam;
+
+    public void addQuestion(QuestionDB questionDB){
+        if (questionDB.getId() == null)
+            throw new IllegalArgumentException("Question must be saved before adding to ExamTicket");
+        if (questionDB.getNdtMethod().equals(exam.getOrder().getNdtMethod())
+        && questionDB.getTestTypes().equals(exam.getTestTypes())){
+            questions.add(questionDB);
+            return;
+        }
+        throw new IllegalArgumentException("Question is not correct for this exam - NdtMethod or ExamType is wrong.");
+    }
+
+    public void removeQuestion(QuestionDB questionDB){
+        questions.remove(questionDB);
+    }
 
     public Long getId() {
         return id;

@@ -21,7 +21,8 @@ public class ExamDB  implements ModelDB{
     @Enumerated(EnumType.STRING)
     private TestTypes testTypes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(nullable = false)
     private OrderDB order;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)

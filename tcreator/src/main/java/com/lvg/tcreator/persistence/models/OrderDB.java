@@ -2,11 +2,14 @@ package com.lvg.tcreator.persistence.models;
 
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.persistence.Constants;
+import com.lvg.tcreator.persistence.repositories.ExamRepository;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
@@ -26,6 +29,22 @@ public class OrderDB implements ModelDB {
 
     private LocalDate date;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
+    private final List<ExamDB> exams = new ArrayList<>();
+
+    public void addExam(ExamDB examDB){
+        exams.add(examDB);
+        examDB.setOrder(this);
+    }
+
+    public void removeExam(ExamDB examDB){
+        exams.remove(examDB);
+        examDB.setOrder(null);
+    }
+
+    public List<ExamDB> getExams() {
+        return exams;
+    }
 
     public Long getId() {
         return id;

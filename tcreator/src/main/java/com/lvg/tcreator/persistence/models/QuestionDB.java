@@ -6,9 +6,7 @@ import com.lvg.tcreator.persistence.Constants;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.

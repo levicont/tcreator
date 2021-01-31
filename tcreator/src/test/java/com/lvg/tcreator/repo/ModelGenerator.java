@@ -2,9 +2,9 @@ package com.lvg.tcreator.repo;
 
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.TestTypes;
-import com.lvg.tcreator.persistence.models.AnswerVariantDB;
-import com.lvg.tcreator.persistence.models.QuestionDB;
+import com.lvg.tcreator.persistence.models.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,5 +44,25 @@ abstract class ModelGenerator {
             result.add(answer);
         }
         return result;
+    }
+
+    public static OrderDB getOrderDB(){
+        OrderDB orderDB = new OrderDB();
+        orderDB.setDate(LocalDate.of(2021,01,30));
+        orderDB.setNumber("01/05");
+        orderDB.setNdtMethod(NdtMethod.VT);
+        return orderDB;
+    }
+
+    public static ExamDB getExamDB(){
+        ExamDB examDB = new ExamDB();
+        examDB.setTestTypes(TestTypes.TOTAL_TEST);
+        return examDB;
+    }
+
+    public static ExamTicketDB getExamTicket() {
+        ExamTicketDB examTicketDB = new ExamTicketDB();
+        examTicketDB.setTicketVariant(1);
+        return examTicketDB;
     }
 }
