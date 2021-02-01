@@ -86,11 +86,21 @@ public class ExamTicketRepoTest extends GenericTest {
         ExamTicketDB examTicketDB = getExamTicketWithExamAndOrder();
         examTicketDB = examTicketRepository.saveAndFlush(examTicketDB);
         assertNotNull(examTicketDB.getId());
-        QuestionDB questionDB = getQuestion();
-        questionDB = questionRepository.save(questionDB);
-        examTicketDB.addQuestion(questionDB);
+        QuestionDB questionDB1 = getQuestion();
+        questionDB1 = questionRepository.save(questionDB1);
+        examTicketDB.addQuestion(questionDB1);
+
+        QuestionDB question2 = getQuestion();
+        question2 = questionRepository.save(question2);
+        examTicketDB.addQuestion(question2);
+
+        examTicketDB = examTicketRepository.saveAndFlush(examTicketDB);
+        assertEquals(2, examTicketDB.getQuestions().size());
+
+        examTicketDB.removeQuestion(question2);
         examTicketDB = examTicketRepository.saveAndFlush(examTicketDB);
         assertEquals(1, examTicketDB.getQuestions().size());
+        assertTrue(questionRepository.findById(question2.getId()).isPresent());
     }
 
     private ExamTicketDB getExamTicketWithExamAndOrder(){

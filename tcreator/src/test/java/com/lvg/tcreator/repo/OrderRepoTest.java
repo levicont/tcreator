@@ -80,4 +80,9 @@ public class OrderRepoTest extends GenericTest {
         ExamDB examDB3 = examRepository.getOne(examDB2.getId());
         assertNull(examDB3);
     }
+
+    @Test
+    public void fullOrderSaveTest(){
+        OrderDB orderDB = getOrderDB();
+    }
 }

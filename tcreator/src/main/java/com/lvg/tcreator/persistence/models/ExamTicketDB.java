@@ -30,7 +30,7 @@ public class ExamTicketDB implements ModelDB{
     public void addQuestion(QuestionDB questionDB){
         if (questionDB.getId() == null)
             throw new IllegalArgumentException("Question must be saved before adding to ExamTicket");
-        if (questionDB.getNdtMethod().equals(exam.getOrder().getNdtMethod())
+        if (questionDB.getNdtMethod().equals(exam.getNdtMethod())
         && questionDB.getTestTypes().equals(exam.getTestTypes())){
             questions.add(questionDB);
             return;

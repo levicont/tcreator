@@ -65,4 +65,17 @@ abstract class ModelGenerator {
         examTicketDB.setTicketVariant(1);
         return examTicketDB;
     }
+
+    public static ExamDB getExamDB(TestTypes testType){
+        ExamDB examDB = getExamDB();
+        examDB.setTestTypes(testType);
+        return examDB;
+    }
+
+    public static QuestionDB getQuestion(TestTypes testType, NdtMethod ndtMethod){
+        QuestionDB questionDB = getQuestion();
+        questionDB.setTestTypes(testType);
+        questionDB.setNdtMethod(ndtMethod);
+        return questionDB;
+    }
 }

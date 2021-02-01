@@ -1,5 +1,6 @@
 package com.lvg.tcreator.persistence.models;
 
+import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.Constants;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -64,6 +65,12 @@ public class ExamDB  implements ModelDB{
 
     public Set<ExamTicketDB> getTickets() {
         return tickets;
+    }
+
+    public NdtMethod getNdtMethod(){
+        if (null == order || null == order.getNdtMethod())
+            throw new NullPointerException("NdtMethod is unable cause order is null or NdtMethod field is undefined.");
+        return order.getNdtMethod();
     }
 
     @Override
