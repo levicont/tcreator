@@ -2,6 +2,7 @@ package com.lvg.tcreator.repo;
 
 import com.lvg.tcreator.GenericTest;
 import com.lvg.tcreator.models.NdtMethod;
+import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.AnswerVariantDB;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.repositories.QuestionRepository;
@@ -69,6 +70,18 @@ public class QuestionRepoTest extends GenericTest {
         QuestionDB questionDB2 = getQuestion();
         questionDB2.setQuestionNumber(questionDB1.getQuestionNumber());
         questionRepository.saveAndFlush(questionDB2);
+    }
+
+    @Test
+    public void getQuestionByNdtMethodAndTestTypes(){
+        QuestionDB questionDB = getQuestion();
+        List<QuestionDB> list = questionRepository.findByNdtMethodAndTestTypes(NdtMethod.VT, TestTypes.TOTAL_TEST);
+        int sizeBefore = list.size();
+        questionDB = questionRepository.save(questionDB);
+        assertNotNull(questionDB.getId());
+        list = questionRepository.findByNdtMethodAndTestTypes(NdtMethod.VT, TestTypes.TOTAL_TEST);
+        int sizeAfter = list.size();
+        assertEquals(sizeBefore+1, sizeAfter);
     }
 
 

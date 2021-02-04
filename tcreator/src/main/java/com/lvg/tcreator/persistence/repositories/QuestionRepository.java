@@ -11,4 +11,5 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<QuestionDB, Long> {
     QuestionDB findByQuestionNumberAndTestTypesAndNdtMethod(Integer number, TestTypes testTypes, NdtMethod ndtMethod);
     List<QuestionDB> findByNdtMethod(NdtMethod ndtMethod);
+    List<QuestionDB> findByNdtMethodAndTestTypes(NdtMethod ndtMethod, TestTypes testTypes);
 }

@@ -4,7 +4,7 @@ import com.lvg.tcreator.GenericTest;
 import com.lvg.tcreator.exceptions.TCreatorException;
 import com.lvg.tcreator.persistence.models.AnswerVariantDB;
 import com.lvg.tcreator.persistence.models.QuestionDB;
-import com.lvg.tcreator.persistence.services.QuestionService;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import com.lvg.tcreator.services.impl.QuestionServiceImpl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class QuestionServiceTest extends GenericTest{
 
 
     @Autowired
-    QuestionService service;
+    QuestionDBService service;
     @Autowired
     QuestionServiceImpl modelService;
 

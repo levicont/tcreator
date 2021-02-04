@@ -7,7 +7,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 public class QuestionServiceImplODS extends QuestionServiceImpl {
 	private static final String ODS_FILE_SUFFIX = "-II.ods";
 	private static final String RESOURCE_PATH = "/ods/";
+	private static final int SPREADSHEET_COLUMN_COUNT = 2;
 
 	
 	@Override
@@ -35,6 +38,7 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 			URI uri = url.toURI();
 			File file = new File(uri);
 			sheet = SpreadSheet.createFromFile(file).getSheet(srcSheetMap.get(testType));
+			sheet.setColumnCount(SPREADSHEET_COLUMN_COUNT);
 		}catch(URISyntaxException ex){
 			ex.printStackTrace();
 			System.out.println("NOT CORRECT URL: " + url.toString());
@@ -44,25 +48,27 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 			System.out.println("CAN NOT TO OPEN SHEET: "+ ex.getMessage());
 		}
 
-		List<String> rows = new ArrayList<>();
+		List<QuestionRowEntity> rows = new ArrayList<>();
 		if (sheet == null) throw new NullPointerException("Sheet is null in"+pathOdsFile);
 		for (int rowNum = 0; ; rowNum++) {
 			if (sheet.getValueAt(0, rowNum) == null) throw new NullPointerException("VALUE in Cell (0,"+rowNum+") is NULL");
-			String cellValue = sheet.getValueAt(0, rowNum).toString().trim();
-			if (cellValue.equals("END"))
+
+			String text = sheet.getValueAt(0, rowNum).toString().trim();
+			String isCorrect = sheet.getValueAt(1,rowNum).toString();
+			if (text.equals("END"))
 				break;
-			rows.add(cellValue);
+			rows.add(new QuestionRowEntity(text, isCorrect));
 
 		}
 		
-		List<String> buffer = new ArrayList<>();
-		for (String s : rows) {
-			if (s.trim().isEmpty()) {
+		List<QuestionRowEntity> buffer = new ArrayList<>();
+		for (QuestionRowEntity questionRowEntity : rows) {
+			if (StringUtils.isBlank(questionRowEntity.getText())) {
 				Question q = getQuestionFromRows(buffer);
 				questions.add(q);
 				buffer.clear();
 			} else {
-				buffer.add(s);
+				buffer.add(questionRowEntity);
 			}
 		}
 
@@ -76,20 +82,59 @@ public class QuestionServiceImplODS extends QuestionServiceImpl {
 	 * @return Question object with fields
 	 * NOTE:  all variants of Question set as incorrect (false)
 	 */
-	private Question getQuestionFromRows(List<String> textRows){
+	private Question getQuestionFromRows(List<QuestionRowEntity> textRows){
 		Question resultQuestion = new Question();
-		if (textRows.isEmpty() || textRows.get(0).isEmpty()) throw new IllegalArgumentException("List of question rows is empty");
+		if (textRows.isEmpty() || textRows.get(0).getText().isEmpty()) throw new IllegalArgumentException("List of question rows is empty");
 
-		String firstRow = textRows.get(0);
+		String firstRow = textRows.get(0).getText();
 		resultQuestion.setQuestionText(firstRow);
 		resultQuestion.setNumber(getNumberQuestionFromFirstRow(firstRow));
 
-		for (String row : textRows){
-			if (row.equals(firstRow))
+		for (QuestionRowEntity questionRowEntity : textRows){
+			if (questionRowEntity.getText().equals(firstRow))
 				continue;
-			resultQuestion.getVariants().put(row,Boolean.FALSE);
+			resultQuestion.getVariants().put(questionRowEntity.getText(), questionRowEntity.isCorrect());
 		}
 
 		return resultQuestion;
+	}
+
+	private static class QuestionRowEntity{
+		private String text;
+		private String isCorrect;
+
+		public QuestionRowEntity(String text, String isCorrect){
+			this.isCorrect = isCorrect;
+			this.text = text;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
+		public boolean isCorrect() {
+			return !StringUtils.isBlank(isCorrect);
+		}
+
+		public void setCorrect(String correct) {
+			isCorrect = correct;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+			QuestionRowEntity that = (QuestionRowEntity) o;
+			return Objects.equals(getText(), that.getText());
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(getText());
+		}
 	}
 }

@@ -5,7 +5,7 @@ import com.lvg.tcreator.persistence.models.ExamTicketDB;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.repositories.ExamTicketRepository;
 import com.lvg.tcreator.persistence.services.ExamTicketService;
-import com.lvg.tcreator.persistence.services.QuestionService;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     @Autowired
     ExamTicketRepository repository;
     @Autowired
-    QuestionService questionService;
+    QuestionDBService questionService;
 
     @Override
     public void save(ExamTicketDB record) {

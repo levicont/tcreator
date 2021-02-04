@@ -7,13 +7,14 @@ import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Question;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.QuestionDB;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import com.lvg.tcreator.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class QuestionServiceImpl implements QuestionService{	
 
 	@Autowired
-	private com.lvg.tcreator.persistence.services.QuestionService service;
+	private QuestionDBService service;
 
 	protected static Map<TestTypes, Integer> srcSheetMap = new HashMap<>();
 	
@@ -65,7 +66,6 @@ public abstract class QuestionServiceImpl implements QuestionService{
 				.forEach(ndtMethod -> Arrays.stream(TestTypes.values())
                 	.forEach(testType -> getAllQuestion(ndtMethod, testType)
 						.forEach(question -> allQuestions.add(QuestionModelConverter.getQuestionDB(question,ndtMethod,testType)))));
-
 		allQuestions.forEach(q -> service.save(q));
 	}
 
@@ -74,7 +74,6 @@ public abstract class QuestionServiceImpl implements QuestionService{
 		List<Question> questions = new ArrayList<>();
 		Arrays.stream(TestTypes.values())
 				.forEach(testType -> questions.addAll(getAllQuestion(ndtMethod, testType)));
-
 		return questions;
 	}
 }

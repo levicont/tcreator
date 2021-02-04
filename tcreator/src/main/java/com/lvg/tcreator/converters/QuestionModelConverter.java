@@ -9,6 +9,7 @@ import com.lvg.tcreator.persistence.models.QuestionDB;
 
 
 public class QuestionModelConverter {
+    private static final String QUESTION_NUMBER_SEPARATOR = ". ";
 
     public static QuestionDB getQuestionDB(Question question, NdtMethod method, TestTypes testType){
         QuestionDB questionDB = new QuestionDB();
@@ -16,10 +17,10 @@ public class QuestionModelConverter {
         questionDB.setQuestionText(getTextWithoutLeadNumber(question.getQuestionText()));
         questionDB.setTestTypes(testType);
         questionDB.setNdtMethod(method);
-        question.getVariants().entrySet().forEach(variantEntry ->{
+        question.getVariants().forEach((key, value) -> {
             AnswerVariantDB answerVariantDB = new AnswerVariantDB();
-            answerVariantDB.setAnswerText(variantEntry.getKey());
-            answerVariantDB.setCorrect(variantEntry.getValue());
+            answerVariantDB.setAnswerText(key);
+            answerVariantDB.setCorrect(value);
             questionDB.getAnswerVariants().add(answerVariantDB);
         });
 
@@ -27,10 +28,9 @@ public class QuestionModelConverter {
     }
 
     private static String getTextWithoutLeadNumber(String textWithLeadNumber){
-        if (textWithLeadNumber.contains(". "))
-            return textWithLeadNumber.substring(textWithLeadNumber.indexOf(". ")+2);
+        if (textWithLeadNumber.contains(QUESTION_NUMBER_SEPARATOR))
+            return textWithLeadNumber.substring(textWithLeadNumber.indexOf(QUESTION_NUMBER_SEPARATOR)+2);
         else
             throw new TCreatorException("Incorrect format of question text. Text:"+textWithLeadNumber);
-
     }
 }

@@ -1,7 +1,7 @@
 package com.lvg.tcreator.utils;
 
 import com.lvg.tcreator.models.NdtMethod;
-import com.lvg.tcreator.persistence.services.QuestionService;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class Validator {
     private static String EXCEL_ORDER_SHEET_NULL_ERR_MSG = "Excel order sheet is null";
 
     @Autowired
-    private QuestionService questionDBService;
+    private QuestionDBService questionDBService;
     @Autowired
     private com.lvg.tcreator.services.QuestionService questionModelService;
 

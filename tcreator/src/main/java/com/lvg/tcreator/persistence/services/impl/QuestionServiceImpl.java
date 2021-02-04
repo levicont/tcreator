@@ -5,7 +5,7 @@ import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.repositories.QuestionRepository;
-import com.lvg.tcreator.persistence.services.QuestionService;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionServiceImpl implements QuestionDBService {
 
     @Autowired
     QuestionRepository repository;
@@ -55,5 +55,10 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public List<QuestionDB> findByNdtMethod(NdtMethod ndtMethod) {
         return repository.findByNdtMethod(ndtMethod);
+    }
+
+    @Override
+    public List<QuestionDB> findByNdtMethodTestTypes(NdtMethod ndtMethod, TestTypes testTypes) {
+        return repository.findByNdtMethodAndTestTypes(ndtMethod, testTypes);
     }
 }

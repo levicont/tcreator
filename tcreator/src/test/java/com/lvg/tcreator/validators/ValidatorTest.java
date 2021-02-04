@@ -3,7 +3,7 @@ package com.lvg.tcreator.validators;
 import com.lvg.tcreator.GenericTest;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.persistence.models.QuestionDB;
-import com.lvg.tcreator.persistence.services.QuestionService;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import com.lvg.tcreator.utils.Validator;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class ValidatorTest extends GenericTest{
 
     @Autowired
-    private QuestionService questionDbService;
+    private QuestionDBService questionDbService;
     @Autowired
     private com.lvg.tcreator.services.QuestionService questionModelService;
 

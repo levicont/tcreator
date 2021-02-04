@@ -38,9 +38,7 @@ abstract class ModelGenerator {
         List<AnswerVariantDB> result = new ArrayList<>();
         for (int i = 0; i <count; i++){
             AnswerVariantDB answer = getAnswerVariant();
-            StringBuilder text = new StringBuilder();
-            text.append(NUMBERS[i]).append(". ").append(answer.getAnswerText()).append(" ").append(i+1);
-            answer.setAnswerText(text.toString());
+            answer.setAnswerText(NUMBERS[i] + ". " + answer.getAnswerText() + " " + (i + 1));
             result.add(answer);
         }
         return result;
@@ -48,7 +46,7 @@ abstract class ModelGenerator {
 
     public static OrderDB getOrderDB(){
         OrderDB orderDB = new OrderDB();
-        orderDB.setDate(LocalDate.of(2021,01,30));
+        orderDB.setDate(LocalDate.of(2021, 1,30));
         orderDB.setNumber("01/05");
         orderDB.setNdtMethod(NdtMethod.VT);
         return orderDB;
