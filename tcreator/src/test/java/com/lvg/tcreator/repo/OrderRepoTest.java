@@ -95,10 +95,10 @@ public class OrderRepoTest extends GenericTest {
 
         ExamTicketDB examTicketTotal1 = getExamTicket();
         ExamTicketDB examTicketTotal2 = getExamTicket();
-        QuestionDB questionTotal1 = getQuestion(TestTypes.TOTAL_TEST, NdtMethod.VT);
+        QuestionDB questionTotal1 = getQuestion(TestTypes.TOTAL_TEST, DEFAULT_NDT_METHOD);
         questionTotal1.getAnswerVariants().addAll(getAnswers(4));
         questionTotal1 = questionRepository.save(questionTotal1);
-        QuestionDB questionTotal2 = getQuestion(TestTypes.TOTAL_TEST, NdtMethod.VT);
+        QuestionDB questionTotal2 = getQuestion(TestTypes.TOTAL_TEST, DEFAULT_NDT_METHOD);
         questionTotal2.getAnswerVariants().addAll(getAnswers(4));
         questionTotal2 = questionRepository.save(questionTotal2);
         examTotal.addExamTicket(examTicketTotal1);
@@ -111,10 +111,10 @@ public class OrderRepoTest extends GenericTest {
         orderDB = orderRepository.save(orderDB);
         assertNotNull(orderDB.getId());
 
-        QuestionDB questionSpec1 = getQuestion(TestTypes.SPEC_TEST, NdtMethod.VT);
+        QuestionDB questionSpec1 = getQuestion(TestTypes.SPEC_TEST, DEFAULT_NDT_METHOD);
         questionSpec1.getAnswerVariants().addAll(getAnswers(4));
         questionSpec1 = questionRepository.save(questionSpec1);
-        QuestionDB questionSpec2 = getQuestion(TestTypes.SPEC_TEST, NdtMethod.VT);
+        QuestionDB questionSpec2 = getQuestion(TestTypes.SPEC_TEST, DEFAULT_NDT_METHOD);
         questionSpec2.getAnswerVariants().addAll(getAnswers(4));
         questionSpec2 = questionRepository.save(questionSpec2);
         ExamTicketDB examTicketSpec1 = getExamTicket();
@@ -129,10 +129,10 @@ public class OrderRepoTest extends GenericTest {
         orderDB = orderRepository.save(orderDB);
         assertEquals(2, orderDB.getExams().size());
 
-        QuestionDB questionSpec6_1 = getQuestion(TestTypes.SPEC_6_SECTOR_TEST, NdtMethod.VT);
+        QuestionDB questionSpec6_1 = getQuestion(TestTypes.SPEC_6_SECTOR_TEST, DEFAULT_NDT_METHOD);
         questionSpec6_1.getAnswerVariants().addAll(getAnswers(4));
         questionSpec6_1 = questionRepository.save(questionSpec6_1);
-        QuestionDB questionSpec6_2 = getQuestion(TestTypes.SPEC_6_SECTOR_TEST, NdtMethod.VT);
+        QuestionDB questionSpec6_2 = getQuestion(TestTypes.SPEC_6_SECTOR_TEST, DEFAULT_NDT_METHOD);
         questionSpec6_2.getAnswerVariants().addAll(getAnswers(4));
         questionSpec6_2 = questionRepository.save(questionSpec6_2);
         ExamTicketDB examTicketSpec6_1 = getExamTicket();

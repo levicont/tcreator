@@ -13,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.lvg.tcreator.repo.ModelGenerator.getAnswers;
-import static com.lvg.tcreator.repo.ModelGenerator.getQuestion;
+import static com.lvg.tcreator.repo.ModelGenerator.*;
 import static org.junit.Assert.*;
 
 @Transactional
@@ -75,11 +74,11 @@ public class QuestionRepoTest extends GenericTest {
     @Test
     public void getQuestionByNdtMethodAndTestTypes(){
         QuestionDB questionDB = getQuestion();
-        List<QuestionDB> list = questionRepository.findByNdtMethodAndTestTypes(NdtMethod.VT, TestTypes.TOTAL_TEST);
+        List<QuestionDB> list = questionRepository.findByNdtMethodAndTestTypes(DEFAULT_NDT_METHOD, TestTypes.TOTAL_TEST);
         int sizeBefore = list.size();
         questionDB = questionRepository.save(questionDB);
         assertNotNull(questionDB.getId());
-        list = questionRepository.findByNdtMethodAndTestTypes(NdtMethod.VT, TestTypes.TOTAL_TEST);
+        list = questionRepository.findByNdtMethodAndTestTypes(DEFAULT_NDT_METHOD, TestTypes.TOTAL_TEST);
         int sizeAfter = list.size();
         assertEquals(sizeBefore+1, sizeAfter);
     }

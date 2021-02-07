@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class ModelGenerator {
-    private static Integer questionNumber = 1;
+    private static Integer questionNumber = 1000;
     private static final String[] NUMBERS = new String[]{"a","b","c","d","e","f","g"};
+    public static final NdtMethod DEFAULT_NDT_METHOD = NdtMethod.UT;
 
     private static Integer getQuestionNumber(){
         return questionNumber++;
@@ -22,7 +23,7 @@ abstract class ModelGenerator {
         questionDB.setQuestionText("Some text of question " + questionNumber);
         questionDB.setQuestionNumber(questionNumber);
         questionDB.setEnabled(Boolean.TRUE);
-        questionDB.setNdtMethod(NdtMethod.VT);
+        questionDB.setNdtMethod(DEFAULT_NDT_METHOD);
         questionDB.setTestTypes(TestTypes.TOTAL_TEST);
         return questionDB;
     }
@@ -48,7 +49,7 @@ abstract class ModelGenerator {
         OrderDB orderDB = new OrderDB();
         orderDB.setDate(LocalDate.of(2021, 1,30));
         orderDB.setNumber("01/05");
-        orderDB.setNdtMethod(NdtMethod.VT);
+        orderDB.setNdtMethod(DEFAULT_NDT_METHOD);
         return orderDB;
     }
 

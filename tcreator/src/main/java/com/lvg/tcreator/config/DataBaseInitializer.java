@@ -17,7 +17,7 @@ public class DataBaseInitializer
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-        questionService.storeAllQuestionsInDB();
+     //   questionService.storeAllQuestionsInDB();
 
     }
 }
