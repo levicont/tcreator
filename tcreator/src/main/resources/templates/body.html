@@ -447,5 +447,26 @@
 
 </div>
 
+<div data-th-fragment="questions">
+    <p>Questions page</p>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-3" style="max-width: 18rem;">
+                <div class="card-header text-white bg-primary" >
+                    <h6>
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        <span data-th-text="#{questions.methodCard.header(#{questions.methodCard.method.+${questionNdtMethod}})}"></span>
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" data-th-text="#{questions.methodCard.title}">Questions by test type</h5>
+                    <p class="card-text" data-th-text="#{questions.methodCard.text}">List of Test types</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
