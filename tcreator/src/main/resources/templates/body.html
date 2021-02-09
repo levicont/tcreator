@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"/>
 
-<body>
-    <!--Templates of body section -->
-
-    <div data-th-fragment="generator">
+<div data-th-fragment="generator">
         <p class="h4" data-th-text="#{generator.greeting}">Добро пожаловать на сайт генератора вопросов.</p>
         <p class="h4" data-th-text="#{generator.manual.text}">Для начала работы в главном меню выберите метод
         неразрушающего контроля (НК), по которому следует сгенерировать тесты.</p>
@@ -448,25 +443,34 @@
 </div>
 
 <div data-th-fragment="questions">
-    <p>Questions page</p>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card mb-3" style="max-width: 18rem;">
-                <div class="card-header text-white bg-primary" >
-                    <h6>
-                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                        <span data-th-text="#{questions.methodCard.header(#{questions.methodCard.method.+${questionNdtMethod}})}"></span>
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" data-th-text="#{questions.methodCard.title}">Questions by test type</h5>
-                    <p class="card-text" data-th-text="#{questions.methodCard.text}">List of Test types</p>
-
-                </div>
+    <div data-th-if="${ndtMethodCountMap} != null">
+        <div class="row overflow-hidden gy-5">
+            <div data-th-each="methodEntry : ${ndtMethodCountMap}" class="col-lg-3 p-2">
+                        <div class="card border-primary" style="max-width: 35rem;">
+                            <div class="card-header text-white bg-primary" >
+                                <h5>
+                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                    <span data-th-text="#{questions.methodCard.header(#{questions.methodCard.method.+${methodEntry.key}})}"></span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" data-th-text="#{questions.methodCard.title}">Questions by test type</h5>
+                                <ul data-th-each="testTypeEntry : ${methodEntry.value}" class="list-group list-group-flush">
+                                    <li class="list-group-item card-text p-2">
+                                        <div class="row row-cols-2">
+                                            <div class="col-10">
+                                                <span data-th-text="#{questions.methodCard.testType.+${testTypeEntry.key}}"></span>
+                                            </div>
+                                            <div class="col-2">
+                                                <span data-th-text="${testTypeEntry.value}"></span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
             </div>
         </div>
     </div>
-</div>
 
-</body>
-</html>
+</div>
