@@ -445,26 +445,28 @@
 <div data-th-fragment="questions">
     <div data-th-if="${ndtMethodCountMap} != null">
         <div class="row overflow-hidden gy-5">
-            <div data-th-each="methodEntry : ${ndtMethodCountMap}" class="col-lg-3 p-2">
-                        <div class="card border-primary" style="max-width: 35rem;">
+            <div data-th-each="methodEntry : ${ndtMethodCountMap}" class="col-lg-4 p-2">
+                        <div class="card border-primary">
                             <div class="card-header text-white bg-primary" >
-                                <h5>
+                                <h6>
                                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                    <span data-th-text="#{questions.methodCard.header(#{questions.methodCard.method.+${methodEntry.key}})}"></span>
-                                </h5>
+                                    <span data-th-text="#{questions.methodCard.header(#{ndt.method.+${methodEntry.key}})}"></span>
+                                </h6>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title" data-th-text="#{questions.methodCard.title}">Questions by test type</h5>
+                                <h6 class="card-title px-2" data-th-text="#{questions.methodCard.title}">Questions by test type</h6>
                                 <ul data-th-each="testTypeEntry : ${methodEntry.value}" class="list-group list-group-flush">
                                     <li class="list-group-item card-text p-2">
+                                        <a class="text-decoration-none" data-th-href="@{/questions/{method}/{testType}(method=${methodEntry.key},testType=${testTypeEntry.key})}">
                                         <div class="row row-cols-2">
                                             <div class="col-10">
-                                                <span data-th-text="#{questions.methodCard.testType.+${testTypeEntry.key}}"></span>
+                                                <span data-th-text="#{test.type.+${testTypeEntry.key}}"></span>
                                             </div>
                                             <div class="col-2">
                                                 <span data-th-text="${testTypeEntry.value}"></span>
                                             </div>
                                         </div>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -473,4 +475,43 @@
         </div>
     </div>
 
+</div>
+
+<div data-th-fragment="questionsByNdtMethodAndTestType">
+
+    <div class="row py-3 mb-5  bg-primary text-white">
+
+        <div class="col-lg-4 text-center">
+            <h5 data-th-text="#{ndt.method.+${ndtMethod}}">NDT Method</h5>
+        </div>
+        <div class="col-lg-4 text-center">
+            <h5 data-th-text="#{test.type.+${testType}}">Test type</h5>
+        </div>
+        <div class="col-lg-4 text-center">
+            <h5 data-th-text="#{questions.byNdtMethod.byTestType.total(${#lists.size(questions)})}"></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="accordion" id="accordionExample" data-th-each="question : ${questions}">
+                <div class="card">
+                    <div class="card-header" data-th-id="'heading-'+${question.questionNumber}">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left text-decoration-none" type="button" data-toggle="collapse" data-th-data-target="'#collapse-'+${question.questionNumber}" aria-expanded="true" data-th-aria-controls="'collapse-'+${question.questionNumber}">
+                                <span data-th-text="${question.questionNumber}+'.  '+${question.questionText}"></span>
+                            </button>
+                        </h2>
+                    </div>
+                    <div data-th-id="'collapse-'+${question.questionNumber}" class="collapse" data-th-aria-labelledby="'heading-'+${question.questionNumber}" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush" data-th-each="answer : ${question.answerVariants}">
+                                <li class="list-group-item" data-th-text="${answer.answerText}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
