@@ -10,13 +10,10 @@
     <script data-th-src="@{/css/bootstrap-4.6.0-dist/js/bootstrap.min.js }"></script>
     <script data-th-src="@{/js/tcreator.js}"></script>
     <script data-th-src="@{/js/bs-custom-file-input.js}"></script>
-    
-    
-   
 
     <link rel="stylesheet" data-th-href="@{/css/bootstrap-4.6.0-dist/css/bootstrap.min.css }" type="text/css"/>
     <link rel="stylesheet" data-th-href="@{/css/font-awesome-4.5.0/css/font-awesome.min.css }"/>
-    <!--link rel="stylesheet" data-th-href="@{/css/main.css }" type="text/css"/-->
+    <link rel="stylesheet" data-th-href="@{/css/main.css }" type="text/css"/>
 
 </head>
 <body>
@@ -24,19 +21,32 @@
 <div id="content" class="container-fluid">
     <div id="main">
         <div id="header" class="page-header">
-            <div data-th-include="main_menu::menu" />
+            <div class="row">
+                <div class="col">
+                    <div data-th-include="main_menu::menu" />
+                </div>
+            </div>
+
         </div>
         <div id="all" role="main">
-                <div data-th-include="~{body::${body_content}}"/>
+            <div class="row">
+                <div class="col">
+                    <div data-th-include="~{body::${body_content}}"/>
+                </div>
+            </div>
+
         </div>
         <!-- END ALL -->
-
-    </div>
-    <!-- END MAIN -->
-    <div id="footer">
-        <div data-th-include="footer::footer" />
     </div>
 </div>
+<!-- END MAIN -->
+<footer class="container">
+    <div class="row">
+        <div class="col">
+            <div data-th-include="footer::footer" />
+        </div>
+    </div>
+</footer>
 <!-- End content -->
 
 </body>

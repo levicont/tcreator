@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+body{
+padding-top:5em;
+}
+/**
 html, body, #content {
 	height: 100%;
 	width: 100%;
@@ -112,3 +116,4 @@ html, body, #content {
 		font-size: 10pt;
 	}
 }
+*/
