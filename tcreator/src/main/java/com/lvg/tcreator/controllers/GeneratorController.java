@@ -2,6 +2,7 @@ package com.lvg.tcreator.controllers;
 
 import com.lvg.tcreator.managers.OrderManager;
 import com.lvg.tcreator.managers.TestManager;
+import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Order;
 import com.lvg.tcreator.models.Test;
 import com.lvg.tcreator.utils.DateUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.lvg.tcreator.config.R.GlobalAttributes.BODY_TEMPLATE_ATTRIBUTE;
@@ -28,6 +30,7 @@ public class GeneratorController {
         model.addAttribute(BODY_TEMPLATE_ATTRIBUTE,"generator");
         if (method == null)
             return "redirect:/";
+        model.addAttribute("ndtMethods", Arrays.asList(NdtMethod.values()));
         model.addAttribute("ndtMethod", method);
         model.addAttribute("order", OrderManager.getDefaultOrder(method));
 
@@ -39,6 +42,7 @@ public class GeneratorController {
         if(bindingResult.hasErrors()) {
             model.addAttribute(BODY_TEMPLATE_ATTRIBUTE, "generator");
             model.addAttribute("ndtMethod", order.getNdtMethod());
+            model.addAttribute("ndtMethods", Arrays.asList(NdtMethod.values()));
             return "index";
         }
         model.addAttribute("ndtMethod", order.getNdtMethod().toString());
