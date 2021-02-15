@@ -24,6 +24,15 @@ public interface R {
 		
 		String INVALID_DATE_MESSAGE = "Неверный формат даты: дд.мм.гггг";
 	}
+
+	interface ExamProperties{
+		int TOTAL_TEST_UT_RT_QUESTIONS_COUNT = 40;
+		int TOTAL_TEST_MT_VT_PT_QUESTIONS_COUNT = 30;
+		int SPEC_TEST_QUESTIONS_COUNT = 12;
+		int SPEC_TEST_ONE_SECTOR_QUESTIONS_COUNT = 8;
+		int SPEC_TEST_TWO_SECTOR_QUESTIONS_COUNT = 9;
+		int SPEC_TEST_THREE_SECTOR_QUESTIONS_COUNT = 9;
+	}
 	
 	interface Exceptions {
 		String ERROR_MSG_PAGE_INACCESSABLE = "Данная страница недоступна";

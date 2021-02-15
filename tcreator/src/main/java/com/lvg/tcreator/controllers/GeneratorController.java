@@ -1,11 +1,14 @@
 package com.lvg.tcreator.controllers;
 
+import com.lvg.tcreator.managers.ExamManager;
 import com.lvg.tcreator.managers.OrderManager;
 import com.lvg.tcreator.managers.TestManager;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.Order;
 import com.lvg.tcreator.models.Test;
+import com.lvg.tcreator.persistence.models.OrderDB;
 import com.lvg.tcreator.utils.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +28,9 @@ import static com.lvg.tcreator.config.R.GlobalAttributes.BODY_TEMPLATE_ATTRIBUTE
  */
 @Controller
 public class GeneratorController {
+    @Autowired
+    private ExamManager examManager;
+
     @RequestMapping(value="/generator", method= RequestMethod.GET)
     public String generator(Model model, @RequestParam(value="method",required=false) String method){
         model.addAttribute(BODY_TEMPLATE_ATTRIBUTE,"generator");
@@ -48,9 +54,13 @@ public class GeneratorController {
         model.addAttribute("ndtMethod", order.getNdtMethod().toString());
         model.addAttribute("dateOrder", DateUtil.formatDate(order.getDate()));
         model.addAttribute(BODY_TEMPLATE_ATTRIBUTE, "report");
-        TestManager tm = new TestManager(order);
-        List<Test> testList = tm.createTestList();
-        model.addAttribute("tests", testList);
+        OrderDB orderDB = examManager.getOrderDB(order);
+        model.addAttribute("orderDb", orderDB);
+        orderDB.getExams().forEach(examDB -> {
+            model.addAttribute(examDB.getTestTypes().toString(), examDB.getTestTypes());
+        });
+        model.addAttribute("variantCount", order.getVariantCount());
+        model.addAttribute("examTickets", examManager.getAllExamTickets());
         return "index";
     }
 

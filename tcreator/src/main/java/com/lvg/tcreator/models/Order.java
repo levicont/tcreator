@@ -6,6 +6,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static com.lvg.tcreator.config.R.OrderProps.*;
 @Component("order")
@@ -83,6 +86,20 @@ public class Order {
 	}
 	public void setIs8sector(boolean is8sector) {
 		this.is8sector = is8sector;
+	}
+	public List<TestTypes> getTestTypes(){
+		List<TestTypes> testTypesList = new ArrayList<>();
+		if (getIsTotalTest())
+			testTypesList.add(TestTypes.TOTAL_TEST);
+		if (getIsSpecTest())
+			testTypesList.add(TestTypes.SPEC_TEST);
+		if (getIs6sector())
+			testTypesList.add(TestTypes.SPEC_6_SECTOR_TEST);
+		if (getIs7sector())
+			testTypesList.add(TestTypes.SPEC_7_SECTOR_TEST);
+		if (getIs8sector())
+			testTypesList.add(TestTypes.SPEC_8_SECTOR_TEST);
+		return Collections.unmodifiableList(testTypesList);
 	}
 	
 }

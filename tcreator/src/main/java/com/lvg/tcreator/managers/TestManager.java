@@ -1,27 +1,16 @@
 package com.lvg.tcreator.managers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.lvg.tcreator.config.DataSourceType;
 import com.lvg.tcreator.factories.ServiceFactory;
-import com.lvg.tcreator.models.NdtMethod;
-import com.lvg.tcreator.models.Order;
-import com.lvg.tcreator.models.Question;
-import com.lvg.tcreator.models.Test;
-import com.lvg.tcreator.models.TestTypes;
+import com.lvg.tcreator.models.*;
 import com.lvg.tcreator.services.QuestionService;
 
+import java.util.*;
+
+import static com.lvg.tcreator.config.R.ExamProperties.*;
+
 public class TestManager {
-	private static final int TOTAL_TEST_UT_RT_QUESTIONS_COUNT = 40;
-	private static final int TOTAL_TEST_MT_VT_PT_QUESTIONS_COUNT = 30;
-	private static final int SPEC_TEST_QUESTIONS_COUNT = 12;
-	private static final int SPEC_TEST_ONE_SECTOR_QUESTIONS_COUNT = 8;
-	private static final int SPEC_TEST_TWO_SECTOR_QUESTIONS_COUNT = 9;
-	private static final int SPEC_TEST_THREE_SECTOR_QUESTIONS_COUNT = 9;
+
 
 	private static final String TOTAL_TEST_TITLE = "Общий экзамен";
 	private static final String SPEC_TEST_TITLE = "Специальный экзамен общая часть";
@@ -29,16 +18,15 @@ public class TestManager {
 	private static final String SPEC_TEST_7_SECTOR_TITLE = "Специальный экзамен 7-й сектор";
 	private static final String SPEC_TEST_8_SECTOR_TITLE = "Специальный экзамен 8-й сектор";
 	
-	private Map<TestTypes, List<Question>> allQuestionsMap = new HashMap<TestTypes, List<Question>>();
+	private final Map<TestTypes, List<Question>> allQuestionsMap = new HashMap<>();
 
 	private Order order;
-	private QuestionService qService;
+	private final QuestionService qService = ServiceFactory.getQuestionService(DataSourceType.ODS);
 	
 
 	
 	public TestManager(Order order) {
 		this.order = order;
-		qService = ServiceFactory.getQuestionService(DataSourceType.ODS);
 		initAllQuestionsMap(order.getNdtMethod());
 		
 	}

@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="raspDate">Дата распоряжения</label>
+                                    <label data-th-for="raspDate">Дата распоряжения</label>
                                     <fmt:formatDate pattern='dd.MM.yyyy' type='date'
                                                     value="${order.date }" var="formattedDate" />
                                     <form:input path="date" data-format="dd.MM.yyyy"
@@ -51,9 +51,9 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="variantCount">Количество вариантов</label>
+                                    <label data-th-for="variantCount">Количество вариантов</label>
                                     <form:input path="variantCount" cssClass="form-control"
-                                                id="variantCount" placeholder="Количество вариантов" />
+                                                data-th-id="variantCount" placeholder="Количество вариантов" />
                                     <form:errors path="variantCount" cssClass="lvg-error"></form:errors>
                                 </div>
                             </div>

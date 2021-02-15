@@ -7,9 +7,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.lvg.tcreator.config.R.OrderProps.*;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
@@ -25,6 +28,7 @@ public class OrderDB implements ModelDB {
     @Enumerated(EnumType.STRING)
     private NdtMethod ndtMethod;
 
+    @Size(min=MIN_NUMBER_SIZE_VALUE, max= MAX_NUMBER_SIZE_VALUE, message= INVALID_NUMBER_SIZE_MESSAGE)
     private String number;
 
     private LocalDate date;
@@ -77,6 +81,8 @@ public class OrderDB implements ModelDB {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+
 
 
     @Override
