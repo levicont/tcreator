@@ -3,8 +3,9 @@ package com.lvg.tcreator.persistence.models;
 import com.lvg.tcreator.persistence.Constants;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Victor Levchenko LVG Corp. on 30.04.2020.
@@ -21,7 +22,7 @@ public class ExamTicketDB implements ModelDB{
     private Integer ticketVariant;
 
     @ElementCollection
-    private final Set<QuestionDB> questions = new HashSet<>();
+    private final Set<QuestionDB> questions = new TreeSet<>(Comparator.comparing(QuestionDB::getQuestionNumber));
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
