@@ -8,24 +8,24 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.lvg.tcreator.models.NdtMethod;
-import com.lvg.tcreator.models.Order;
+import com.lvg.tcreator.models.OrderDTO;
 
 public class OrderManager {
 	private static final String DEFAULT_NDT_METHOD = NdtMethod.RT.toString();
 	private static final String DEFAULT_NUMBER_SEPARATOR = "/";
-	public static Order getDefaultOrder(){		
+	public static OrderDTO getDefaultOrder(){
 		return getDefaultOrder(DEFAULT_NDT_METHOD);
 	}
 	
-	public static Order getDefaultOrder(String ndtMethod){
-		Order order = new Order();
-		order.setDate(LocalDate.now());
-		order.setNdtMethod(NdtMethod.valueOf(ndtMethod));
-		order.setNumber(getDefaultOrderNumber());
-		order.setVariantCount(1);
-		order.setIsTotalTest(true);
-		order.setIsSpecTest(true);
-		return order;
+	public static OrderDTO getDefaultOrder(String ndtMethod){
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setDate(LocalDate.now());
+		orderDTO.setNdtMethod(NdtMethod.valueOf(ndtMethod));
+		orderDTO.setNumber(getDefaultOrderNumber());
+		orderDTO.setVariantCount(1);
+		orderDTO.setIsTotalTest(true);
+		orderDTO.setIsSpecTest(true);
+		return orderDTO;
 	}
 	
 	public static String getDefaultOrderNumber(){
@@ -42,7 +42,7 @@ public class OrderManager {
 		return result.toString();
 	}
 
-	public static Order getOrderFromExcelFile(String path)throws IOException {
+	public static OrderDTO getOrderFromExcelFile(String path)throws IOException {
 	 throw new UnsupportedOperationException();
 	}
 	

@@ -1,7 +1,7 @@
 package com.lvg.tcreator.services.impl.excel;
 
 import com.lvg.tcreator.models.NdtMethod;
-import com.lvg.tcreator.models.Order;
+import com.lvg.tcreator.models.OrderDTO;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.services.OrderService;
 import com.lvg.tcreator.utils.Validator;
@@ -28,7 +28,7 @@ public class OrderServiceXLS implements OrderService {
     Validator validator;
 
     @Override
-    public Order loadFromFile(byte[] file) {
+    public OrderDTO loadFromFile(byte[] file) {
         InputStream in = new ByteArrayInputStream(file);
         Workbook workbook = null;
 
@@ -41,20 +41,20 @@ public class OrderServiceXLS implements OrderService {
 
         Sheet sheet = workbook.getSheet(EXCEL_SHEET_ORDER_NAME);
 
-        Order order = new Order();
+        OrderDTO orderDTO = new OrderDTO();
 
-        order.setNumber(getOrderNumberFromSheet(sheet));
-        order.setDate(getOrderDateFromSheet(sheet));
-        order.setNdtMethod(getNdtMethodFromSheet(sheet));
+        orderDTO.setNumber(getOrderNumberFromSheet(sheet));
+        orderDTO.setDate(getOrderDateFromSheet(sheet));
+        orderDTO.setNdtMethod(getNdtMethodFromSheet(sheet));
 
         Map<TestTypes, Boolean> testTypesMap = getTestTypesFromSheet(sheet);
-        if (testTypesMap.containsKey(TestTypes.TOTAL_TEST)) order.setIsTotalTest(testTypesMap.get(TestTypes.TOTAL_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_TEST)) order.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_6_SECTOR_TEST)) order.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_6_SECTOR_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_7_SECTOR_TEST)) order.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_7_SECTOR_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_8_SECTOR_TEST)) order.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_8_SECTOR_TEST));
+        if (testTypesMap.containsKey(TestTypes.TOTAL_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.TOTAL_TEST));
+        if (testTypesMap.containsKey(TestTypes.SPEC_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_TEST));
+        if (testTypesMap.containsKey(TestTypes.SPEC_6_SECTOR_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_6_SECTOR_TEST));
+        if (testTypesMap.containsKey(TestTypes.SPEC_7_SECTOR_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_7_SECTOR_TEST));
+        if (testTypesMap.containsKey(TestTypes.SPEC_8_SECTOR_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_8_SECTOR_TEST));
 
-        return order;
+        return orderDTO;
     }
 
     private String getOrderNumberFromSheet(Sheet sheet){

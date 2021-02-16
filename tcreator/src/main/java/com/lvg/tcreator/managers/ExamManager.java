@@ -1,7 +1,7 @@
 package com.lvg.tcreator.managers;
 
 import com.lvg.tcreator.models.NdtMethod;
-import com.lvg.tcreator.models.Order;
+import com.lvg.tcreator.models.OrderDTO;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.ExamDB;
 import com.lvg.tcreator.persistence.models.ExamTicketDB;
@@ -31,26 +31,24 @@ public class ExamManager {
 
     protected ExamManager(){}
 
-    public void initOrderDB(Order orderDao){
-        this.ndtMethod = orderDao.getNdtMethod();
-        this.orderNumber = orderDao.getNumber();
-        this.orderDate = orderDao.getDate();
-        this.ticketCont = orderDao.getVariantCount();
+    private void initOrderDB(OrderDTO orderDTO){
+        this.ndtMethod = orderDTO.getNdtMethod();
+        this.orderNumber = orderDTO.getNumber();
+        this.orderDate = orderDTO.getDate();
+        this.ticketCont = orderDTO.getVariantCount();
         this.testTypesList.clear();
-        this.testTypesList.addAll(orderDao.getTestTypes());
+        this.testTypesList.addAll(orderDTO.getTestTypes());
         createOrderDB();
     }
 
-    public OrderDB getOrderDB(Order orderDao){
-        initOrderDB(orderDao);
+    public OrderDB getOrderDB(OrderDTO orderDTO){
+        initOrderDB(orderDTO);
         return orderDB;
     }
 
     public List<ExamTicketDB> getAllExamTickets(){
         List<ExamTicketDB> examTicketDBList = new ArrayList<>();
-        orderDB.getExams().forEach(examDB -> {
-            examTicketDBList.addAll(examDB.getTickets());
-        });
+        orderDB.getExams().forEach(examDB -> examTicketDBList.addAll(examDB.getTickets()));
         return Collections.unmodifiableList(examTicketDBList);
     }
 

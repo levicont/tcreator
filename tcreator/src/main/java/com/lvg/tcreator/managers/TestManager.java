@@ -20,14 +20,14 @@ public class TestManager {
 	
 	private final Map<TestTypes, List<Question>> allQuestionsMap = new HashMap<>();
 
-	private Order order;
+	private OrderDTO orderDTO;
 	private final QuestionService qService = ServiceFactory.getQuestionService(DataSourceType.ODS);
 	
 
 	
-	public TestManager(Order order) {
-		this.order = order;
-		initAllQuestionsMap(order.getNdtMethod());
+	public TestManager(OrderDTO orderDTO) {
+		this.orderDTO = orderDTO;
+		initAllQuestionsMap(orderDTO.getNdtMethod());
 		
 	}
 
@@ -45,27 +45,27 @@ public class TestManager {
 
 	public List<Test> createTestList() {
 		List<Test> tests = new ArrayList<>();
-		int variantCount = order.getVariantCount();
-		if (order.getIsTotalTest())
+		int variantCount = orderDTO.getVariantCount();
+		if (orderDTO.getIsTotalTest())
 			tests.addAll(getSameTestsWithDiferentVariants(TestTypes.TOTAL_TEST, variantCount));
-		if (order.getIsSpecTest())
+		if (orderDTO.getIsSpecTest())
 			tests.addAll(getSameTestsWithDiferentVariants(TestTypes.SPEC_TEST, variantCount));
-		if (order.getIs6sector())
+		if (orderDTO.getIs6sector())
 			tests.addAll(getSameTestsWithDiferentVariants(TestTypes.SPEC_6_SECTOR_TEST, variantCount));
-		if (order.getIs7sector())
+		if (orderDTO.getIs7sector())
 			tests.addAll(getSameTestsWithDiferentVariants(TestTypes.SPEC_7_SECTOR_TEST, variantCount));
-		if (order.getIs8sector())
+		if (orderDTO.getIs8sector())
 			tests.addAll(getSameTestsWithDiferentVariants(TestTypes.SPEC_8_SECTOR_TEST, variantCount));
 
 		return tests;
 	}
 
-	public Order getOrder() {
-		return order;
+	public OrderDTO getOrder() {
+		return orderDTO;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrder(OrderDTO orderDTO) {
+		this.orderDTO = orderDTO;
 	}	
 
 	private List<Test> getSameTestsWithDiferentVariants(TestTypes testType, int variantCount) {
@@ -86,7 +86,7 @@ public class TestManager {
 		test.setId(generateTestId());
 		test.setSize(questions.size());
 		test.setTitle(getTestTitle(testType));
-		test.setOrder(order);
+		test.setOrder(orderDTO);
 		return test;
 	}
 
@@ -99,7 +99,7 @@ public class TestManager {
 		int sectorsCount = getSectorsCount();
 
 		if (testType == TestTypes.TOTAL_TEST) {
-			if (order.getNdtMethod() == NdtMethod.RT || order.getNdtMethod() == NdtMethod.UT)
+			if (orderDTO.getNdtMethod() == NdtMethod.RT || orderDTO.getNdtMethod() == NdtMethod.UT)
 				return TOTAL_TEST_UT_RT_QUESTIONS_COUNT;
 			else
 				return TOTAL_TEST_MT_VT_PT_QUESTIONS_COUNT;
@@ -114,13 +114,13 @@ public class TestManager {
 	}
 
 	private int getSectorsCount() {
-		if (order.getIs6sector() && order.getIs7sector() && order.getIs8sector())
+		if (orderDTO.getIs6sector() && orderDTO.getIs7sector() && orderDTO.getIs8sector())
 			return 3;
-		else if (order.getIs6sector() && order.getIs7sector())
+		else if (orderDTO.getIs6sector() && orderDTO.getIs7sector())
 			return 2;
-		else if (order.getIs6sector() && order.getIs8sector())
+		else if (orderDTO.getIs6sector() && orderDTO.getIs8sector())
 			return 2;
-		else if (order.getIs7sector() && order.getIs8sector())
+		else if (orderDTO.getIs7sector() && orderDTO.getIs8sector())
 			return 2;
 		else
 			return 1;

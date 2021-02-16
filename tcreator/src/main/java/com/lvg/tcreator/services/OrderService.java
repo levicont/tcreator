@@ -1,7 +1,7 @@
 package com.lvg.tcreator.services;
 
-import com.lvg.tcreator.models.Order;
+import com.lvg.tcreator.models.OrderDTO;
 
 public interface OrderService {
-    Order loadFromFile(byte[] file);
+    OrderDTO loadFromFile(byte[] file);
 }

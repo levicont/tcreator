@@ -9,7 +9,7 @@ public class Test {
 	private int size;
 	private int variantNumber;
 	private Set<Question> questions;
-	private Order order;
+	private OrderDTO orderDTO;
 	
 	public Test(){}
 	
@@ -64,13 +64,13 @@ public class Test {
 	}
 	
 
-	public Order getOrder() {
-		return order;
+	public OrderDTO getOrder() {
+		return orderDTO;
 	}
 
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrder(OrderDTO orderDTO) {
+		this.orderDTO = orderDTO;
 	}
 
 

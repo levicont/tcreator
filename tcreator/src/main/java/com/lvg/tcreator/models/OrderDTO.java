@@ -1,7 +1,5 @@
 package com.lvg.tcreator.models;
 
-import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -11,8 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.lvg.tcreator.config.R.OrderProps.*;
-@Component("order")
-public class Order {
+
+public class OrderDTO {
 	private NdtMethod ndtMethod;
 	
 	@Size(min=MIN_NUMBER_SIZE_VALUE, max= MAX_NUMBER_SIZE_VALUE, message= INVALID_NUMBER_SIZE_MESSAGE)

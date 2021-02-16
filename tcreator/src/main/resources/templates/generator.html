@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label data-th-for="raspDate">Дата распоряжения</label>
                                     <fmt:formatDate pattern='dd.MM.yyyy' type='date'
-                                                    value="${order.date }" var="formattedDate" />
+                                                    value="${orderDTO.date }" var="formattedDate" />
                                     <form:input path="date" data-format="dd.MM.yyyy"
                                                 value='${formattedDate }' cssClass="form-control" id="raspDate"
                                                 placeholder="Дата распоряжения" />

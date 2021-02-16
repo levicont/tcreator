@@ -8,7 +8,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-lg-12">
-                <form action="#" data-th-action="@{/generator}" data-th-object="${order}" method="POST">
+                <form action="#" data-th-action="@{/generator}" data-th-object="${orderDTO}" method="POST">
                     <div class="card card-info border border-info">
                         <div class="card-header bg-info">
                             <h4 class="card-title  text-white mt-3" data-th-text="#{generator.methodNDT.title(*{ndtMethod})}">Метод НК: </h4>
@@ -235,7 +235,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <p data-th-text="|id: ${examTicket.exam.id} Распоряжение № ${orderDb.number}|">id:${test.id } Распоряжение №
-                                            ${order.number}</p>
+                                            ${orderDTO.number}</p>
                                         </div>
                                     </div>
                      </div>
@@ -331,14 +331,14 @@
         
         <div class="row alert alert-success" role="alert">
             <div class="col-lg-4 ">
-                <h5 data-th-text="#{statistic.order.number(${currentStatistic.Order.getNumber()})} "></h5>
+                <h5 data-th-text="#{statistic.orderDTO.number(${currentStatistic.Order.getNumber()})} "></h5>
              </div>
              <div class="col-lg-4 ">
-                <h5 data-th-text="#{statistic.order.date(
+                <h5 data-th-text="#{statistic.orderDTO.date(
                     ${#temporals.format(currentStatistic.Order.getDate(),'dd.MM.yyyy')})}"></h5>
              </div>
              <div class="col-lg-4 ">
-                <h5 data-th-text="#{statistic.order.method.+${currentStatistic.Order.getNdtMethod()}}"></h5>
+                <h5 data-th-text="#{statistic.orderDTO.method.+${currentStatistic.Order.getNdtMethod()}}"></h5>
              </div>
         </div>
         <div class="row alert alert-info" role="alert">

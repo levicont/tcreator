@@ -9,16 +9,16 @@ import java.util.TreeSet;
  */
 
 public class Statistic {
-    private Order order;
+    private OrderDTO orderDTO;
     private List<ExamTicket> examTickets;
 
-    public Statistic(Order order, List<ExamTicket> examTickets){
-        this.order = order;
+    public Statistic(OrderDTO orderDTO, List<ExamTicket> examTickets){
+        this.orderDTO = orderDTO;
         this.examTickets = examTickets;
     }
 
-    public Order getOrder() {
-        return order;
+    public OrderDTO getOrder() {
+        return orderDTO;
     }
 
     public List<ExamTicket> getExamTickets() {
