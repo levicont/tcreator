@@ -28,6 +28,8 @@ public class OrderDTO {
 	private boolean is6sector;
 	private boolean is7sector;
 	private boolean is8sector;
+
+	private final List<ExamDTO> examDTOList = new ArrayList<>();
 	
 	public NdtMethod getNdtMethod(){
 		return ndtMethod;

@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="raspNumber" data-th-text="#{generator.raspNumber.field}">Номер
+                                        <label data-th-for="raspNumber" data-th-text="#{generator.raspNumber.field}">Номер
                                         распоряжения</label>
                                         <input data-th-field="*{number}" class="form-control"
                                         aria-describedby="msgRapNumber"
@@ -37,7 +37,7 @@
                                 <div class="col-lg-3">
 
                                     <div class="form-group">
-                                        <label for="raspDate" data-th-text="#{generator.raspDate.field}">Дата
+                                        <label data-th-for="raspDate" data-th-text="#{generator.raspDate.field}">Дата
                                         распоряжения</label>
                                         <input type="date" data-th-field="*{date}" class="form-control" data-th-id="raspDate"
                                         aria-describedby="msgRaspDate"
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="variantCount" data-th-text="#{generator.variantCount.field}">Количество
+                                        <label data-th-for="variantCount" data-th-text="#{generator.variantCount.field}">Количество
                                         вариантов</label>
                                         <input type="text" data-th-field="*{variantCount}" class="form-control"
                                         aria-describedby="msgVariantCount"
@@ -212,7 +212,7 @@
         </div>
         <div class="row tcreator-print-hide">
                                 <div class="col-lg-12">
-                                    <div id="lvg-separator"></div>
+                                    <div data-th-id="lvg-separator"></div>
                                 </div>
                 </div>
         <div class="row my-3" data-th-each="examTicket : ${examTickets}">
