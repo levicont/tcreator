@@ -5,7 +5,7 @@ import com.lvg.tcreator.exceptions.TCreatorException;
 import com.lvg.tcreator.persistence.models.AnswerVariantDB;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.services.QuestionDBService;
-import com.lvg.tcreator.services.impl.QuestionServiceImpl;
+import com.lvg.tcreator.services.QuestionService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class QuestionServiceTest extends GenericTest{
     @Autowired
     QuestionDBService service;
     @Autowired
-    QuestionServiceImpl modelService;
+    QuestionService modelService;
 
     @Test
     public void saveQuestionTest() {
@@ -93,7 +93,7 @@ public class QuestionServiceTest extends GenericTest{
     public void storeAllQuestionsTest(){
         long count = service.count();
         modelService.storeAllQuestionsInDB();
-        assertNotEquals(count, (long)service.findAll().size());
+        assertNotEquals(count, service.findAll().size());
     }
 
     @Test

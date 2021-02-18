@@ -1,10 +1,10 @@
 package com.lvg.tcreator.controllers;
 
 import com.lvg.tcreator.managers.ExamManager;
-import com.lvg.tcreator.managers.OrderManager;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.OrderDTO;
 import com.lvg.tcreator.persistence.models.OrderDB;
+import com.lvg.tcreator.services.OrderService;
 import com.lvg.tcreator.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,15 +27,17 @@ import static com.lvg.tcreator.config.R.GlobalAttributes.BODY_TEMPLATE_ATTRIBUTE
 public class GeneratorController {
     @Autowired
     private ExamManager examManager;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping(value="/generator")
-    public String generator(Model model, @RequestParam(value="method",required=false) String method){
+    public String generator(Model model, @RequestParam(value="method",required=false) NdtMethod method){
         model.addAttribute(BODY_TEMPLATE_ATTRIBUTE,"generator");
         if (method == null)
             return "redirect:/";
         model.addAttribute("ndtMethods", Arrays.asList(NdtMethod.values()));
-        model.addAttribute("ndtMethod", method);
-        model.addAttribute("orderDTO", OrderManager.getDefaultOrder(method));
+        model.addAttribute("ndtMethod", method.toString());
+        model.addAttribute("orderDTO", orderService.getDefaultOrder(method));
         return "index";
     }
 

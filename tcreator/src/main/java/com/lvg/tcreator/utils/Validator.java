@@ -54,7 +54,7 @@ public class Validator {
 
     private boolean isCorrectQuestionsCount(NdtMethod ndtMethod){
         Integer dbQuestionsCount = questionDBService.findByNdtMethod(ndtMethod).size();
-        Integer modelQuestionsCount = questionModelService.findByNdtMethod(ndtMethod).size();
+        Integer modelQuestionsCount = questionModelService.findByNdtMethodFromFileSource(ndtMethod).size();
         return dbQuestionsCount.equals(modelQuestionsCount);
     }
 }

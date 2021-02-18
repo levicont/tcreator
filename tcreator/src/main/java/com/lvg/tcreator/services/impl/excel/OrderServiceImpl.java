@@ -3,6 +3,8 @@ package com.lvg.tcreator.services.impl.excel;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.OrderDTO;
 import com.lvg.tcreator.models.TestTypes;
+import com.lvg.tcreator.persistence.models.OrderDB;
+import com.lvg.tcreator.persistence.repositories.OrderRepository;
 import com.lvg.tcreator.services.OrderService;
 import com.lvg.tcreator.utils.Validator;
 import org.apache.poi.ss.usermodel.*;
@@ -13,8 +15,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.Month;
+import java.util.*;
 
 import static com.lvg.tcreator.config.R.ExcelProps.EXCEL_SHEET_ORDER_NAME;
 
@@ -22,10 +24,45 @@ import static com.lvg.tcreator.config.R.ExcelProps.EXCEL_SHEET_ORDER_NAME;
  * Created by Victor Levchenko LVG Corp. on 26.04.2020.
  */
 @Component
-public class OrderServiceXLS implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     Validator validator;
+
+    @Autowired
+    OrderRepository orderRepository;
+
+    private static final NdtMethod DEFAULT_NDT_METHOD = NdtMethod.RT;
+    private static final String DEFAULT_NUMBER_SEPARATOR = "/";
+
+    public OrderDTO getDefaultOrder(){
+        return getDefaultOrder(DEFAULT_NDT_METHOD);
+    }
+
+    public OrderDTO getDefaultOrder(NdtMethod ndtMethod){
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setDate(LocalDate.now());
+        orderDTO.setNdtMethod(ndtMethod);
+        orderDTO.setNumber(getDefaultOrderNumber());
+        orderDTO.setVariantCount(1);
+        orderDTO.setIsTotalTest(true);
+        orderDTO.setIsSpecTest(true);
+        return orderDTO;
+    }
+
+    public String getDefaultOrderNumber(){
+        StringBuilder result  = new StringBuilder();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
+        Month month = LocalDate.now().getMonth();
+
+        if(month.getValue() < Month.OCTOBER.getValue())
+            result.append("0").append(month.getValue());
+        else
+            result.append(month.getValue());
+        result.append(DEFAULT_NUMBER_SEPARATOR).append("01");
+        return result.toString();
+    }
 
     @Override
     public OrderDTO loadFromFile(byte[] file) {
@@ -114,4 +151,19 @@ public class OrderServiceXLS implements OrderService {
 
         return testTypesMap;
     }
+
+    @Override
+    public OrderDTO findByNumberAndDateAndNdtMethod(String orderNumber, LocalDate orderDate, NdtMethod ndtMethod) {
+        OrderDB orderDB = orderRepository.findByNumberAndDateAndNdtMethod(orderNumber, orderDate, ndtMethod);
+        return getDtoFromDbEntity(orderDB);
+    }
+
+    @Override
+    public OrderDTO getDtoFromDbEntity(OrderDB orderDB) {
+
+
+        return null;
+    }
+
+
 }

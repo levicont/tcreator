@@ -1,5 +1,7 @@
 package com.lvg.tcreator.models;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +23,12 @@ public class QuestionDTO {
 
     public void addAnswerDTO(AnswerVariantDTO answerVariantDTO){
         answers.add(answerVariantDTO);
+    }
+
+    public void addAnswerDTO(String text, Boolean isCorrect){
+        if (StringUtils.isBlank(text))
+            throw new IllegalArgumentException("Answer variant cannot be empty");
+        answers.add(new AnswerVariantDTO(text, isCorrect));
     }
 
     public void removeAnswerDTO(AnswerVariantDTO answerVariantDTO){
@@ -77,7 +85,7 @@ public class QuestionDTO {
         return Objects.hash(number, ndtMethod, testTypes);
     }
 
-    private static class AnswerVariantDTO {
+    public static class AnswerVariantDTO {
         private String answerText;
         private Boolean correct = Boolean.FALSE;
         public AnswerVariantDTO(String answerText, Boolean correct){
@@ -93,7 +101,7 @@ public class QuestionDTO {
             this.answerText = answerText;
         }
 
-        public Boolean getCorrect() {
+        public Boolean isCorrect() {
             return correct;
         }
 
