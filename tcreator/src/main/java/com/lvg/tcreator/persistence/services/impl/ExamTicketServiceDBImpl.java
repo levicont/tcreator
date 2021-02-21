@@ -1,12 +1,11 @@
 package com.lvg.tcreator.persistence.services.impl;
 
 import com.lvg.tcreator.exceptions.TCreatorException;
-import com.lvg.tcreator.persistence.models.ExamDB;
 import com.lvg.tcreator.persistence.models.ExamTicketDB;
-import com.lvg.tcreator.persistence.models.OrderDB;
-import com.lvg.tcreator.persistence.repositories.ExamRepository;
-import com.lvg.tcreator.persistence.services.ExamService;
+import com.lvg.tcreator.persistence.models.QuestionDB;
+import com.lvg.tcreator.persistence.repositories.ExamTicketRepository;
 import com.lvg.tcreator.persistence.services.ExamTicketService;
+import com.lvg.tcreator.persistence.services.QuestionDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Component;
@@ -15,48 +14,41 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 @Component
-public class ExamServiceImpl implements ExamService{
+public class ExamTicketServiceDBImpl implements ExamTicketService {
 
     @Autowired
-    private ExamRepository repository;
+    ExamTicketRepository repository;
     @Autowired
-    private ExamTicketService examTicketService;
+    QuestionDBService questionService;
 
     @Override
-    public void save(ExamDB record) {
-        Set<ExamTicketDB> unsavedTickets = record.getTickets().stream()
-                .filter(t -> t.getId() == null)
+    public void save(ExamTicketDB record) {
+        Set<QuestionDB> questions = record.getQuestions().stream()
+                .filter(q ->  q.getId() == null)
                 .collect(Collectors.toSet());
-        unsavedTickets.forEach(t -> examTicketService.save(t));
+        questions.forEach(q -> questionService.save(q));
+
         repository.save(record);
     }
 
     @Override
-    public void delete(ExamDB record) {
+    public void delete(ExamTicketDB record) {
         repository.delete(record);
     }
 
     @Override
-    public ExamDB find(Long id) {
+    public ExamTicketDB find(Long id) {
         try{
             return repository.getOne(id);
-        }
-        catch (JpaObjectRetrievalFailureException ex){
+        }catch (JpaObjectRetrievalFailureException ex){
             throw new TCreatorException(UNABLE_TO_FIND_RECORD_WITH_ID+id);
         }
-
     }
 
     @Override
-    public List<ExamDB> findByOrder(OrderDB order) {
-        return repository.findByOrder(order);
-    }
-
-    @Override
-    public List<ExamDB> findAll() {
-       return repository.findAll();
+    public List<ExamTicketDB> findAll() {
+        return repository.findAll();
     }
 
     @Override

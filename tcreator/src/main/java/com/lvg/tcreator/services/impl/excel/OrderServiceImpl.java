@@ -1,10 +1,12 @@
 package com.lvg.tcreator.services.impl.excel;
 
+import com.lvg.tcreator.models.ExamDTO;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.OrderDTO;
 import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.OrderDB;
 import com.lvg.tcreator.persistence.repositories.OrderRepository;
+import com.lvg.tcreator.services.ExamService;
 import com.lvg.tcreator.services.OrderService;
 import com.lvg.tcreator.utils.Validator;
 import org.apache.poi.ss.usermodel.*;
@@ -31,6 +33,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    ExamService examService;
 
     private static final NdtMethod DEFAULT_NDT_METHOD = NdtMethod.RT;
     private static final String DEFAULT_NUMBER_SEPARATOR = "/";
@@ -45,8 +49,8 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setNdtMethod(ndtMethod);
         orderDTO.setNumber(getDefaultOrderNumber());
         orderDTO.setVariantCount(1);
-        orderDTO.setIsTotalTest(true);
-        orderDTO.setIsSpecTest(true);
+        orderDTO.addExam(new ExamDTO(TestTypes.TOTAL_TEST, ndtMethod));
+        orderDTO.addExam(new ExamDTO(TestTypes.SPEC_TEST, ndtMethod));
         return orderDTO;
     }
 
@@ -65,6 +69,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDTO createOrderDto(String orderNumber, LocalDate orderDate, NdtMethod ndtMethod) {
+        return new OrderDTO(ndtMethod,orderNumber,orderDate);
+    }
+
+    @Override
+    public OrderDTO generateExams(OrderDTO orderDTO, Integer variantCount, TestTypes... testTypes) {
+        orderDTO.getExamDTOList().clear();
+        Arrays.asList(testTypes).forEach(testType ->{
+            orderDTO.addExam(examService.createExamDTO(orderDTO,testType,variantCount));
+        });
+
+        return orderDTO;
+    }
+
+
+
+    @Override
     public OrderDTO loadFromFile(byte[] file) {
         InputStream in = new ByteArrayInputStream(file);
         Workbook workbook = null;
@@ -76,21 +97,27 @@ public class OrderServiceImpl implements OrderService {
             ex.printStackTrace();
         }
 
-        Sheet sheet = workbook.getSheet(EXCEL_SHEET_ORDER_NAME);
+        if (Objects.isNull(workbook))
+            throw new NullPointerException("Excel workbook cannot be loaded");
+            Sheet sheet = workbook.getSheet(EXCEL_SHEET_ORDER_NAME);
 
         OrderDTO orderDTO = new OrderDTO();
-
+        NdtMethod ndtMethod = getNdtMethodFromSheet(sheet);
         orderDTO.setNumber(getOrderNumberFromSheet(sheet));
         orderDTO.setDate(getOrderDateFromSheet(sheet));
-        orderDTO.setNdtMethod(getNdtMethodFromSheet(sheet));
+        orderDTO.setNdtMethod(ndtMethod);
 
         Map<TestTypes, Boolean> testTypesMap = getTestTypesFromSheet(sheet);
-        if (testTypesMap.containsKey(TestTypes.TOTAL_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.TOTAL_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_6_SECTOR_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_6_SECTOR_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_7_SECTOR_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_7_SECTOR_TEST));
-        if (testTypesMap.containsKey(TestTypes.SPEC_8_SECTOR_TEST)) orderDTO.setIsTotalTest(testTypesMap.get(TestTypes.SPEC_8_SECTOR_TEST));
-
+        if (testTypesMap.containsKey(TestTypes.TOTAL_TEST))
+            orderDTO.addExam(new ExamDTO(TestTypes.TOTAL_TEST,ndtMethod));
+        if (testTypesMap.containsKey(TestTypes.SPEC_TEST))
+            orderDTO.addExam(new ExamDTO(TestTypes.SPEC_TEST,ndtMethod));
+        if (testTypesMap.containsKey(TestTypes.SPEC_6_SECTOR_TEST))
+            orderDTO.addExam(new ExamDTO(TestTypes.SPEC_6_SECTOR_TEST,ndtMethod));
+        if (testTypesMap.containsKey(TestTypes.SPEC_7_SECTOR_TEST))
+            orderDTO.addExam(new ExamDTO(TestTypes.SPEC_7_SECTOR_TEST,ndtMethod));
+        if (testTypesMap.containsKey(TestTypes.SPEC_8_SECTOR_TEST))
+            orderDTO.addExam(new ExamDTO(TestTypes.SPEC_8_SECTOR_TEST,ndtMethod));
         return orderDTO;
     }
 
@@ -160,9 +187,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getDtoFromDbEntity(OrderDB orderDB) {
-
-
-        return null;
+       OrderDTO orderDTO = new OrderDTO();
+       orderDTO.setDate(orderDB.getDate());
+       orderDTO.setNumber(orderDB.getNumber());
+       orderDTO.setNdtMethod(orderDB.getNdtMethod());
+       if (Objects.nonNull(orderDB.getExams().get(0)) &&
+            !orderDB.getExams().get(0).getTickets().isEmpty())
+            orderDTO.setVariantCount(orderDB.getExams().get(0).getTickets().size());
+       orderDB.getExams().forEach(examDB -> orderDTO.addExam(examService.getExamDtoFromExamDb(examDB)));
+       return orderDTO;
     }
 
 

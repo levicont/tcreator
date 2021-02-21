@@ -1,27 +1,25 @@
 package com.lvg.tcreator.services.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.*;
-
 import com.lvg.tcreator.converters.QuestionModelConverter;
 import com.lvg.tcreator.exceptions.TCreatorException;
+import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.QuestionDTO;
+import com.lvg.tcreator.models.TestTypes;
 import com.lvg.tcreator.persistence.models.QuestionDB;
 import com.lvg.tcreator.persistence.services.QuestionDBService;
 import com.lvg.tcreator.services.QuestionService;
 import org.apache.commons.lang3.StringUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
-
-import com.lvg.tcreator.models.NdtMethod;
-import com.lvg.tcreator.models.Question;
-import com.lvg.tcreator.models.TestTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
 
 @Component
 public class QuestionServiceImpl implements QuestionService {
@@ -31,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private static final int SPREADSHEET_COLUMN_COUNT = 2;
 
 	@Autowired
-	private QuestionDBService service;
+	private QuestionDBService questionDBService;
 
 	protected static Map<TestTypes, Integer> srcSheetMap = new HashMap<>();
 
@@ -44,10 +42,10 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 
-	public Set<Question> getRandomQuestionFromList(List<Question> questList, int countQuestions) {
+	public Set<QuestionDTO> getRandomQuestionFromList(List<QuestionDTO> questList, int countQuestions) {
 		if (questList.size() < countQuestions)
 			throw new IllegalArgumentException("Question base size less than count of questions.");
-		Set<Question> result = new TreeSet<>();
+		Set<QuestionDTO> result = new TreeSet<>(Comparator.comparing(QuestionDTO::getNumber));
 
 		while (result.size() < countQuestions) {
 			int index = generateIndex(questList.size());
@@ -83,7 +81,7 @@ public class QuestionServiceImpl implements QuestionService {
 				.forEach(ndtMethod -> Arrays.stream(TestTypes.values())
 						.forEach(testType -> getAllQuestionFromFileSource(ndtMethod, testType)
 								.forEach(question -> allQuestions.add(QuestionModelConverter.getQuestionDB(question,ndtMethod,testType)))));
-		allQuestions.forEach(q -> service.save(q));
+		allQuestions.forEach(q -> questionDBService.save(q));
 	}
 
 	@Override
@@ -151,6 +149,16 @@ public class QuestionServiceImpl implements QuestionService {
 		questionDB.getAnswerVariants().forEach(answerVariantDB ->
 				questionDTO.addAnswerDTO(answerVariantDB.getAnswerText(), answerVariantDB.isCorrect()));
 		return questionDTO;
+	}
+
+	@Override
+	public List<QuestionDTO> findByNdtMethodAndTestType(NdtMethod ndtMethod, TestTypes testTypes) {
+		List<QuestionDTO> questionDTOList = new ArrayList<>();
+		List<QuestionDB> questionDBList =  questionDBService.findByNdtMethodTestTypes(ndtMethod, testTypes);
+		questionDBList.forEach(questionDB -> {
+			questionDTOList.add(getQuestionDtoFromDbEntity(questionDB));
+		});
+		return questionDTOList;
 	}
 
 	/**

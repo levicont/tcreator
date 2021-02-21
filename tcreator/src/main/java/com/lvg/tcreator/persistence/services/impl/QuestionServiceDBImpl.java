@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class QuestionServiceImpl implements QuestionDBService {
+public class QuestionServiceDBImpl implements QuestionDBService {
 
     @Autowired
     QuestionRepository repository;

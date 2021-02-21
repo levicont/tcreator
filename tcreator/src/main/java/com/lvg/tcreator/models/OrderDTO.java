@@ -4,33 +4,68 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.lvg.tcreator.config.R.OrderProps.*;
 
 public class OrderDTO {
 	private NdtMethod ndtMethod;
-	
+
 	@Size(min=MIN_NUMBER_SIZE_VALUE, max= MAX_NUMBER_SIZE_VALUE, message= INVALID_NUMBER_SIZE_MESSAGE)
 	private String number;
-	
-	
 	private LocalDate date;
 	
 	@Min(value= MIN_VARIANT_COUNT_VALUE, message = INVALID_VARIANT_COUNT_MESSAGE)
 	@Max(value= MAX_VARIANT_COUNT_VALUE, message = INVALID_VARIANT_COUNT_MESSAGE)
 	private int variantCount;
 	
-	private boolean isTotalTest;
-	private boolean isSpecTest;
-	private boolean is6sector;
-	private boolean is7sector;
-	private boolean is8sector;
-
 	private final List<ExamDTO> examDTOList = new ArrayList<>();
-	
+	private final Set<TestTypes> testTypesSet =
+			new TreeSet<>(Comparator.comparingInt(testType -> Arrays.asList(TestTypes.values()).indexOf(testType)));
+
+	public OrderDTO(){}
+	public OrderDTO(NdtMethod ndtMethod,
+					@Size(min = MIN_NUMBER_SIZE_VALUE, max = MAX_NUMBER_SIZE_VALUE, message = INVALID_NUMBER_SIZE_MESSAGE) String number,
+					LocalDate date) {
+		this.ndtMethod = ndtMethod;
+		this.number = number;
+		this.date = date;
+	}
+
+	public void addExam(ExamDTO examDTO){
+		if (Objects.equals(examDTO.getNdtMethod(),ndtMethod)){
+			examDTOList.add(examDTO);
+			testTypesSet.add(examDTO.getTestType());
+			return;
+		}
+		throw new IllegalArgumentException("OrderDTO and ExamDTO have different NdtMethod");
+			
+	}
+
+	public void removeExam(ExamDTO examDTO){
+		examDTOList.remove(examDTO);
+		testTypesSet.remove(examDTO.getTestType());
+	}
+
+	public Set<TestTypes> getTestTypesSet() {
+		return testTypesSet;
+	}
+
+	public int getSectorsCount(){
+		int sectors = 0;
+		if (is6sector())
+			sectors++;
+		if (is7sector())
+			sectors++;
+		if (is8sector())
+			sectors++;
+		return sectors;
+	}
+
+	public List<ExamDTO> getExamDTOList() {
+		return examDTOList;
+	}
+
 	public NdtMethod getNdtMethod(){
 		return ndtMethod;
 	}
@@ -57,49 +92,24 @@ public class OrderDTO {
 	public void setVariantCount(int variantCount) {
 		this.variantCount = variantCount;
 	}
-	public boolean getIsTotalTest() {
-		return isTotalTest;
+
+	public Boolean isTotalTest() {
+		return testTypesSet.contains(TestTypes.TOTAL_TEST);
 	}
-	public void setIsTotalTest(boolean isTotalTest) {
-		this.isTotalTest = isTotalTest;
+	public Boolean isSpecTest() {
+		return testTypesSet.contains(TestTypes.SPEC_TEST);
 	}
-	public boolean getIsSpecTest() {
-		return isSpecTest;
+	public Boolean is6sector() {
+		return testTypesSet.contains(TestTypes.SPEC_6_SECTOR_TEST);
 	}
-	public void setIsSpecTest(boolean isSpecTest) {
-		this.isSpecTest = isSpecTest;
+	public Boolean is7sector() {
+		return testTypesSet.contains(TestTypes.SPEC_7_SECTOR_TEST);
 	}
-	public boolean getIs6sector() {
-		return is6sector;
+	public Boolean is8sector() {
+		return testTypesSet.contains(TestTypes.SPEC_8_SECTOR_TEST);
 	}
-	public void setIs6sector(boolean is6sector) {
-		this.is6sector = is6sector;
-	}
-	public boolean getIs7sector() {
-		return is7sector;
-	}
-	public void setIs7sector(boolean is7sector) {
-		this.is7sector = is7sector;
-	}
-	public boolean getIs8sector() {
-		return is8sector;
-	}
-	public void setIs8sector(boolean is8sector) {
-		this.is8sector = is8sector;
-	}
-	public List<TestTypes> getTestTypes(){
-		List<TestTypes> testTypesList = new ArrayList<>();
-		if (getIsTotalTest())
-			testTypesList.add(TestTypes.TOTAL_TEST);
-		if (getIsSpecTest())
-			testTypesList.add(TestTypes.SPEC_TEST);
-		if (getIs6sector())
-			testTypesList.add(TestTypes.SPEC_6_SECTOR_TEST);
-		if (getIs7sector())
-			testTypesList.add(TestTypes.SPEC_7_SECTOR_TEST);
-		if (getIs8sector())
-			testTypesList.add(TestTypes.SPEC_8_SECTOR_TEST);
-		return Collections.unmodifiableList(testTypesList);
-	}
-	
+
+
+
+
 }

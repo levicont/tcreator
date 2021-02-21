@@ -1,9 +1,9 @@
 package com.lvg.tcreator.controllers;
 
-import com.lvg.tcreator.managers.ExamManager;
 import com.lvg.tcreator.models.NdtMethod;
 import com.lvg.tcreator.models.OrderDTO;
-import com.lvg.tcreator.persistence.models.OrderDB;
+import com.lvg.tcreator.models.TestTypes;
+import com.lvg.tcreator.services.ExamTicketService;
 import com.lvg.tcreator.services.OrderService;
 import com.lvg.tcreator.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,11 @@ import static com.lvg.tcreator.config.R.GlobalAttributes.BODY_TEMPLATE_ATTRIBUTE
  */
 @Controller
 public class GeneratorController {
-    @Autowired
-    private ExamManager examManager;
+
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ExamTicketService examTicketService;
 
     @GetMapping(value="/generator")
     public String generator(Model model, @RequestParam(value="method",required=false) NdtMethod method){
@@ -49,16 +50,14 @@ public class GeneratorController {
             model.addAttribute("ndtMethods", Arrays.asList(NdtMethod.values()));
             return "index";
         }
+        orderDTO = orderService.generateExams(orderDTO,orderDTO.getVariantCount(),
+                orderDTO.getTestTypesSet().toArray(new TestTypes[0]));
+        model.addAttribute(BODY_TEMPLATE_ATTRIBUTE, "report");
         model.addAttribute("ndtMethod", orderDTO.getNdtMethod().toString());
         model.addAttribute("dateOrder", DateUtil.formatDate(orderDTO.getDate()));
-        model.addAttribute(BODY_TEMPLATE_ATTRIBUTE, "report");
-        OrderDB orderDB = examManager.getOrderDB(orderDTO);
-        model.addAttribute("orderDb", orderDB);
-        orderDB.getExams().forEach(examDB -> {
-            model.addAttribute(examDB.getTestTypes().toString(), examDB.getTestTypes());
-        });
+        model.addAttribute("orderDTO", orderDTO);
         model.addAttribute("variantCount", orderDTO.getVariantCount());
-        model.addAttribute("examTickets", examManager.getAllExamTickets());
+        model.addAttribute("examTickets", examTicketService.getExamTicketsFromOrderDto(orderDTO));
         return "index";
     }
 
