@@ -53,11 +53,11 @@ public class OrderDTO {
 
 	public int getSectorsCount(){
 		int sectors = 0;
-		if (is6sector())
+		if (getIs6sector())
 			sectors++;
-		if (is7sector())
+		if (getIs7sector())
 			sectors++;
-		if (is8sector())
+		if (getIs8sector())
 			sectors++;
 		return sectors;
 	}
@@ -93,22 +93,27 @@ public class OrderDTO {
 		this.variantCount = variantCount;
 	}
 
-	public Boolean isTotalTest() {
+	public boolean getIsTotalTest() {
 		return testTypesSet.contains(TestTypes.TOTAL_TEST);
 	}
-	public Boolean isSpecTest() {
+	public boolean getIsSpecTest() {
 		return testTypesSet.contains(TestTypes.SPEC_TEST);
 	}
-	public Boolean is6sector() {
+	public boolean getIs6sector() {
 		return testTypesSet.contains(TestTypes.SPEC_6_SECTOR_TEST);
 	}
-	public Boolean is7sector() {
+	public boolean getIs7sector() {
 		return testTypesSet.contains(TestTypes.SPEC_7_SECTOR_TEST);
 	}
-	public Boolean is8sector() {
+	public boolean getIs8sector() {
 		return testTypesSet.contains(TestTypes.SPEC_8_SECTOR_TEST);
 	}
 
+	public void setIsTotalTest(boolean totalTest){testTypesSet.add(TestTypes.TOTAL_TEST);}
+	public void setIsSpecTest(boolean specTest){testTypesSet.add(TestTypes.SPEC_TEST);}
+	public void setIs6sector(boolean spec6sector){testTypesSet.add(TestTypes.SPEC_6_SECTOR_TEST);}
+	public void setIs7sector(boolean spec6sector){testTypesSet.add(TestTypes.SPEC_7_SECTOR_TEST);}
+	public void setIs8sector(boolean spec6sector){testTypesSet.add(TestTypes.SPEC_8_SECTOR_TEST);}
 
 
 

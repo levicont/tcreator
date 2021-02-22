@@ -61,6 +61,16 @@ public class GeneratorController {
         return "index";
     }
 
+    @PostMapping(value = "/generator/pdf")
+    public String pdfReport(@ModelAttribute OrderDTO orderDTO, Model model){
+        if (null == orderDTO)
+            model.addAttribute("error", "OrderDTO is null");
+        System.out.println(orderDTO.getNdtMethod());
+        model.addAttribute("orderDTO", orderDTO);
+        model.addAttribute("examTickets", examTicketService.getExamTicketsFromOrderDto(orderDTO));
+        return "order-report";
+    }
+
     @InitBinder
     protected void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {

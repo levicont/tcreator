@@ -9,7 +9,7 @@ public class ExamTicketDTO {
     private Integer ticketNumber;
     private TestTypes testTypes;
     private NdtMethod ndtMethod;
-    private final Set<QuestionDTO> questionDTOSet = new TreeSet<>(Comparator.comparing(QuestionDTO::getNumber));
+    private final Set<QuestionDTO> questions = new TreeSet<>(Comparator.comparing(QuestionDTO::getNumber));
 
     public ExamTicketDTO(Integer ticketNumber, TestTypes testTypes, NdtMethod ndtMethod) {
         this.ticketNumber = ticketNumber;
@@ -19,16 +19,16 @@ public class ExamTicketDTO {
 
     public void addQuestionDTO(QuestionDTO questionDTO){
         if (questionDTO.getNdtMethod().equals(ndtMethod) && questionDTO.getTestTypes().equals(testTypes))
-            questionDTOSet.add(questionDTO);
+            questions.add(questionDTO);
         throw new IllegalArgumentException("QuestionDTO and ExamTicketDTO have different ndtMethod or testType");
     }
 
     public void removeQuestionDTO(QuestionDTO questionDTO){
-        questionDTOSet.remove(questionDTO);
+        questions.remove(questionDTO);
     }
 
-    public Set<QuestionDTO> getQuestionDTOSet() {
-        return questionDTOSet;
+    public Set<QuestionDTO> getQuestions() {
+        return questions;
     }
 
     public Integer getTicketNumber() {

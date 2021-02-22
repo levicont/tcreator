@@ -33,7 +33,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     public ExamTicketDTO createExamTicketDto(Integer ticketNumber, NdtMethod ndtMethod, TestTypes testTypes, int questionCount) {
         ExamTicketDTO examTicketDTO = new ExamTicketDTO(ticketNumber,testTypes,ndtMethod);
         List<QuestionDTO> questionDTOList = questionService.findByNdtMethodAndTestType(ndtMethod, testTypes);
-        examTicketDTO.getQuestionDTOSet().addAll(questionService.getRandomQuestionFromList(questionDTOList, questionCount));
+        examTicketDTO.getQuestions().addAll(questionService.getRandomQuestionFromList(questionDTOList, questionCount));
         return examTicketDTO;
     }
 

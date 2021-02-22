@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" data-th-href="@{/css/print-page.css }" type="text/css"/>
+</head>
+<body>
+
+    <div>
+        <h6 data-th-text="'Распоряжение №'+${orderDTO.number}">Распоряжение №</h6>
+        <h5 data-th-text="${error}"></h5>
+        <div class="row my-3" data-th-each="examTicket : ${examTickets}">
+
+            <div class="col-lg-12">
+                <div class="card card-info">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title " data-th-text="#{test.type.+${examTicket.testTypes}}+' '+${examTicket.ndtMethod}">Экзамен &nbsp;&nbsp;&nbsp;&nbsp;Метод
+                            - </h4>
+                        <h5 class="text-right" data-th-text="#{report.test.variantNumber(${examTicket.ticketNumber})}">
+                            Вариант: 1</h5>
+                    </div>
+                    <div class="card-body">
+                        <dl data-th-each="question : ${examTicket.questions}">
+                            <dt data-th-text="${question.number}+'. '+${question.text}"></dt>
+                            <div data-th-each="answerVariant : ${question.answers}">
+                                <dd data-th-text="${answerVariant.answerText}">line</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

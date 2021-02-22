@@ -13,7 +13,7 @@
                         <div class="card-header bg-info">
                             <h4 class="card-title  text-white mt-3" data-th-text="#{generator.methodNDT.title(*{ndtMethod})}">Метод НК: </h4>
                         </div>
-                        <input type="hidden" data-th-field="*{ndtMethod}" data-th-value="*{ndtMethod}">
+                        <input type="hidden" data-th-field="*{ndtMethod}" data-th-value="*{ndtMethod}"/>
                         <div class="card-body ">
 
                             <div class="row">
@@ -31,7 +31,6 @@
                                         data-th-name="number" data-th-text="#{generator.error.number.field}"
                                         data-th-errorclass="lvg-error"></div>
                                     </div>
-
                                 </div>
 
                                 <div class="col-lg-3">
@@ -136,14 +135,22 @@
 </div>
 
 <div data-th-fragment="report">
-    <p class="lvg-error" data-th-text="${errorMessage}"/>
+    <p class="lvg-error" data-th-text="${errorMessage}"></p>
     <div class="row my-3">
         <div class="col-lg-12 text-center tcreator-print-hide">
             <h3 class="text-primary" data-th-text="#{report.preview}">Предварительный просмотр</h3>
         </div>
     </div>
+    <form action="#" data-th-action="@{/generator/pdf}" data-th-object="${orderDTO}" method="post">
+        <input type="hidden" data-th-field="*{number}" />
+        <div class="row">
+            <div class="col-lg-3">
+                <input class="btn btn-primary" type="submit" value="Скачать" />
+            </div>
+        </div>
+    </form>
 
-    <form action="#" data-th-action="@{/}" data-th-object="${orderDb}">
+    <form action="#" data-th-action="@{/}" data-th-object="${orderDTO}" method="post">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-success border border-success">
@@ -178,23 +185,23 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="form-group" data-th-if="${TOTAL_TEST}">
+                                <div class="form-group" data-th-if="${orderDTO.isTotalTest}">
                                     <label><i class="fa fa-check" style="color:#28a745"></i><span
                                             data-th-text="#{report.form.isTotalTest}">Общий экзамен</span></label>
                                 </div>
-                                <div class="form-group" data-th-if="${SPEC_TEST}">
+                                <div class="form-group" data-th-if="${orderDTO.isSpecTest}">
                                     <label><i class="fa fa-check" style="color:#28a745"></i><span
                                             data-th-text="#{report.form.isSpecTest}">Специальный экзамен</span></label>
                                 </div>
-                                <div class="form-group" data-th-if="${SPEC_6_SECTOR_TEST}">
+                                <div class="form-group" data-th-if="${orderDTO.is6sector}">
                                     <label><i class="fa fa-check" style="color:#28a745"></i> <span
                                             data-th-text="#{report.form.is6sector}">6-й сектор</span></label>
                                 </div>
-                                <div class="form-group" data-th-if="${SPEC_7_SECTOR_TEST}">
+                                <div class="form-group" data-th-if="${orderDTO.is7sector}">
                                     <label><i class="fa fa-check" style="color:#28a745"></i> <span
                                             data-th-text="#{report.form.is7sector}"> 7-й сектор</span></label>
                                 </div>
-                                <div class="form-group" data-th-if="${SPEC_8_SECTOR_TEST}">
+                                <div class="form-group" data-th-if="${orderDTO.is8sector}">
                                     <label><i class="fa fa-check" style="color:#28a745"></i> <span
                                             data-th-text="#{report.form.is8sector}">8-й сектор</span></label>
                                 </div>
@@ -207,7 +214,7 @@
         
         <div class="row tcreator-print-hide my-2">
             <div class="col-lg-3">
-                        <input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled"/>
+                        <input class="btn btn-primary" type="submit" value="Скачать" disabled="disabled" />
                     </div>
         </div>
         <div class="row tcreator-print-hide">
@@ -220,22 +227,21 @@
                      <div class="col-lg-12">
                         <div class="card card-info">
                                         <div class="card-header bg-light">
-                                            <h4 class="card-title " data-th-text="#{test.type.+${examTicket.getExam().getTestTypes()}}+' '+${orderDb.ndtMethod}">Экзамен &nbsp;&nbsp;&nbsp;&nbsp;Метод
+                                            <h4 class="card-title " data-th-text="#{test.type.+${examTicket.testTypes}}+' '+${examTicket.ndtMethod}">Экзамен &nbsp;&nbsp;&nbsp;&nbsp;Метод
                                             - </h4>
-                                            <h5 class="text-right" data-th-text="#{report.test.variantNumber(${examTicket.getTicketVariant()})}">
+                                            <h5 class="text-right" data-th-text="#{report.test.variantNumber(${examTicket.ticketNumber})}">
                                             Вариант: 1</h5>
                                         </div>
                                         <div class="card-body">
                                             <dl data-th-each="question : ${examTicket.questions}">
-                                                <dt data-th-text="${question.questionNumber}+'. '+${question.questionText}"></dt>
-                                                <div data-th-each="answerVariant : ${question.getAnswerVariants()}">
+                                                <dt data-th-text="${question.number}+'. '+${question.text}"></dt>
+                                                <div data-th-each="answerVariant : ${question.answers}">
                                                     <dd data-th-text="${answerVariant.answerText}">line</dd>
                                                 </div>
                                             </dl>
                                         </div>
                                         <div class="card-footer">
-                                            <p data-th-text="|id: ${examTicket.exam.id} Распоряжение № ${orderDb.number}|">id:${test.id } Распоряжение №
-                                            ${orderDTO.number}</p>
+
                                         </div>
                                     </div>
                      </div>
@@ -266,7 +272,7 @@
 </div>
 
 <div data-th-fragment="statistic">
-    <p class="lvg-error" data-th-text="${errorMessage}"/>
+    <p class="lvg-error" data-th-text="${errorMessage}"></p>
     <div class="row">
         <div class="col-lg-12 text-center tcreator-print-hide lvg-title-text">
             <p class="h3" data-th-text="#{statistic.main.title}">Статистика экзаменационных тестов</p>
