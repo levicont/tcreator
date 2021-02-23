@@ -56,18 +56,19 @@ public class GeneratorController {
         model.addAttribute("ndtMethod", orderDTO.getNdtMethod().toString());
         model.addAttribute("dateOrder", DateUtil.formatDate(orderDTO.getDate()));
         model.addAttribute("orderDTO", orderDTO);
+        model.addAttribute("orderDTOpdf", orderDTO);
         model.addAttribute("variantCount", orderDTO.getVariantCount());
         model.addAttribute("examTickets", examTicketService.getExamTicketsFromOrderDto(orderDTO));
         return "index";
     }
 
     @PostMapping(value = "/generator/pdf")
-    public String pdfReport(@ModelAttribute OrderDTO orderDTO, Model model){
-        if (null == orderDTO)
+    public String pdfReport(OrderDTO orderDTOpdf, Model model){
+        if (null == orderDTOpdf)
             model.addAttribute("error", "OrderDTO is null");
-        System.out.println(orderDTO.getNdtMethod());
-        model.addAttribute("orderDTO", orderDTO);
-        model.addAttribute("examTickets", examTicketService.getExamTicketsFromOrderDto(orderDTO));
+        System.out.println(orderDTOpdf.getNdtMethod());
+        model.addAttribute("orderDTO", orderDTOpdf);
+        model.addAttribute("examTickets", examTicketService.getExamTicketsFromOrderDto(orderDTOpdf));
         return "order-report";
     }
 
